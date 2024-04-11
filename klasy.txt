@@ -1,0 +1,32 @@
+Problemy:
+https://jmetal.github.io/jMetalPy/api/problem/singleobjective.html
+
+from jmetal.problem.singleobjective.unconstrained import Rastrigin
+from jmetal.problem.singleobjective.unconstrained import Sphere
+
+
+Algorytm:
+https://jmetal.github.io/jMetalPy/api/algorithm/singleobjective/genetic.algorithm.html
+
+from jmetal.algorithm.singleobjective.genetic_algorithm import GeneticAlgorithm
+
+
+Solution:
+tam gdzie Problems
+from jmetal.core.solution import FloatSolution
+
+
+Operatory:
+from jmetal.operator import BinaryTournamentSelection,BinaryTournament2Selection, \
+    PolynomialMutation, UniformMutation,SBXCrossover, SPXCrossover, BitFlipMutation
+
+
+
+from jmetal.operator.selection import RouletteWheelSelection
+from jmetal.util.termination_criterion import StoppingByEvaluations
+from jmetal.config import store
+from jmetal.core.operator import Mutation, Crossover, Selection
+from jmetal.core.problem import Problem
+from jmetal.util.evaluator import Evaluator
+from jmetal.util.generator import Generator
+from jmetal.util.termination_criterion import TerminationCriterion

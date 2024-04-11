@@ -1,0 +1,18 @@
+struktura katalogów:
+240314/Rast200/g120618 150rk-co5ilu5
+
+Pierwsza część:
+- aktualna data w momencie wykonywania badania
+
+Druga:
+- czteroliterowy fragment nazwy rozwiązywanego problemu - tutaj Rastrigin
+- wymiar problemu - tutaj 200
+
+Trzecia:
+- 'g' = godzina - czas utworzenia podkatalogu w trakcie uruchomienia próby
+- spacja
+- ilość wysp - tutaj 150
+- litera r, m lub b - strategie wyboru migrantów "random", "max distance", "best"
+- litera "k" - obecnie nie istotna
+- "co" + liczba - liczba oznacza interwał migracji
+- "ile" + liczba - liczba oznacza liczność grupy migrantów

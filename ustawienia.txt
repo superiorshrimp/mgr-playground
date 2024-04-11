@@ -1,0 +1,87 @@
+Parametry i moje ustawienia:
+
+
+1. Problemy: sphere (de jong), rastrigin
+
+PLIK ./islands_desync/geneticAlgorithm/run_hpc/create_algorithm_hpc.py
+
+...
+
+    #problem = Rastrigin(NUMBER_OF_VARIABLES)
+    #
+    problem = Sphere(NUMBER_OF_VARIABLES)
+
+    # if n==0:
+    #     print ("W run_algorithm "+str(sys.argv[1])+"/"+str(sys.argv[4])+" WYS$
+    #     print("W pliku json: "+str(configuration["number_of_islands"]))
+
+...
+
+
+2. Wymiar problemu, liczebność populacji i populacji potomnej, strategia migracji i warunek stopu (max liczba ewaluacji)
+"number_of_variables" : 200, # wymiar problemu
+"number_of_evaluations" : 15000, # brana pod uwagę gdy odpowiedni warunek stopu - termination_criterion = StoppingByEvaluations
+"population_size":16,
+"offspring_population_size": 4, # liczba potomnych osobników
+"migrant_selection_type": "maxDistance", "best", "random"
+
+PLIK ./islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json
+
+{
+  "number_of_evaluations" : 1500,
+  "number_of_variables" : 200,
+  "population_size":16,
+  "offspring_population_size": 4,
+
+...
+  "migrant_selection_type": "best",
+...
+}
+
+
+3.
+"number_of_islands": 50, 100, 150, 200
+"number_of_migrants": 5,
+"migration_interval": 2, 5, 10, 15
+
+
+PLIK run-hpc.sh
+#przykładowe ustawienia dla 200 wysp
+
+#!/bin/bash
+#SBATCH --job-name=my-workload
+
+#SBATCH --nodes=20
+#SBATCH --ntasks=400
+#SBATCH --time=0:15:00
+
+#SBATCH --mem-per-cpu=4GB
+#SBATCH -p plgrid
+
+...
+
+number_of_migrants=5
+migration_interval=5
+dda=$(date +%y%m%d)
+tta=$(date +g%H%M%S)
+
+python3 -u islands_desync/start.py 200 $tmpdir $number_of_migrants $migration_interval $dda $tta
+
+
+4.
+Topologie: RingTopology, TorusTopology, CompleteTopology
+
+PLIK ./islands_desync/start.py
+
+...
+from islands.topologies import RingTopology
+...
+from islands_desync.islands.topologies.TorusTopology import TorusTopology
+from islands_desync.islands.topologies.CompleteTopology import CompleteTopology
+
+def main():
+
+...
+    computation_refs = IslandRunner(CompleteTopology, RandomSelect, params).cre$
+
+...

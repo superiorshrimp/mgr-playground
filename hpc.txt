@@ -1,0 +1,44 @@
+Pliki w katalogu z logami (taki zestaw dla każdej uruchomionej wyspy):
+ - W0 czas.json.txt - czas (timestamp) wykonania na wyspie numer zero - na starcie i na końcu 
+ - W0 results jump.json - w momencie poprawy rezultatu uzyskanego na wyspie, zapisywany jest numer kroku algorytmu genetycznego, ten uzyskany najlepszy rezultat (fitness) i fitnessy wszystkich osobników 
+ - g104924 5mk-co5ilu5 - W0every step population details-do step1496.json - w każdym kroku algorytmu zapisywane są wszystkie współrzędne wszystkich osobników
+ - resultsEveryStepW0.json - w każdym kroku algorytmu zapisywany jest najlepszy rezultat na wyspie
+ - W0 set-minOS-srOS-diversity.json - w każdym kroku zapisywana jest różnorodność populacji według trzech miar
+ - W0 imigrants.json - gdy przybywa migrant: 
+- "step", "ev": krok i ewaluacja na wyspie docelowej - czyli tej na którą przybywa migrant
+- "iteration_numbers": dla każdego przybywającego migranta - krok na wyspie źródłowej w momencie gdy migrant z niej startował 
+- "timestamps": dla każdego przybywającego migranta - timestamp na wyspie źródłowej w momencie gdy migrant z niej startował 
+- "src_islands": dla kazdego migranta- jego wyspa żródłowa
+- "fitnesses": dla kazdego migranta - jego fitness 
+- "destinTimestamp": timestamp na wyspie docelowej w momencie przybycia migrantów
+- "destinMaxFitness": max fitness na wyspie docelowej w momencie przybycia migrantów
+. 
+
+Dodatkowo pliki ogólne:
+__Result.txt
+__WINNER.txt - numer wyspy która osiągnęła najlepszy wynik
+param.json - paramerty uruchomienia tej proby
+
+Pliki kontrolne:
+kontrolW0End.ctrl
+kontrolW0Start.ctrl
+
+Założenia:
+- algorytm genetyczny w modelu wyspowym
+- jedna lub wiele wysp (aby wykorzystać możliwości HPC - duża ilość wysp)
+- rózne interwały migracji i liczebności grupy migrantów
+- rożne warinty strategii wyboru migrantów na wyspie źródłowej i strategii przyjmowania na wyspie docelowej
+
+
+Przykładowe ustawienia:
+Problemy: sphere (de jong), rastrigin, LABS
+"number_of_evaluations" : 20000, # brana pod uwagę gdy odpowiedni warunek stopu - termination_criterion = StoppingByEvaluations
+"number_of_variables" : 200, # wymiar problemu
+"population_size":16,
+"offspring_population_size": 4, # liczba potomnych osobników
+"number_of_islands": 5,
+"number_of_migrants": 5,
+"migration_interval": 35,
+"migrant_selection_type": "maxDistance", "best", "random"
+
+
