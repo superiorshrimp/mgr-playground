@@ -76,8 +76,8 @@ PLIK ./islands_desync/start.py
 ...
 from islands.topologies import RingTopology
 ...
-from islands_desync.islands.topologies.TorusTopology import TorusTopology
-from islands_desync.islands.topologies.CompleteTopology import CompleteTopology
+from islands.topologies.TorusTopology import TorusTopology
+from islands.topologies.CompleteTopology import CompleteTopology
 
 def main():
 
