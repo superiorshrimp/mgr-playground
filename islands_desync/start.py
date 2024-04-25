@@ -28,8 +28,8 @@ def main():
         series_number=1,
     )
 
-    computation_refs = IslandRunner(TorusTopology, RandomSelect, params).create()
-    #computation_refs = IslandRunner(CompleteTopology, RandomSelect, params).create()
+    # computation_refs = IslandRunner(TorusTopology, RandomSelect, params).create()
+    computation_refs = IslandRunner(CompleteTopology, RandomSelect, params).create()
 
     results = ray.get(computation_refs)
 
