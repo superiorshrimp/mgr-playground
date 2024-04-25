@@ -47,12 +47,12 @@ def create_algorithm_hpc(
         print("Invalid configuration")
 
     #
-    #problem = Rastrigin(NUMBER_OF_VARIABLES)
+    problem = Rastrigin(NUMBER_OF_VARIABLES)
     #
-    problem = Sphere(NUMBER_OF_VARIABLES)
+    # problem = Sphere(NUMBER_OF_VARIABLES)
 
     # if n==0:
-    #     print ("W run_algorithm "+str(sys.argv[1])+"/"+str(sys.argv[4])+" WYSPA,  seria: "+ str(sys.argv[5])+",  interwał: "+str(sys.argv[7])+", liczba migrantów: "+str(sys.argv[6])+" - "+str(sys.argv[2])+" "+str(sys.argv[3]))
+    #     print("W run_algorithm "+str(sys.argv[1])+"/"+str(sys.argv[4])+" WYSPA,  seria: "+ str(sys.argv[5])+",  interwał: "+str(sys.argv[7])+", liczba migrantów: "+str(sys.argv[6])+" - "+str(sys.argv[2])+" "+str(sys.argv[3]))
     #     print("W pliku json: "+str(configuration["number_of_islands"]))
 
     genetic_island_algorithm = GeneticIslandAlgorithm(
