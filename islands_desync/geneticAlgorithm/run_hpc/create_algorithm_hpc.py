@@ -2,12 +2,13 @@ import json
 from datetime import datetime, timedelta
 
 from jmetal.operator import BinaryTournamentSelection
-from jmetal.problem.singleobjective.unconstrained import Rastrigin
+# from jmetal.problem.singleobjective.unconstrained import Rastrigin
+from ..emas.Problem import Rastrigin
 from jmetal.problem.singleobjective.unconstrained import Sphere
 
 from jmetal.util.termination_criterion import StoppingByEvaluations
 
-from geneticAlgorithm.algorithm.genetic_island_algorithm import (
+from geneticAlgorithm.algorithm.emas_genetic_island_algorithm import (
     GeneticIslandAlgorithm,
 )
 from geneticAlgorithm.generator.island_solution_generator import (
@@ -20,6 +21,41 @@ from geneticAlgorithm.run_hpc.run_algorithm_params import (
 from geneticAlgorithm.utils import datetimer, myDefCrossover
 from geneticAlgorithm.utils.myDefMutation import MyUniformMutation
 
+
+def emas_create_algorithm_hpc(
+        n, migration, params: RunAlgorithmParams
+) -> GeneticIslandAlgorithm:
+    conf_file = "./islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json"
+    with open(conf_file) as file:
+        configuration = json.loads(file.read())
+
+    NUMBER_OF_VARIABLES = int(configuration["number_of_variables"])
+    NUMBER_OF_EVALUATIONS = int(configuration["number_of_evaluations"])
+    POPULATION_SIZE = int(configuration["population_size"])
+
+    problem = Rastrigin(NUMBER_OF_VARIABLES)
+
+    genetic_island_algorithm = GeneticIslandAlgorithm(
+        problem=problem,
+        population_size=POPULATION_SIZE,
+        offspring_population_size=1, # TODO: OFFSPRING_POPULATION_SIZE
+        migration_interval=params.migration_interval,  # configuration["migration_interval"],
+        number_of_islands= params.island_count,
+        number_of_emigrants=0,#params.number_of_emigrants,  # configuration["number_of_migrants"],
+        island=n,
+        want_run_end_communications=configuration["want_run_end_communications"],
+        type_of_connection=configuration["type_of_connection"],
+        migrant_selection_type=configuration["migrant_selection_type"],
+        how_many_data_intervals=configuration["how_many_data_intervals"],
+        plot_population_interval=configuration["plot_population_interval"],
+        par_date=params.dda,
+        par_time=params.tta,
+        wyspWRun=params.island_count,
+        seria=params.series_number,
+        migration=migration,
+    )
+
+    return genetic_island_algorithm
 
 def create_algorithm_hpc(
         n, migration, params: RunAlgorithmParams
