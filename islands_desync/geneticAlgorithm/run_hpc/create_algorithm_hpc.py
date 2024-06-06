@@ -41,7 +41,7 @@ def emas_create_algorithm_hpc(
         offspring_population_size=1, # TODO: OFFSPRING_POPULATION_SIZE
         migration_interval=params.migration_interval,  # configuration["migration_interval"],
         number_of_islands= params.island_count,
-        number_of_emigrants=0,#params.number_of_emigrants,  # configuration["number_of_migrants"],
+        number_of_emigrants=params.number_of_emigrants,#params.number_of_emigrants,  # configuration["number_of_migrants"],
         island=n,
         want_run_end_communications=configuration["want_run_end_communications"],
         type_of_connection=configuration["type_of_connection"],

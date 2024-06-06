@@ -19,8 +19,8 @@ do
 
     kat="logs/""$1""/"$2""$3"/seriaEnd9.txt"
 
-    echo kat
-    echo $kat
+    # echo kat
+    # echo $kat
 
     a=1
     until [ -e "${kat}" ]

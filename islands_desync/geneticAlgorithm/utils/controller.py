@@ -18,7 +18,7 @@ class Controller:
         self.ctrlFile.close()
 
     def endOfWholeProbe(self, proba):
-        print("KAT", self.katalog)
+        # print("KAT", self.katalog)
         ostatniSlash = self.katalog.rfind("/", 0, len(self.katalog))
         self.ctrlFile = open(
             self.katalog[:ostatniSlash] + "/" + "seriaEnd" + str(proba) + ".txt", "a"

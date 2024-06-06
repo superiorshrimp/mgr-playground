@@ -25,7 +25,6 @@ class Computation:
         algorithm_params: RunAlgorithmParams,
         signal_actor: SignalActor
     ):
-        print("here")
         self.island = island
         self.n: int = n
 

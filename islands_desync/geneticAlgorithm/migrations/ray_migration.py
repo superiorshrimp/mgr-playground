@@ -20,7 +20,7 @@ class RayMigration(Migration):
         # print("Emigracja %s iter: %s" % (island_number, iteration_number))
         for individual in individuals_to_migrate:
             # print("%s: Emigruje %s" % (self.islandActor, individual))
-            self.emigration.emigrate((individual, iteration_number, ind_timestamp, src_island, individual.objectives[0]))
+            self.emigration.emigrate((individual, iteration_number, ind_timestamp, src_island, individual.fitness)) #objectives[0]
 
     def receive_individuals(
         self, step_num: int, evaluations: int

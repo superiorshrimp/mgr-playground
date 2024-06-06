@@ -2,6 +2,7 @@ import json
 import os
 import random
 import statistics
+from copy import deepcopy
 import time
 from datetime import datetime
 from math import trunc
@@ -34,6 +35,8 @@ from ..utils import (
 
 S = TypeVar("S")
 R = TypeVar("R")
+
+from matplotlib import pyplot as plt
 
 from ..emas.EMAS import EMAS
 from ..emas.Config import Config
@@ -73,7 +76,7 @@ class GeneticIslandAlgorithm:
             energy_reproduce_loss_coef=0.1,
             energy_fight_loss_coef=0.2,
             cross_coef=0.55,
-            mutation_coef=0.1,
+            mutation_coef=0.05,
         )
         self.emas = EMAS(config)
         self.solutions = self.emas.agents
@@ -176,12 +179,16 @@ class GeneticIslandAlgorithm:
             print("koniec genetic_island_algorithm")
 
     def run(self):
-        print("finezyjny fortel")
-        self.step()
+        for i in range(1000):
+            self.step()
+        print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
+        iter = [i for i in range(self.emas.config.n_iter + 1)]
+        plt.plot(iter, self.emas.best_fit)
+        plt.savefig(str(self.island) + '.png')
+
 
     def get_result(self):
-        print("trolge")
-        return self.solutions.sort(key=lambda agent: agent.fitness)[0]
+        return sorted(self.solutions, key=lambda agent: agent.fitness)[0]
 
     # MIGRATION SECTION  -----------------------------------------------------------
     def get_individuals_to_migrate(
@@ -268,22 +275,21 @@ class GeneticIslandAlgorithm:
             except:
                 pass
 
-        # KRZYŻOWANIE, MUTOWANIE I SELEKCJA
-        # mating_population = self.selection(self.solutions)
-        # offspring_population = self.reproduction(mating_population)
-        # offspring_population = self.evaluate(offspring_population)
-
-        # for i in offspring_population:
-        #     i.from_evaluation = self.evaluations
-        # self.solutions = self.replacement(
-        #     self.solutions, offspring_population
-        # )  # todo !!! zobacz GŁĘBIEJ ten replacement
+        self.emas.iteration(self.step_num)
+        
+        best_fit = min(self.emas.agents, key=lambda a: a.fitness).fitness
+        self.emas.alive_count.append(len(self.emas.agents))
+        self.emas.energy_data1.append(sum([i.energy for i in self.emas.agents]))
+        self.emas.energy_data2.append(sum([i.energy for i in self.emas.agents])/len(self.emas.agents))
+        self.emas.best_fit.append(best_fit)
+        
+        self.solutions.sort(key=lambda agent: agent.fitness)
 
         # Jeśli W KRZYŻWOANIU I MUTACJI POWSTAŁ LEPSZY
         if not (self.lastBest == self.solutions[0].fitness): #objectives[0]):
             self.lastBest = self.solutions[0].fitness #objectives[0]
 
-        if self.step_num < 1000: # TODO: param
+        if self.step_num < 1000:
             self.migration.end_time_measure()
             self.lastBest = self.solutions[0].fitness #objectives[0]
             self.ctrl.endOfProcess(
