@@ -1,6 +1,7 @@
 from datetime import datetime
 import ray
 import json
+from sys import argv
 
 from geneticAlgorithm.run_hpc.run_algorithm_params import RunAlgorithmParams
 from islands.topologies.CompleteTopology import CompleteTopology
@@ -10,9 +11,9 @@ from islands.selectAlgorithm import RandomSelect
 
 def main():
     params = RunAlgorithmParams(
-        island_count=3,
-        number_of_emigrants=5,
-        migration_interval=5,
+        island_count=int(argv[1]),
+        number_of_emigrants=int(argv[2]),
+        migration_interval=int(argv[3]),
         dda=datetime.now().strftime('%y%m%d'),
         tta=datetime.now().strftime('g%H%M%S'),
         series_number=1,

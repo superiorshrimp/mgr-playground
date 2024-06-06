@@ -1,5 +1,5 @@
 {
-  "number_of_evaluations" : 8000,
+  "number_of_evaluations" : 2000,
   "number_of_variables" : 200,
   "population_size":16,
   "offspring_population_size": 4,
@@ -13,7 +13,7 @@
   "want_diversity_to_console": false,
   "want_run_end_communications": false,
   "type_of_connection": "",
-  "migrant_selection_type": "random",
+  "migrant_selection_type": "best",
   "yMax": 40,
 
   "how_many_data_intervals": 50,
