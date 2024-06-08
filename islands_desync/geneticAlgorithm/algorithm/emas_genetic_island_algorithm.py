@@ -183,6 +183,8 @@ class GeneticIslandAlgorithm:
             self.step()
         print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
         iter = [i for i in range(self.emas.config.n_iter + 1)]
+        plt.plot(iter, self.emas.alive_count)
+        plt.plot(iter, self.emas.variance)
         plt.plot(iter, self.emas.best_fit)
         plt.savefig(str(self.island) + '.png')
 
@@ -259,7 +261,7 @@ class GeneticIslandAlgorithm:
         if 1 == self.step_num:
             self.migration.wait_for_all_start()
 
-            self.lastBest = self.solutions[0].fitness #objectives[0]
+            self.lastBest = self.solutions[0].fitness
 
             # start measuring time
             self.migration.start_time_measure()
@@ -277,21 +279,21 @@ class GeneticIslandAlgorithm:
 
         self.emas.iteration(self.step_num)
         
-        best_fit = min(self.emas.agents, key=lambda a: a.fitness).fitness
         self.emas.alive_count.append(len(self.emas.agents))
-        self.emas.energy_data1.append(sum([i.energy for i in self.emas.agents]))
-        self.emas.energy_data2.append(sum([i.energy for i in self.emas.agents])/len(self.emas.agents))
-        self.emas.best_fit.append(best_fit)
-        
+        self.emas.energy_data_sum.append(sum([i.energy for i in self.emas.agents]))
+        self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents])/len(self.emas.agents))
+        self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
+        self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
+
         self.solutions.sort(key=lambda agent: agent.fitness)
 
         # Jeśli W KRZYŻWOANIU I MUTACJI POWSTAŁ LEPSZY
-        if not (self.lastBest == self.solutions[0].fitness): #objectives[0]):
-            self.lastBest = self.solutions[0].fitness #objectives[0]
+        if not (self.lastBest == self.solutions[0].fitness):
+            self.lastBest = self.solutions[0].fitness
 
-        if self.step_num < 1000:
+        if self.step_num % 5 == 0:
             self.migration.end_time_measure()
-            self.lastBest = self.solutions[0].fitness #objectives[0]
+            self.lastBest = self.solutions[0].fitness
             self.ctrl.endOfProcess(
                 self.island, self.lastBest
             )
@@ -302,5 +304,5 @@ class GeneticIslandAlgorithm:
                 self.migration.wait_for_finish()
                 self.ctrl.endOfWholeProbe(self.seria)
         
-        self.evaluations += len(self.solutions)
+        self.evaluations += 1#len(self.solutions)
 

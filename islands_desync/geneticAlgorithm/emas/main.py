@@ -1,5 +1,3 @@
-from random import uniform
-
 from .Problem import Rastrigin
 from .EMAS import EMAS
 from .Config import Config

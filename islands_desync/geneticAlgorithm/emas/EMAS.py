@@ -2,6 +2,7 @@ from .Config import Config
 from .Agent import Agent
 from random import choice, shuffle
 from matplotlib import pyplot as plt
+from numpy import var
 
 
 class EMAS:
@@ -11,9 +12,10 @@ class EMAS:
         self.agents = config.agents
 
         self.alive_count = [len(self.agents)]
-        self.energy_data1 = [sum([i.energy for i in self.agents])]
-        self.energy_data2 = [sum([i.energy for i in self.agents])/len(self.agents)]
+        self.energy_data_sum = [sum([i.energy for i in self.agents])]
+        self.energy_data_avg = [sum([i.energy for i in self.agents])/len(self.agents)]
         self.best_fit = [min(self.agents, key=lambda a: a.fitness).fitness]
+        self.variance = [sum(var([i.x for i in self.agents], axis=0))]
 
     def run(self):
         for it in range(self.config.n_iter):
@@ -21,9 +23,10 @@ class EMAS:
             best_fit = min(self.agents, key=lambda a: a.fitness).fitness
             print("iteration:", it, "agents count:", len(self.agents), "best fit:", best_fit)
             self.alive_count.append(len(self.agents))
-            self.energy_data1.append(sum([i.energy for i in self.agents]))
-            self.energy_data2.append(sum([i.energy for i in self.agents])/len(self.agents))
+            self.energy_data_sum.append(sum([i.energy for i in self.agents]))
+            self.energy_data_avg.append(sum([i.energy for i in self.agents])/len(self.agents))
             self.best_fit.append(best_fit)
+            self.variance.append(sum(var([i.x for i in self.agents], axis=0)))
 
 
     def iteration(self, it):
@@ -79,7 +82,8 @@ class EMAS:
     def summary(self):
         iter = [i for i in range(self.config.n_iter + 1)]
         plt.plot(iter, self.alive_count)
-        # plt.plot(iter, self.energy_data1)
-        # plt.plot(iter, self.energy_data2)
+        # plt.plot(iter, self.energy_data_sum)
+        # plt.plot(iter, self.energy_data_avg)
+        plt.plot(iter, self.variance)
         plt.plot(iter, self.best_fit)
         plt.show()

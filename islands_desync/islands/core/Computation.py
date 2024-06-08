@@ -47,6 +47,6 @@ class Computation:
             "end": self.migration.end,
         }
 
-        print(f"\nIsland: {self.n} Fitness: {result.fitness}") #objectives[0]
+        print(f"\nIsland: {self.n} Fitness: {result.fitness}")
 
         return calculations
