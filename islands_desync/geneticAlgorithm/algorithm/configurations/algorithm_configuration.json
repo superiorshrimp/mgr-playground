@@ -1,6 +1,6 @@
 {
-  "number_of_evaluations" : 2000,
-  "number_of_variables" : 200,
+  "number_of_evaluations" : 1000,
+  "number_of_variables" : 100,
   "population_size":16,
   "offspring_population_size": 4,
 

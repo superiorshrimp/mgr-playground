@@ -8,7 +8,7 @@ from Config import Config
 if __name__ == '__main__':
     config = Config(
         problem=Rastrigin(100),
-        n_agent=16*3,
+        n_agent=16,
         n_iter=1000,
         lower_bound=-5.12,
         upper_bound=5.12,
