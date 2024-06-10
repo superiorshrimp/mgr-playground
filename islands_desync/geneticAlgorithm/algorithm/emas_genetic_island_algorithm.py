@@ -103,6 +103,7 @@ class GeneticIslandAlgorithm:
         self.seria = (seria,)
         (seriaa,) = self.seria
         self.seria = seriaa
+        self.tab_emigr = {}
 
         self.ts1 = time.time()
 
@@ -276,6 +277,7 @@ class GeneticIslandAlgorithm:
                 self.add_new_individuals()
             except:
                 pass
+        self.emas.agents = self.solutions
 
         self.emas.iteration(self.step_num)
         
