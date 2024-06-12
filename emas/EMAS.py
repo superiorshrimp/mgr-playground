@@ -30,8 +30,9 @@ class EMAS:
 
 
     def iteration(self, it):
-        self.reproduce()
+        c = self.reproduce()
         self.fight()
+        self.agents.extend(c)
         self.remove_dead()
         if it == self.config.n_iter-1:
             best = min([agent for agent in self.agents], key=lambda a: a.fitness)
@@ -58,7 +59,7 @@ class EMAS:
                     p.append(p1)
                     p.append(p2)
         
-        self.agents.extend(c)
+        return c
 
     def fight(self):
         shuffle(self.agents)
@@ -70,6 +71,16 @@ class EMAS:
                 a1, a2 = a2, a1
             
             energy_loss = a2.energy * self.config.energy_fight_loss_coef
+            if a2.energy - energy_loss < self.config.alive_energy:
+                energy_loss = a2.energy - self.config.alive_energy
+            
+            a1.energy += energy_loss
+            a2.energy -= energy_loss
+
+            import numpy as np
+            d = np.sum(np.abs(np.array(a1.x) - np.array(a2.x)))
+
+            energy_loss = a2.energy * (1-d**2/1500**2)
             if a2.energy - energy_loss < self.config.alive_energy:
                 energy_loss = a2.energy - self.config.alive_energy
             

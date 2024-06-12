@@ -37,9 +37,9 @@ class Agent:
                 self.x[i] = get_truncated_normal(mean = self.x[i], sd=0.15, low=self.lower_bound, upp=self.upper_bound)
         
         self.fitness = self.problem.evaluate(self.x)
-        if self.fitness > before_fit:
-            self.x = before_x
-            self.fitness = self.problem.evaluate(self.x)
+        # if self.fitness > before_fit:
+        #     self.x = before_x
+        #     self.fitness = before_fit
 
     @staticmethod
     def reproduce(p1, p2, energy_reproduce_loss_coef, cross_coef, mutation_coef, fit_avg, n_agent, agents_count):
@@ -63,7 +63,7 @@ class Agent:
             c2.mutate(mutation_coef / 2)
         else:
             c2.mutate(mutation_coef * 2)
-        
+
         if agents_count < n_agent / 2:
             if c1.fitness < fit_avg and c2.fitness < fit_avg:
                 return [c1, c2]
