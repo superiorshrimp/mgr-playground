@@ -75,7 +75,8 @@ class Distance:
         popul = populationF[:]
 
         ile_osobnikow = len(popul)
-        ile_genow = len(popul[0].variables)
+        # ile_genow = len(popul[0].variables)
+        ile_genow = len(popul[0].x)
         # print("ILE OS, GEN",ile_osobnikow,ile_genow)
 
         for osob1 in range(ile_osobnikow):
@@ -90,9 +91,8 @@ class Distance:
                     for gen in range(
                         ile_genow
                     ):  # todo: inny sposób obliczenia distance
-                        kwadratRoznicy = pow(
-                            popul[osob1].variables[gen] - popul[osob2].variables[gen], 2
-                        )
+                        # kwadratRoznicy = pow(popul[osob1].variables[gen] - popul[osob2].variables[gen], 2)
+                        kwadratRoznicy = pow(popul[osob1].x[gen] - popul[osob2].x[gen], 2)
                         odleglosc += kwadratRoznicy
                         sumaOdleglosciOdPozostalych += kwadratRoznicy
                 linia += str(format(odleglosc, ".2f")) + " "
