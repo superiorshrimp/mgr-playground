@@ -37,6 +37,7 @@ def emas_create_algorithm_hpc(
 
     genetic_island_algorithm = GeneticIslandAlgorithm(
         problem=problem,
+        evaluations=NUMBER_OF_EVALUATIONS,
         population_size=POPULATION_SIZE,
         offspring_population_size=1, # TODO: OFFSPRING_POPULATION_SIZE
         migration_interval=params.migration_interval,  # configuration["migration_interval"],

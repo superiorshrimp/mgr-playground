@@ -45,6 +45,7 @@ class GeneticIslandAlgorithm:
     def __init__(
         self,
         problem: Problem,
+        evaluations: int,
         population_size: int,
         offspring_population_size: int,
         migration_interval: int,
@@ -64,19 +65,20 @@ class GeneticIslandAlgorithm:
     ):
         self.population_size = population_size
         self.offspring_population_size = offspring_population_size
+        self.n_iter=evaluations // (population_size//2)
         config = Config(
             problem=problem,
             n_agent=population_size,
-            n_iter=1000,
+            n_iter=evaluations // (population_size//2),
             lower_bound=-5.12,
             upper_bound=5.12,
             start_energy=100,
-            reproduce_energy=150,
-            alive_energy=2,
-            energy_reproduce_loss_coef=0.1,
-            energy_fight_loss_coef=0.2,
+            reproduce_energy=140,
+            alive_energy=1,
+            energy_reproduce_loss_coef=0.2,
+            energy_fight_loss_coef=0.05,
             cross_coef=0.55,
-            mutation_coef=0.05,
+            mutation_coef=0.02,
         )
         self.emas = EMAS(config)
         self.solutions = self.emas.agents
@@ -137,7 +139,7 @@ class GeneticIslandAlgorithm:
                 self.number_of_islands,
                 self.population_size,
                 self.offspring_population_size,
-                1000, # TODO: param max eval
+                self.n_iter,
             )
 
         self.path = self.fileName.getpath(
@@ -180,7 +182,7 @@ class GeneticIslandAlgorithm:
             print("koniec genetic_island_algorithm")
 
     def run(self):
-        for i in range(1000):
+        for i in range(self.n_iter):
             self.step()
         print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
         iter = [i for i in range(self.emas.config.n_iter + 1)]
@@ -280,7 +282,7 @@ class GeneticIslandAlgorithm:
         self.emas.agents = self.solutions
 
         self.emas.iteration(self.step_num)
-        
+
         self.emas.alive_count.append(len(self.emas.agents))
         self.emas.energy_data_sum.append(sum([i.energy for i in self.emas.agents]))
         self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents])/len(self.emas.agents))
@@ -306,5 +308,5 @@ class GeneticIslandAlgorithm:
                 self.migration.wait_for_finish()
                 self.ctrl.endOfWholeProbe(self.seria)
         
-        self.evaluations += 1#len(self.solutions)
+        self.evaluations += 1 #len(self.solutions)
 

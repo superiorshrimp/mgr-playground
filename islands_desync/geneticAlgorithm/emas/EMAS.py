@@ -3,6 +3,7 @@ from .Agent import Agent
 from random import choice, shuffle
 from matplotlib import pyplot as plt
 from numpy import var
+from time import time
 
 
 class EMAS:
@@ -18,26 +19,31 @@ class EMAS:
         self.variance = [sum(var([i.x for i in self.agents], axis=0))]
 
     def run(self):
+        start_time = time()
+        evaluations = 0
         for it in range(self.config.n_iter):
+            evaluations += len(self.agents)
             self.iteration(it)
             best_fit = min(self.agents, key=lambda a: a.fitness).fitness
-            print("iteration:", it, "agents count:", len(self.agents), "best fit:", best_fit)
+            if it % 10 == 0:
+                print("iteration:", it, "agents count:", len(self.agents), "best fit:", best_fit)
             self.alive_count.append(len(self.agents))
             self.energy_data_sum.append(sum([i.energy for i in self.agents]))
             self.energy_data_avg.append(sum([i.energy for i in self.agents])/len(self.agents))
             self.best_fit.append(best_fit)
             self.variance.append(sum(var([i.x for i in self.agents], axis=0)))
 
+        print("runtime: ", time() - start_time, "evals: ", evaluations)
 
     def iteration(self, it):
-        self.reproduce()
+        c = self.reproduce()
         self.fight()
+        self.agents.extend(c)
         self.remove_dead()
         if it == self.config.n_iter-1:
             best = min([agent for agent in self.agents], key=lambda a: a.fitness)
             print([round(b, 2) for b in best.x])
             print(best.fitness)
-        
 
     def reproduce(self):
         shuffle(self.agents)
@@ -58,7 +64,7 @@ class EMAS:
                     p.append(p1)
                     p.append(p2)
         
-        self.agents.extend(c)
+        return c
 
     def fight(self):
         shuffle(self.agents)
@@ -70,6 +76,16 @@ class EMAS:
                 a1, a2 = a2, a1
             
             energy_loss = a2.energy * self.config.energy_fight_loss_coef
+            if a2.energy - energy_loss < self.config.alive_energy:
+                energy_loss = a2.energy - self.config.alive_energy
+            
+            a1.energy += energy_loss
+            a2.energy -= energy_loss
+
+            import numpy as np
+            d = np.sum(np.abs(np.array(a1.x) - np.array(a2.x)))
+
+            energy_loss = a2.energy * (1-d**2/1500**2)
             if a2.energy - energy_loss < self.config.alive_energy:
                 energy_loss = a2.energy - self.config.alive_energy
             

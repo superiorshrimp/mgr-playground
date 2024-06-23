@@ -2,6 +2,7 @@ from random import random, sample
 from scipy.stats import truncnorm
 from Problem import Problem
 from copy import deepcopy
+from time import time
 
 
 class Agent:
@@ -29,12 +30,12 @@ class Agent:
         return c1, c2
 
     def mutate(self, mutation_coef):
-        before_x = deepcopy(self.x)
-        before_fit = self.fitness
+        # before_x = deepcopy(self.x)
+        # before_fit = self.fitness
         for i in range(len(self.x)):
             if random() < mutation_coef:
                 # self.x[i] = self.lower_bound + random() * (self.upper_bound - self.lower_bound)
-                self.x[i] = get_truncated_normal(mean = self.x[i], sd=0.15, low=self.lower_bound, upp=self.upper_bound)
+                self.x[i] = get_truncated_normal(mean = self.x[i], sd=1, low=self.lower_bound, upp=self.upper_bound)
         
         self.fitness = self.problem.evaluate(self.x)
         # if self.fitness > before_fit:
