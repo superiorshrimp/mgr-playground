@@ -1,6 +1,6 @@
 from .Config import Config
 from .Agent import Agent
-from random import choice, shuffle
+from random import shuffle
 from matplotlib import pyplot as plt
 from numpy import var
 from time import time
@@ -46,23 +46,12 @@ class EMAS:
             print(best.fitness)
 
     def reproduce(self):
-        shuffle(self.agents)
         fit_avg = sum([agent.fitness for agent in self.agents]) / len(self.agents)
-        p, c = [], []
-        for i in range(len(self.agents)):
-            p1 = self.agents[i]
-            if p1.energy > self.config.reproduce_energy and p1 not in p:
-                possible_mates = []
-                for j in range(len(self.agents)):
-                    p2 = self.agents[j]
-                    if p2.energy > self.config.reproduce_energy and p1 != p2 and p2 not in p:
-                        possible_mates.append(p2)
-
-                if (len(possible_mates) > 0):
-                    p2 = choice(possible_mates)
-                    c.extend(Agent.reproduce(p1, p2, self.config.energy_reproduce_loss_coef, self.config.cross_coef, self.config.mutation_coef, fit_avg, self.config.n_agent, len(self.agents)))
-                    p.append(p1)
-                    p.append(p2)
+        c = []
+        p = list(filter(lambda x: x.energy > self.config.reproduce_energy, self.agents))
+        shuffle(p)
+        for i in range(len(p) // 2):
+            c.extend(Agent.reproduce(p[i], p[len(p)//2 + i], self.config.energy_reproduce_loss_coef, self.config.cross_coef, self.config.mutation_coef, fit_avg, self.config.n_agent, len(self.agents)))
         
         return c
 
