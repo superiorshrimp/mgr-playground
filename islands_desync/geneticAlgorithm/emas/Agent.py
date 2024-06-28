@@ -62,5 +62,5 @@ class Agent:
                 return [c1, c2]
         return [c1] if c1.fitness < c2.fitness else [c2]
 
-def get_truncated_normal(mean=0, sd=1, low=0, upp=10):
+def get_truncated_normal(mean=0, sd=1, low=0, upp=1):
     return truncnorm.rvs((low - mean) / sd, (upp - mean) / sd, loc=mean, scale=sd)
