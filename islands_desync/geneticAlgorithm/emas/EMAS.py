@@ -4,6 +4,7 @@ from random import shuffle
 from matplotlib import pyplot as plt
 from numpy import var
 from time import time
+import numpy as np
 
 
 class EMAS:
@@ -46,12 +47,30 @@ class EMAS:
             print(best.fitness)
 
     def reproduce(self):
-        fit_avg = sum([agent.fitness for agent in self.agents]) / len(self.agents)
+        fitness_average = sum(
+            [agent.fitness for agent in self.agents]
+        ) / len(self.agents)
         c = []
-        p = list(filter(lambda x: x.energy > self.config.reproduce_energy, self.agents))
+        p = list(
+                filter(
+                    lambda a: a.energy > self.config.reproduce_energy,
+                    self.agents
+                )
+            )
         shuffle(p)
         for i in range(len(p) // 2):
-            c.extend(Agent.reproduce(p[i], p[len(p)//2 + i], self.config.energy_reproduce_loss_coef, self.config.cross_coef, self.config.mutation_coef, fit_avg, self.config.n_agent, len(self.agents)))
+            c.extend(
+                Agent.reproduce(
+                    p[i],
+                    p[len(p) // 2 + i],
+                    self.config.energy_reproduce_loss_coef,
+                    self.config.cross_coef,
+                    self.config.mutation_coef,
+                    fitness_average,
+                    self.config.n_agent,
+                    len(self.agents)
+                )
+            )
         
         return c
 
@@ -65,24 +84,23 @@ class EMAS:
                 a1, a2 = a2, a1
             
             energy_loss = a2.energy * self.config.energy_fight_loss_coef
+
+            diff = np.sum(np.abs(np.array(a1.x) - np.array(a2.x)))
+            diff /= (a1.upper_bound - a1.lower_bound)
+            diff /= len(a1.x)
+
+            energy_loss += a2.energy * (1-diff) * self.config.energy_diff_loss_coef
             if a2.energy - energy_loss < self.config.alive_energy:
                 energy_loss = a2.energy - self.config.alive_energy
             
-            a1.energy += energy_loss
-            a2.energy -= energy_loss
-
-            import numpy as np
-            d = np.sum(np.abs(np.array(a1.x) - np.array(a2.x)))
-
-            energy_loss = a2.energy * (1-d**2/1500**2)
-            if a2.energy - energy_loss < self.config.alive_energy:
-                energy_loss = a2.energy - self.config.alive_energy
-            
-            a1.energy += energy_loss
-            a2.energy -= energy_loss
+            a1.energy += (energy_loss + self.config.alive_energy)
+            a2.energy -= (energy_loss + self.config.alive_energy)
 
     def remove_dead(self):
-        self.agents = [agent for agent in self.agents if agent.energy > self.config.alive_energy]
+        self.agents = [
+            agent for agent in self.agents
+            if agent.energy > self.config.alive_energy
+        ]
 
     def summary(self):
         iter = [i for i in range(self.config.n_iter + 1)]

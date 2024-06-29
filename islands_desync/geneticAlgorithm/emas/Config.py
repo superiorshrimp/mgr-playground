@@ -16,6 +16,7 @@ class Config:
             reproduce_energy: float,
             alive_energy: float,
             energy_reproduce_loss_coef: float,
+            energy_diff_loss_coef: float,
             energy_fight_loss_coef: float,
             cross_coef: float,
             mutation_coef: float,
@@ -28,6 +29,7 @@ class Config:
         assert alive_energy < start_energy
         assert 0.0 <= energy_reproduce_loss_coef <= 1.0
         assert 0.0 <= energy_fight_loss_coef <= 1.0
+        assert 0.0 <= energy_diff_loss_coef <= 1.0
         assert 0.0 <= cross_coef <= 1.0
         assert 0.0 <= mutation_coef <= 1.0
 
@@ -52,5 +54,6 @@ class Config:
         self.alive_energy = alive_energy
         self.energy_reproduce_loss_coef = energy_reproduce_loss_coef
         self.energy_fight_loss_coef = energy_fight_loss_coef
+        self.energy_diff_loss_coef = energy_diff_loss_coef
         self.cross_coef = cross_coef
         self.mutation_coef = mutation_coef

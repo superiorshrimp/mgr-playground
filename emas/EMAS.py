@@ -84,17 +84,12 @@ class EMAS:
                 a1, a2 = a2, a1
             
             energy_loss = a2.energy * self.config.energy_fight_loss_coef
-            if a2.energy - energy_loss < self.config.alive_energy:
-                energy_loss = a2.energy - self.config.alive_energy
-            
-            a1.energy += energy_loss
-            a2.energy -= energy_loss
 
             diff = np.sum(np.abs(np.array(a1.x) - np.array(a2.x)))
             diff /= (a1.upper_bound - a1.lower_bound)
             diff /= len(a1.x)
 
-            energy_loss = a2.energy * (1-diff)
+            energy_loss += a2.energy * (1-diff) * self.config.energy_diff_loss_coef
             if a2.energy - energy_loss < self.config.alive_energy:
                 energy_loss = a2.energy - self.config.alive_energy
             
