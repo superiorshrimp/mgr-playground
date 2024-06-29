@@ -58,19 +58,21 @@ class EMAS:
                 )
             )
         shuffle(p)
+        agents_count = len(self.agents)
         for i in range(len(p) // 2):
-            c.extend(
-                Agent.reproduce(
-                    p[i],
-                    p[len(p) // 2 + i],
-                    self.config.energy_reproduce_loss_coef,
-                    self.config.cross_coef,
-                    self.config.mutation_coef,
-                    fitness_average,
-                    self.config.n_agent,
-                    len(self.agents)
-                )
+            offspring = Agent.reproduce(
+                p[i],
+                p[len(p) // 2 + i],
+                self.config.energy_reproduce_loss_coef,
+                self.config.cross_coef,
+                self.config.mutation_coef,
+                self.config.alive_energy,
+                fitness_average,
+                self.config.n_agent,
+                agents_count
             )
+            agents_count += len(offspring)
+            c.extend(offspring)
         
         return c
 
