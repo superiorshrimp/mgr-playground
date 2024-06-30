@@ -194,10 +194,12 @@ class GeneticIslandAlgorithm:
         print("eval", self.evaluations)
         print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
         iter = [i for i in range(it + 1)]
-        # plt.plot(iter, self.emas.alive_count)
         # plt.plot(iter, self.emas.variance)
         plt.plot(iter, self.emas.best_fit)
-        plt.savefig(str(self.island) + '.png')
+        plt.savefig("fit" + str(self.island) + '.png')
+        plt.clf()
+        plt.plot(iter, self.emas.alive_count)
+        plt.savefig("liv" + str(self.island) + '.png')
 
 
     def get_result(self):

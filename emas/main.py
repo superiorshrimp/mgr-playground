@@ -15,7 +15,7 @@ if __name__ == '__main__':
         alive_energy=1,
         energy_reproduce_loss_coef=0.2,
         energy_fight_loss_coef=0.8,
-        energy_diff_loss_coef=1.0,
+        energy_diff_loss_coef=0.8,
         cross_coef=0.55,
         mutation_coef=0.02,
     )

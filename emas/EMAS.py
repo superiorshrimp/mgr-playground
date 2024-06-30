@@ -110,5 +110,11 @@ class EMAS:
         # plt.plot(iter, self.energy_data_sum)
         # plt.plot(iter, self.energy_data_avg)
         # plt.plot(iter, self.variance)
+        # plt.plot(iter, self.best_fit)
+        # plt.show()
+        
         plt.plot(iter, self.best_fit)
-        plt.show()
+        plt.savefig('fit.png')
+        plt.clf()
+        plt.plot(iter, self.alive_count)
+        plt.savefig('liv.png')
