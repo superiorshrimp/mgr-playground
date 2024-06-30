@@ -32,6 +32,7 @@ def emas_create_algorithm_hpc(
     NUMBER_OF_VARIABLES = int(configuration["number_of_variables"])
     NUMBER_OF_EVALUATIONS = int(configuration["number_of_evaluations"])
     POPULATION_SIZE = int(configuration["population_size"])
+    OFFSPRING_POPULATION_SIZE = int(configuration["offspring_population_size"])
 
     problem = Rastrigin(NUMBER_OF_VARIABLES)
 
@@ -39,7 +40,7 @@ def emas_create_algorithm_hpc(
         problem=problem,
         evaluations=NUMBER_OF_EVALUATIONS,
         population_size=POPULATION_SIZE,
-        offspring_population_size=1, # TODO: OFFSPRING_POPULATION_SIZE
+        offspring_population_size=OFFSPRING_POPULATION_SIZE,
         migration_interval=params.migration_interval,  # configuration["migration_interval"],
         number_of_islands= params.island_count,
         number_of_emigrants=params.number_of_emigrants,#params.number_of_emigrants,  # configuration["number_of_migrants"],

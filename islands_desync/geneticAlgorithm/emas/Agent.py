@@ -79,7 +79,7 @@ class Agent:
         else: c2.mutate(mutation_coef * 2)
 
         if agents_count < n_agent / 2:
-            # if c1.fitness < fitness_average and c2.fitness < fitness_average:
+        #     # if c1.fitness < fitness_average and c2.fitness < fitness_average:
             c1.energy /= 2
             c1.energy += alive_energy
             c2.energy /= 2
