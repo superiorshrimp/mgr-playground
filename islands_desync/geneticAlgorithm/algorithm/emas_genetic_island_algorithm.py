@@ -74,11 +74,11 @@ class GeneticIslandAlgorithm:
             lower_bound=-5.12,
             upper_bound=5.12,
             start_energy=100,
-            reproduce_energy=140,
+            reproduce_energy=150,
             alive_energy=1,
             energy_reproduce_loss_coef=0.2,
             energy_fight_loss_coef=0.8,
-            energy_diff_loss_coef=1.0,
+            energy_diff_loss_coef=0.8,
             cross_coef=0.55,
             mutation_coef=0.02,
         )
@@ -191,7 +191,7 @@ class GeneticIslandAlgorithm:
         # for i in range(self.n_iter):
         #     it += 1
         #     self.step()
-        print("eval", self.evaluations)
+        print("eval", self.evaluations, "it", it)
         print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
         iter = [i for i in range(it + 1)]
         # plt.plot(iter, self.emas.variance)
@@ -259,6 +259,8 @@ class GeneticIslandAlgorithm:
         new_individuals, emigration_at_step_num = self.migration.receive_individuals(
             self.step_num, self.evaluations
         )
+        for i in new_individuals:
+            i.energy = 0
 
         if len(new_individuals) > 0:
             self.nowi = True
@@ -293,7 +295,6 @@ class GeneticIslandAlgorithm:
 
         c_count = self.emas.iteration(self.step_num)
         self.solutions = self.emas.agents
-        print(len(self.emas.agents), c_count)
         
         self.emas.alive_count.append(len(self.emas.agents))
         self.emas.energy_data_sum.append(sum([i.energy for i in self.emas.agents]))
