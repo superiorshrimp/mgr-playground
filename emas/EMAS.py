@@ -106,9 +106,9 @@ class EMAS:
 
     def summary(self):
         iter = [i for i in range(self.config.n_iter + 1)]
-        plt.plot(iter, self.alive_count)
+        # plt.plot(iter, self.alive_count)
         # plt.plot(iter, self.energy_data_sum)
         # plt.plot(iter, self.energy_data_avg)
-        plt.plot(iter, self.variance)
+        # plt.plot(iter, self.variance)
         plt.plot(iter, self.best_fit)
         plt.show()
