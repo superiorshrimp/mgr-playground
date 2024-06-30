@@ -36,6 +36,7 @@ class Computation:
         print("Starting comp")
         self.algorithm.run()
         result = self.algorithm.get_result()
+        print("evals", self.algorithm.evaluations)
 
         calculations = {
             "island": self.n,
