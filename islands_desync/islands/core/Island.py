@@ -6,6 +6,7 @@ from geneticAlgorithm.run_hpc.run_algorithm_params import (
 from islands.core.Computation import Computation
 from islands.core.SignalActor import SignalActor
 from islands.selectAlgorithm import SelectAlgorithm
+from math import inf
 
 
 @ray.remote(num_cpus=1)
@@ -16,6 +17,9 @@ class Island:
         self.islands: [Island] = []
         self.immigrants = []
         self.select_algorithm: SelectAlgorithm = select_algorithm
+        self.population = []
+        self.max_fitness = inf
+        self.std_dev = inf
 
     def start(
         self, island_handle, islands: ["Island"], algorithm_params: RunAlgorithmParams, signal_actor: SignalActor
@@ -31,6 +35,24 @@ class Island:
         )
 
         return self.computation
+
+    def set_population(self, population):
+        self.population = population
+
+    def get_population(self):
+        return self.population
+
+    def set_fitness(self, fitness):
+        self.max_fitness = fitness
+
+    def get_fitness(self):
+        return self.max_fitness
+
+    def set_std_dev(self, std_dev):
+        self.std_dev = std_dev
+
+    def get_std_dev(self):
+        return self.std_dev
 
     def receive_immigrant(self, immigrant_iteration):
         self.immigrants.append(immigrant_iteration)

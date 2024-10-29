@@ -6,5 +6,5 @@ class SelectAlgorithm(ABC):
         pass
 
     @abstractmethod
-    def choose(self, items):
+    def choose(self, items, migrant):
         pass
