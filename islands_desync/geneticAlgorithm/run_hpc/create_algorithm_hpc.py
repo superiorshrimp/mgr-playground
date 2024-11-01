@@ -23,7 +23,7 @@ from geneticAlgorithm.utils.myDefMutation import MyUniformMutation
 
 
 def emas_create_algorithm_hpc(
-        n, migration, params: RunAlgorithmParams
+        island, n, migration, params: RunAlgorithmParams
 ) -> GeneticIslandAlgorithm:
     conf_file = "./islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json"
     with open(conf_file) as file:
@@ -45,6 +45,7 @@ def emas_create_algorithm_hpc(
         number_of_islands= params.island_count,
         number_of_emigrants=params.number_of_emigrants,#params.number_of_emigrants,  # configuration["number_of_migrants"],
         island=n,
+        island_ref=island,
         want_run_end_communications=configuration["want_run_end_communications"],
         type_of_connection=configuration["type_of_connection"],
         migrant_selection_type=configuration["migrant_selection_type"],

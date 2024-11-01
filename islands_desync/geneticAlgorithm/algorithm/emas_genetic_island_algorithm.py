@@ -52,6 +52,7 @@ class GeneticIslandAlgorithm:
         number_of_islands: int,
         number_of_emigrants: int,
         island: int,
+        island_ref,
         want_run_end_communications: str,
         type_of_connection: str,
         migrant_selection_type: str,
@@ -93,6 +94,7 @@ class GeneticIslandAlgorithm:
         self.number_of_emigrants = number_of_emigrants
         self.number_of_islands = number_of_islands
         self.island = island
+        self.island_ref = island_ref
         self.want_run_end_communications = want_run_end_communications
         self.last_migration_evolution = 0
 
@@ -272,6 +274,10 @@ class GeneticIslandAlgorithm:
     # MAIN PART - GENETIC ALGORITHM STEP
     def step(self):
         self.step_num = self.step_num + 1
+        self.island_ref.set_population.remote(self.emas.agents)
+        self.island_ref.set_fitness.remote(self.lastBest)
+        std_dev = np.sum(np.std([agent.x for agent in self.emas.agents], axis=1))
+        self.island_ref.set_std_dev.remote(std_dev)
 
         if 1 == self.step_num:
             self.migration.wait_for_all_start()

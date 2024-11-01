@@ -9,5 +9,5 @@ class Emigration:
         self.select_algorithm: SelectAlgorithm = select_algorithm
 
     def emigrate(self, population_member):
-        destination = self.select_algorithm.choose(self.islands)
+        destination = self.select_algorithm.choose(self.islands, population_member)
         destination.receive_immigrant.remote(population_member)

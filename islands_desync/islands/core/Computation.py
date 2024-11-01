@@ -31,7 +31,7 @@ class Computation:
         self.emigration = Emigration(islands, select_algorithm)
         self.migration = RayMigrationPipeline(island, self.emigration, signal_actor)
 
-        self.algorithm = emas_create_algorithm_hpc(n, self.migration, algorithm_params)
+        self.algorithm = emas_create_algorithm_hpc(self.island, n, self.migration, algorithm_params)
 
     def start(self):
         print("Starting comp")

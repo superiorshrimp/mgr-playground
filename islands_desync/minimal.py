@@ -6,7 +6,7 @@ from sys import argv
 from geneticAlgorithm.run_hpc.run_algorithm_params import RunAlgorithmParams
 from islands.topologies.CompleteTopology import CompleteTopology
 from islands.core.IslandRunner import IslandRunner
-from islands.selectAlgorithm import RandomSelect
+from islands.selectAlgorithm import DistanceSelect, RandomSelect, MaxDistanceSelect, MinFitnessSelect, MinStdDevSelect
 
 
 def main():
@@ -21,7 +21,9 @@ def main():
 
     computation_refs = IslandRunner(
         CompleteTopology,
-        RandomSelect,
+        # MaxDistanceSelect,
+        MinStdDevSelect,
+        # MinFitnessSelect,
         params,
     ).create()
 
