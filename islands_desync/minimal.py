@@ -21,8 +21,9 @@ def main():
 
     computation_refs = IslandRunner(
         CompleteTopology,
+        RandomSelect,
         # MaxDistanceSelect,
-        MinStdDevSelect,
+        # MinStdDevSelect,
         # MinFitnessSelect,
         params,
     ).create()

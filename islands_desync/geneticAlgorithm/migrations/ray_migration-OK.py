@@ -6,6 +6,8 @@ from islands.core.Emigration import Emigration
 from islands.core.Migration import Migration
 from islands.core.SignalActor import SignalActor
 
+from islands_desync.islands.selectAlgorithm import RandomSelect
+
 
 class RayMigration(Migration):
     def __init__(self, islandActor, emigration: Emigration, signal_actor: SignalActor):
@@ -17,10 +19,13 @@ class RayMigration(Migration):
     def migrate_individuals(
         self, individuals_to_migrate, iteration_number, island_number
     ):
+        island_relevant_data = None
+        if not isinstance(self.emigration.select_algorithm, RandomSelect): # TODO: refactor maybe for 2 more parent classes?
+            island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data)
         # print("Emigracja %s iter: %s" % (island_number, iteration_number))
         for individual in individuals_to_migrate:
             # print("%s: Emigruje %s" % (self.islandActor, individual))
-            self.emigration.emigrate.remote((individual, iteration_number))
+            self.emigration.emigrate.remote((individual, iteration_number), island_relevant_data)
 
     def receive_individuals(
         self, step_num: int, evaluations: int
