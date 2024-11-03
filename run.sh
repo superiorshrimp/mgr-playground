@@ -46,7 +46,7 @@ done
 
 
 islands_count=3
-migrants_count=8
+migrants_count=4
 migration_interval=8
 
 python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval
