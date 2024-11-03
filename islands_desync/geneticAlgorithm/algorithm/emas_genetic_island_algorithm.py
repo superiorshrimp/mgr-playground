@@ -213,7 +213,7 @@ class GeneticIslandAlgorithm:
 
         plt.plot(iter, self.emas.best_fit)
         plt.xticks(iter[::100], rotation=45)
-        # plt.ylim([0, 100])
+        plt.ylim([0, 100])
         plt.xlabel('iteration')
         plt.savefig("fit" + str(self.island) + '.png')
         plt.clf()
