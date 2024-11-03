@@ -8,12 +8,15 @@ class MinStdDevSelect(SelectAlgorithm):
     def __init__(self):
         super().__init__()
 
-    def choose(self, items, migrant):
+    def get_island_relevant_data(self, islands):
+        return [island.get_std_dev.remote() for island in islands]
+
+    def choose(self, islands, islands_relevant_data, migrant):
         min_val = inf
         min_i = 0
-        for i, island in enumerate(items):
-            island_std_dev = ray.get(island.get_std_dev.remote())
+        for i, island in enumerate(islands):
+            island_std_dev = islands_relevant_data[i]
             if island_std_dev < min_val:
                 min_val = island_std_dev
                 min_i = i
-        return items[min_i]
+        return islands[min_i]

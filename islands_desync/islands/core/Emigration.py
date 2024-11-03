@@ -1,6 +1,7 @@
 import ray
 
 from islands.selectAlgorithm import SelectAlgorithm
+from islands.selectAlgorithm import RandomSelect
 
 
 class Emigration:
@@ -8,6 +9,6 @@ class Emigration:
         self.islands = islands
         self.select_algorithm: SelectAlgorithm = select_algorithm
 
-    def emigrate(self, population_member):
-        destination = self.select_algorithm.choose(self.islands, population_member)
+    def emigrate(self, population_member, islands_relevant_data):
+        destination = self.select_algorithm.choose(self.islands, islands_relevant_data, population_member)
         destination.receive_immigrant.remote(population_member)

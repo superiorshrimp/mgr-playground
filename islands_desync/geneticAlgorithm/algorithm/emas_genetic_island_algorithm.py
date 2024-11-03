@@ -186,6 +186,7 @@ class GeneticIslandAlgorithm:
             print("koniec genetic_island_algorithm")
 
     def run(self):
+        start = time.time()
         it = 0
         while self.evaluations < self.max_eval:
             it += 1
@@ -193,16 +194,34 @@ class GeneticIslandAlgorithm:
         # for i in range(self.n_iter):
         #     it += 1
         #     self.step()
-        print("eval", self.evaluations, "it", it)
+        end = time.time()
+        print("time:", end - start)
+        # print("eval", self.evaluations, "it", it)
         print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
+        self.plot_history(it)
+
+    def plot_history(self, it):
         iter = [i for i in range(it + 1)]
-        # plt.plot(iter, self.emas.variance)
+        plt.plot(iter, self.emas.variance)
+        avg_windows_size = 100
+        plt.plot(iter[avg_windows_size:], [np.mean(self.emas.variance[i:i+avg_windows_size]) for i in range(len(iter)-avg_windows_size)])
+        plt.xticks(iter[avg_windows_size::100], rotation=45)
+        plt.ylim([0, 2])
+        plt.xlabel('iteration')
+        plt.savefig("dev" + str(self.island) + '.png')
+        plt.clf()
+
         plt.plot(iter, self.emas.best_fit)
+        plt.xticks(iter[::100], rotation=45)
+        # plt.ylim([0, 100])
+        plt.xlabel('iteration')
         plt.savefig("fit" + str(self.island) + '.png')
         plt.clf()
-        plt.plot(iter, self.emas.alive_count)
-        plt.savefig("liv" + str(self.island) + '.png')
 
+        plt.plot(iter, self.emas.alive_count)
+        plt.xlabel('iteration')
+        plt.xticks(rotation=45)
+        plt.savefig("liv" + str(self.island) + '.png')
 
     def get_result(self):
         return sorted(self.solutions, key=lambda agent: agent.fitness)[0]

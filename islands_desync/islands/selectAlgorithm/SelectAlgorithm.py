@@ -6,5 +6,9 @@ class SelectAlgorithm(ABC):
         pass
 
     @abstractmethod
-    def choose(self, items, migrant):
+    def get_island_relevant_data(self, islands):
+        pass
+
+    @abstractmethod
+    def choose(self, islands, islands_relevant_data, migrant):
         pass
