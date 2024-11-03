@@ -161,7 +161,7 @@ class GeneticIslandAlgorithm:
 
         #KATALOG NA REZULTATY
         if self.island == 0:
-            os.makedirs(self.path)
+            os.makedirs(self.path, exist_ok=True)
             if self.want_run_end_communications:
                 print(
                     "\n\n\n                          The new directory is created! by island: "
@@ -198,10 +198,24 @@ class GeneticIslandAlgorithm:
         print("time:", end - start)
         # print("eval", self.evaluations, "it", it)
         print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
-        self.plot_history(it)
+        # self.plot_history(it)
+        self.save_history()
+
+    def save_history(self):
+        dir = "history/" + self.par_date + "/"
+        os.makedirs(dir, exist_ok=True)
+        dir += self.par_time + "/"
+        os.makedirs(dir, exist_ok=True)
+        with open(dir + str(self.island) + ".json", "w") as f:
+            json.dump({
+                "variance": self.emas.variance,
+                "fitness": self.emas.best_fit,
+                "alive": self.emas.alive_count
+            }, f)
 
     def plot_history(self, it):
         iter = [i for i in range(it + 1)]
+
         plt.plot(iter, self.emas.variance)
         avg_windows_size = 100
         plt.plot(iter[avg_windows_size:], [np.mean(self.emas.variance[i:i+avg_windows_size]) for i in range(len(iter)-avg_windows_size)])
