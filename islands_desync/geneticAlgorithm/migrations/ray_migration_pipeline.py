@@ -1,5 +1,3 @@
-from typing import Dict, List
-
 import ray
 
 from geneticAlgorithm.migrations.ray_migration import RayMigration
@@ -8,13 +6,11 @@ from islands.core.SignalActor import SignalActor
 
 
 class RayMigrationPipeline(RayMigration):
-    def __init__(self, islandActor, emigration: Emigration, signal_actor: SignalActor):
-        super().__init__(islandActor, emigration, signal_actor)
+    def __init__(self, island_actor: ray.ObjectRef, emigration: Emigration, signal_actor: SignalActor):
+        super().__init__(island_actor, emigration, signal_actor)
         self.new_individuals_refs = self.islandActor.get_immigrants.remote()
 
-    def receive_individuals(
-        self, step_num: int, evaluations: int
-    ) :
+    def receive_individuals(self, step_num: int, evaluations: int) :
         new_individuals = ray.get(self.new_individuals_refs)
         self.new_individuals_refs = self.islandActor.get_immigrants.remote()
 

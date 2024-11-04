@@ -198,8 +198,8 @@ class GeneticIslandAlgorithm:
         print("time:", end - start)
         # print("eval", self.evaluations, "it", it)
         print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
-        # self.plot_history(it)
-        self.save_history()
+        self.plot_history(it)
+        # self.save_history()
 
     def save_history(self):
         dir = "history/" + self.par_date + "/"

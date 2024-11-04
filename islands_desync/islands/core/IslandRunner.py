@@ -10,9 +10,9 @@ from islands.topologies.TorusTopology import TorusTopology
 
 
 class IslandRunner:
-    def __init__(self, CreateTopology, SelectAlgorithm, params: RunAlgorithmParams):
-        self.CreateTopology = CreateTopology
-        self.SelectAlgorithm = SelectAlgorithm
+    def __init__(self, create_topology, select_algorithm, params: RunAlgorithmParams):
+        self.CreateTopology = create_topology
+        self.SelectAlgorithm = select_algorithm
         self.params: RunAlgorithmParams = params
 
     def create(self) -> List[ray.ObjectRef]:

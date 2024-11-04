@@ -1,6 +1,8 @@
 import json
 from datetime import datetime, timedelta
 
+import ray
+
 from jmetal.operator import BinaryTournamentSelection
 # from jmetal.problem.singleobjective.unconstrained import Rastrigin
 from ..emas.Problem import Rastrigin
@@ -20,11 +22,10 @@ from geneticAlgorithm.run_hpc.run_algorithm_params import (
 )
 from geneticAlgorithm.utils import datetimer, myDefCrossover
 from geneticAlgorithm.utils.myDefMutation import MyUniformMutation
+from islands.core.Emigration import Emigration
 
 
-def emas_create_algorithm_hpc(
-        island, n, migration, params: RunAlgorithmParams
-) -> GeneticIslandAlgorithm:
+def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, migration: Emigration, params: RunAlgorithmParams) -> GeneticIslandAlgorithm:
     conf_file = "./islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json"
     with open(conf_file) as file:
         configuration = json.loads(file.read())
@@ -44,7 +45,7 @@ def emas_create_algorithm_hpc(
         migration_interval=params.migration_interval,  # configuration["migration_interval"],
         number_of_islands= params.island_count,
         number_of_emigrants=params.number_of_emigrants,#params.number_of_emigrants,  # configuration["number_of_migrants"],
-        island=n,
+        island=island_id,
         island_ref=island,
         want_run_end_communications=configuration["want_run_end_communications"],
         type_of_connection=configuration["type_of_connection"],

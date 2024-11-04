@@ -1,15 +1,10 @@
+from typing import List
+
 import ray
 
-from geneticAlgorithm.migrations.ray_migration_pipeline import (
-    RayMigrationPipeline,
-)
-from geneticAlgorithm.run_hpc.create_algorithm_hpc import (
-    create_algorithm_hpc,
-    emas_create_algorithm_hpc
-)
-from geneticAlgorithm.run_hpc.run_algorithm_params import (
-    RunAlgorithmParams,
-)
+from geneticAlgorithm.migrations.ray_migration_pipeline import RayMigrationPipeline
+from geneticAlgorithm.run_hpc.create_algorithm_hpc import emas_create_algorithm_hpc
+from geneticAlgorithm.run_hpc.run_algorithm_params import RunAlgorithmParams
 from islands.core.Emigration import Emigration
 from islands.core.SignalActor import SignalActor
 
@@ -18,28 +13,26 @@ from islands.core.SignalActor import SignalActor
 class Computation:
     def __init__(
         self,
-        island,
-        n: int,
-        islands,
+        island: ray.ObjectRef,
+        island_id: int,
+        islands: List[ray.ObjectRef],
         select_algorithm,
         algorithm_params: RunAlgorithmParams,
         signal_actor: SignalActor
     ):
         self.island = island
-        self.n: int = n
-
+        self.island_id = island_id
         self.emigration = Emigration(islands, select_algorithm)
         self.migration = RayMigrationPipeline(island, self.emigration, signal_actor)
-
-        self.algorithm = emas_create_algorithm_hpc(self.island, n, self.migration, algorithm_params)
+        self.algorithm = emas_create_algorithm_hpc(self.island, island_id, self.migration, algorithm_params)
 
     def start(self):
-        print("Starting comp")
+        print("Starting computation")
         self.algorithm.run()
         result = self.algorithm.get_result()
 
         calculations = {
-            "island": self.n,
+            "island": self.island_id,
             "iterations": self.algorithm.step_num,
             "time": self.migration.run_time(),
             "ips": self.algorithm.step_num / self.migration.run_time(),
@@ -47,6 +40,6 @@ class Computation:
             "end": self.migration.end,
         }
 
-        print(f"\nIsland: {self.n} Fitness: {result.fitness}")
+        print(f"\nIsland: {self.island_id} Fitness: {result.fitness}")
 
         return calculations
