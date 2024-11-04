@@ -282,8 +282,7 @@ class GeneticIslandAlgorithm:
             emigration_at_step_num["destinMaxFitness"] = self.last_best
             self.tab_emigr[self.step_num] = emigration_at_step_num
             self.solutions.extend(list(new_individuals))
-    
-    # MAIN PART - GENETIC ALGORITHM STEP
+
     def step(self):
         self.step_num += 1
         if self.step_num == 1:
@@ -301,26 +300,17 @@ class GeneticIslandAlgorithm:
         # EVOLUTIONARY STEP
         self.emas.agents = self.solutions
         children_count = self.emas.iteration(self.step_num)
-        self.solutions = self.emas.agents
         
-        self.emas.alive_count.append(len(self.emas.agents))
-        self.emas.energy_data_sum.append(sum([i.energy for i in self.emas.agents]))
-        self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents])/len(self.emas.agents))
-        self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
-        self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
+        self.log_history()
 
+        self.solutions = self.emas.agents
         self.solutions.sort(key=lambda agent: agent.fitness)
-
-        # Jeśli W KRZYŻWOANIU I MUTACJI POWSTAŁ LEPSZY
-        if not (self.last_best == self.solutions[0].fitness):
-            self.last_best = self.solutions[0].fitness
+        self.last_best = min(self.solutions[0].fitness, self.last_best)
 
         if self.step_num % 5 == 0:
             self.migration.end_time_measure()
             self.last_best = self.solutions[0].fitness
-            self.ctrl.endOfProcess(
-                self.island, self.last_best
-            )
+            self.ctrl.endOfProcess(self.island, self.last_best)
 
             self.migration.signal_finish()
 
@@ -337,4 +327,8 @@ class GeneticIslandAlgorithm:
         self.island_ref.set_std_dev.remote(std_dev)
 
     def log_history(self):
-        pass
+        self.emas.alive_count.append(len(self.emas.agents))
+        self.emas.energy_data_sum.append(sum([i.energy for i in self.emas.agents]))
+        self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents]) / len(self.emas.agents))
+        self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
+        self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
