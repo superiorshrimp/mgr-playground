@@ -7,19 +7,14 @@ import ray
 from math import inf
 
 import numpy as np
-import pandas as pd
 from ..emas.Problem import Problem
-from jmetal.util.termination_criterion import TerminationCriterion
 
 from islands.core.Migration import Migration
 from ..utils import (
-    boxPloter,
     controller,
     datetimer,
     distance,
     filename,
-    ploter,
-    result_saver,
 )
 
 S = TypeVar("S")
@@ -185,20 +180,26 @@ class GeneticIslandAlgorithm:
         #     self.step()
         print("time:", time() - start)
         print(sorted(self.solutions, key=lambda agent: agent.fitness)[0].fitness)
-        self.plot_history(it)
+        # self.plot_history(it)
         # self.save_history()
+        self.save_history_short()
 
-    def save_history(self):
-        dir = "history/" + self.par_date + "/"
+    def save_history_short(self):
+        dir = "history/"
         os.makedirs(dir, exist_ok=True)
-        dir += self.par_time + "/"
-        os.makedirs(dir, exist_ok=True)
-        with open(dir + str(self.island) + ".json", "w") as f:
-            json.dump({
-                "variance": self.emas.variance,
-                "fitness": self.emas.best_fit,
-                "alive": self.emas.alive_count
-            }, f)
+        with open(dir + self.par_time + ".json", "a") as f:
+            f.write(str(self.island) + " " + str(self.emas.best_fit[-1]) + "\n")
+
+    # def save_history(self):
+    #     dir = "history/" + self.par_date + "/"
+    #     os.makedirs(dir, exist_ok=True)
+    #     dir += self.par_time + "/"
+    #     os.makedirs(dir, exist_ok=True)
+    #     with open(dir + str(self.island) + ".json", "w") as f:
+    #         json.dump({
+    #             "variance": self.emas.variance,
+    #             "fitness": self.emas.best_fit,
+    #         }, f)
 
     def plot_history(self, it):
         iter = [i for i in range(it + 1)]
