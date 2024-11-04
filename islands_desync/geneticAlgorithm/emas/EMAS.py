@@ -36,16 +36,16 @@ class EMAS:
 
         print("runtime: ", time() - start_time, "evals: ", evaluations)
 
-    def iteration(self, it):
-        c = self.reproduce()
+    def iteration(self, it) -> int:
+        children = self.reproduce()
         self.fight()
         self.remove_dead()
-        self.agents.extend(c)
+        self.agents.extend(children)
         if it == self.config.n_iter-1:
             best = min([agent for agent in self.agents], key=lambda a: a.fitness)
             print([round(b, 2) for b in best.x])
             print(best.fitness)
-        return len(c)
+        return len(children)
 
     def reproduce(self):
         fitness_average = sum(
