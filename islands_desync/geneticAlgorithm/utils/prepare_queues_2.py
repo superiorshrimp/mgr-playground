@@ -2,7 +2,7 @@ import json
 
 import pika
 
-conf_file = "../algorithm/configurations/algorithm_configuration.json"
+conf_file = "islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json"
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
 channel = connection.channel()
@@ -13,7 +13,7 @@ with open(conf_file) as file:
     configuration = json.loads(file.read())
 
 rabbitmq_delays = configuration["island_delays"]
-number_of_islands = configuration["number_of_islands"]
+number_of_islands = 3
 
 
 def remove_queues():

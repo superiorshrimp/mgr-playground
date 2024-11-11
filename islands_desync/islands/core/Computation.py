@@ -34,10 +34,10 @@ class Computation:
         calculations = {
             "island": self.island_id,
             "iterations": self.algorithm.step_num,
-            "time": self.migration.run_time(),
-            "ips": self.algorithm.step_num / self.migration.run_time(),
-            "start": self.migration.start,
-            "end": self.migration.end,
+            # "time": self.migration.run_time(),
+            # "ips": self.algorithm.step_num / self.migration.run_time(),
+            # "start": self.migration.start,
+            # "end": self.migration.end,
         }
 
         print(f"\nIsland: {self.island_id} Fitness: {result.fitness}")

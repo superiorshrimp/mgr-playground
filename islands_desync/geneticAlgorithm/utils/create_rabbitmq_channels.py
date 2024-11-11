@@ -8,54 +8,21 @@ class CreateRabbitmqChannels:
         number_of_islands: int,
         island: int,
         data_interval,
-        last_step,
         max_evaluations,
         rabbitmq_delays,
-        population_size,
-        offspring_population_size,
-        wyspWRun,
     ):
-        self.wyspWRun = wyspWRun
         self.number_of_islands = number_of_islands
         self.island = island
         self.data_interval = data_interval
-        self.last_step = last_step
         self.max_evaluations = max_evaluations
         self.rabbitmq_delays = rabbitmq_delays
-        self.population_size = population_size
-        self.offspring_population_size = offspring_population_size
 
     # TWORZENIE KOLEJEK GDY JEST WIĘCEJ WYSP
     def create_channels(self) -> BlockingChannel:
         channel = None
         if self.number_of_islands > 1:
-            if self.island == 0:
-                print(
-                    "\n\nW G_I_A ",
-                    self.number_of_islands,
-                    " WYSP\ndata interval",
-                    self.data_interval,
-                    "\nlast step: ",
-                    self.last_step,
-                    ", max eval: ",
-                    self.max_evaluations,
-                    ", population size: ",
-                    self.population_size,
-                    ", offspring_population size: ",
-                    self.offspring_population_size,
-                    "\n\n",
-                )
-
-            if not (int(self.wyspWRun) == int(self.number_of_islands)):
-                if self.island == 0:
-                    print(
-                        "\n\n !!!!!!!!!!!!!!\n NIEZGODNOSC LICZBY WYSP W run_alg i konfiguracji \n!!!!!!!!!!!!!!!!!"
-                        + str(self.island)
-                        + "\n\n"
-                    )
-                raise SystemExit
-
-            connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
+            connection_params = pika.ConnectionParameters("localhost")
+            connection = pika.BlockingConnection(connection_params)
             channel = connection.channel()
 
             queue_name = f"island-{self.island}"

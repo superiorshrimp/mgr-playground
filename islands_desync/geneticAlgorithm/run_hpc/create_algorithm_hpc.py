@@ -7,6 +7,8 @@ from ..emas.Problem import Rastrigin
 from geneticAlgorithm.algorithm.emas_genetic_island_algorithm import GeneticIslandAlgorithm
 from geneticAlgorithm.run_hpc.run_algorithm_params import RunAlgorithmParams
 from islands.core.Emigration import Emigration
+from geneticAlgorithm.utils.create_rabbitmq_channels import CreateRabbitmqChannels
+from geneticAlgorithm.migrations.queue_migration import QueueMigration
 
 
 def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, migration: Emigration, params: RunAlgorithmParams) -> GeneticIslandAlgorithm:
@@ -19,6 +21,8 @@ def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, migration: 
     OFFSPRING_POPULATION_SIZE = int(configuration["offspring_population_size"])
 
     problem = Rastrigin(NUMBER_OF_VARIABLES)
+
+    # migration = create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id)
 
     genetic_island_algorithm = GeneticIslandAlgorithm(
         problem=problem,
@@ -43,3 +47,25 @@ def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, migration: 
     )
 
     return genetic_island_algorithm
+
+# TODO
+def create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id):
+    rabbitmq_delays = configuration["island_delays"]
+
+    channel = CreateRabbitmqChannels(
+        3,
+        island_id,
+        data_interval=round(
+            NUMBER_OF_EVALUATIONS // 50 #configuration["how_many_data_intervals"]
+        ),
+        max_evaluations=NUMBER_OF_EVALUATIONS,
+        rabbitmq_delays=rabbitmq_delays,
+    ).create_channels()
+    migration = QueueMigration(
+        island_id, # TODO: maybe obj ref
+        channel=channel,
+        number_of_islands=3,
+        rabbitmq_delays=rabbitmq_delays,
+    )
+
+    return migration

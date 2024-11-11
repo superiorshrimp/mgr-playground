@@ -2,7 +2,7 @@ import json
 import random
 from typing import Dict, List
 
-from geneticAlgorithm.migrations.Migration import Migration
+from islands.core.Migration import Migration
 from geneticAlgorithm.solution.float_island_solution import (
     FloatIslandSolution,
 )
@@ -17,7 +17,7 @@ class QueueMigration(Migration):
         self.number_of_islands = number_of_islands
 
     def migrate_individuals(
-        self, individuals_to_migrate, iteration_number, island_number
+        self, individuals_to_migrate, iteration_number, island_number, timestamp, island
     ):
         for i in individuals_to_migrate:
             destination = random.choice(
@@ -31,7 +31,7 @@ class QueueMigration(Migration):
             self.channel.basic_publish(
                 exchange="",
                 routing_key=f"island-from-{self.island}-to-{destination}",
-                body=json.dumps(i.__dict__),
+                body=json.dumps(str(i)), # i.__dict__
             )
 
     def receive_individuals(
