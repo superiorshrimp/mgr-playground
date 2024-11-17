@@ -22,7 +22,7 @@ def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, migration: 
 
     problem = Rastrigin(NUMBER_OF_VARIABLES)
 
-    # migration = create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id)
+    # migration = create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id) # TODO: revert if want delays
 
     genetic_island_algorithm = GeneticIslandAlgorithm(
         problem=problem,
@@ -48,7 +48,6 @@ def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, migration: 
 
     return genetic_island_algorithm
 
-# TODO
 def create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id):
     rabbitmq_delays = configuration["island_delays"]
 
@@ -62,7 +61,7 @@ def create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id):
         rabbitmq_delays=rabbitmq_delays,
     ).create_channels()
     migration = QueueMigration(
-        island_id, # TODO: maybe obj ref
+        island_id,
         channel=channel,
         number_of_islands=3,
         rabbitmq_delays=rabbitmq_delays,

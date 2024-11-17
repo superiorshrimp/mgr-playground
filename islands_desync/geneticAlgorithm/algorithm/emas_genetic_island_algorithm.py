@@ -183,6 +183,7 @@ class GeneticIslandAlgorithm:
         # self.plot_history(it)
         # self.save_history()
         self.save_history_short()
+        json.dump(self.tab_emigr, open("history/w"+str(self.island)+".json", "w"), indent=4)
 
     def save_history_short(self):
         dir = "history/"
@@ -274,6 +275,7 @@ class GeneticIslandAlgorithm:
         new_individuals, emigration_at_step_num = self.migration.receive_individuals(
             self.step_num, self.evaluations
         )
+
         for i in new_individuals:
             i.energy = 0
 

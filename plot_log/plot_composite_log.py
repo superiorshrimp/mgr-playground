@@ -14,6 +14,7 @@ def main():
             lines = f.readlines()
             best_value = inf
             fitnesses.append([])
+            print(lines)
             for line in lines:
                 values = float(line.split()[1])
                 fitnesses[-1].append(values)
