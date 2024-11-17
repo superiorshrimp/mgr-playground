@@ -56,4 +56,4 @@ def create_queues(connection, channel, delay_channel, rabbitmq_delays):
 
 
 if __name__ == "__main__":
-    try_connection("../algorithm/configurations/algorithm_configuration.json")
+    try_connection("islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json")

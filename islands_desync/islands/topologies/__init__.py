@@ -1,2 +1,3 @@
-from .RingTopology import RingTopology
 from .Topology import Topology
+from .RingTopology import RingTopology
+from .CompleteTopology import CompleteTopology

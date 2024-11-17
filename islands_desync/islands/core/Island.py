@@ -1,12 +1,12 @@
-import ray
+from math import inf
 
+import ray
 from geneticAlgorithm.run_hpc.run_algorithm_params import (
     RunAlgorithmParams,
 )
 from islands.core.Computation import Computation
 from islands.core.SignalActor import SignalActor
 from islands.selectAlgorithm import SelectAlgorithm
-from math import inf
 
 
 @ray.remote(num_cpus=1)
@@ -22,7 +22,7 @@ class Island:
         self.std_dev = inf
 
     def start(
-        self, island_handle, islands: ["Island"], algorithm_params: RunAlgorithmParams, signal_actor: SignalActor
+        self, island_handle: ray.ObjectRef, islands: ["Island"], algorithm_params: RunAlgorithmParams, signal_actor: SignalActor
     ):
         self.islands = islands
         self.computation = Computation.remote(

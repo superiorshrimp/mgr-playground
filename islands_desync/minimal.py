@@ -1,14 +1,22 @@
-from datetime import datetime
-import ray
 import json
+from datetime import datetime
 from sys import argv
 
+import ray
+
 from geneticAlgorithm.run_hpc.run_algorithm_params import RunAlgorithmParams
-from islands.topologies.CompleteTopology import CompleteTopology
 from islands.core.IslandRunner import IslandRunner
-from islands.selectAlgorithm import DistanceSelect, RandomSelect, MaxDistanceSelect, MinFitnessSelect, MinStdDevSelect
+from islands.selectAlgorithm import RandomSelect, MaxDistanceSelect, MinFitnessSelect, MinStdDevSelect
+from islands.topologies import CompleteTopology, RingTopology
 
-
+'''
+args:
+    1. island count
+    2. number of migrants
+    3. migration interval
+    4. topology
+    5. island selection algorithm
+'''
 def main():
     params = RunAlgorithmParams(
         island_count=int(argv[1]),
@@ -19,12 +27,12 @@ def main():
         series_number=1,
     )
 
+    topology = get_topology(argv[4])
+    select_algorithm = get_island_selection_method(argv[5])
+
     computation_refs = IslandRunner(
-        CompleteTopology,
-        RandomSelect,
-        # MaxDistanceSelect,
-        # MinStdDevSelect,
-        # MinFitnessSelect,
+        topology,
+        select_algorithm,
         params,
     ).create()
 
@@ -32,14 +40,26 @@ def main():
 
     iterations = {result["island"]: result for result in results}
 
-    with open(
-        "logs/"
-        + "iterations_per_second"
-        + datetime.now().strftime("%m-%d-%Y_%H%M")
-        + ".json",
-        "w",
-    ) as f:
+    with open("logs/iterations_per_second" + datetime.now().strftime("%m-%d-%Y_%H%M") + ".json", "w") as f:
         json.dump(iterations, f)
+
+def get_topology(topology: str):
+    match topology:
+        case 'CompleteTopology': return CompleteTopology
+        case 'RingTopology': return RingTopology
+        case _: # TODO: matching reszty topologii
+            print("WRONG TOPOLOGY NAME")
+            exit()
+
+def get_island_selection_method(method: str):
+    match method:
+        case 'RandomSelect': return RandomSelect
+        case 'MaxDistanceSelect': return MaxDistanceSelect
+        case 'MinStdDevSelect': return MinStdDevSelect
+        case 'MinFitnessSelect': return MinFitnessSelect
+        case _:
+            print("WRONG ISLAND SELECTION ALGORITHM NAME")
+            exit()
 
 if __name__ == "__main__":
     ray.init(address="127.0.0.1:6379")

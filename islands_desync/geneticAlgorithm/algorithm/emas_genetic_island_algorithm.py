@@ -1,36 +1,20 @@
 import json
 import os
 import random
-import statistics
-from copy import deepcopy
-import time
-from datetime import datetime
-from math import trunc
+from time import time
 from typing import List, TypeVar
+import ray
+from math import inf
 
 import numpy as np
-import pandas as pd
-from jmetal.algorithm.singleobjective.genetic_algorithm import GeneticAlgorithm
-from jmetal.config import store
-from jmetal.core.operator import Crossover, Mutation, Selection
 from ..emas.Problem import Problem
-from jmetal.util.evaluator import Evaluator
-from jmetal.util.generator import Generator
-from jmetal.util.termination_criterion import TerminationCriterion
 
 from islands.core.Migration import Migration
-from ..solution.float_island_solution import FloatIslandSolution
 from ..utils import (
-    boxPloter,
     controller,
     datetimer,
     distance,
     filename,
-    fileslister,
-    logger,
-    ploter,
-    result_saver,
-    tsne,
 )
 
 S = TypeVar("S")
@@ -52,7 +36,7 @@ class GeneticIslandAlgorithm:
         number_of_islands: int,
         number_of_emigrants: int,
         island: int,
-        island_ref,
+        island_ref: ray.ObjectRef,
         want_run_end_communications: str,
         type_of_connection: str,
         migrant_selection_type: str,
@@ -66,7 +50,7 @@ class GeneticIslandAlgorithm:
     ):
         self.population_size = population_size
         self.offspring_population_size = offspring_population_size
-        self.max_eval = evaluations
+        self.max_evaluation = evaluations
         self.n_iter=evaluations // self.offspring_population_size # for compatibility with main
         config = Config(
             problem=problem,
@@ -96,7 +80,7 @@ class GeneticIslandAlgorithm:
         self.island = island
         self.island_ref = island_ref
         self.want_run_end_communications = want_run_end_communications
-        self.last_migration_evolution = 0
+        self.last_migration_evaluation_number = 0
 
         self.type_of_connection = type_of_connection
         self.migrant_selection_type = migrant_selection_type
@@ -111,7 +95,7 @@ class GeneticIslandAlgorithm:
         self.seria = seriaa
         self.tab_emigr = {}
 
-        self.ts1 = time.time()
+        self.ts1 = time()
 
         self.dta = datetimer.Datetimer(self, self.want_run_end_communications)
         self.czasStart = self.dta.teraz()
@@ -173,45 +157,50 @@ class GeneticIslandAlgorithm:
             self.path, self.island, self.want_run_end_communications
         )
         self.step_num = 0
-        self.lastBest = 50000.0
+        self.last_best = inf
 
-        self.nowi = False
+        self.is_new_immigrant = False
         self.bylLog = False
 
     def __str__(self):
-        return "genetic_island_algorithm"
+        return "emas_genetic_island_algorithm"
 
     def __del__(self):
         if self.want_run_end_communications:
-            print("koniec genetic_island_algorithm")
+            print("koniec emas_genetic_island_algorithm")
 
     def run(self):
-        start = time.time()
+        start = time()
         it = 0
-        while self.evaluations < self.max_eval:
+        while self.evaluations < self.max_evaluation:
             it += 1
             self.step()
         # for i in range(self.n_iter):
         #     it += 1
         #     self.step()
-        end = time.time()
-        print("time:", end - start)
-        # print("eval", self.evaluations, "it", it)
-        print(sorted(self.solutions,key=lambda agent: agent.fitness)[0].fitness)
+        print("time:", time() - start)
+        print(sorted(self.solutions, key=lambda agent: agent.fitness)[0].fitness)
         # self.plot_history(it)
-        self.save_history()
+        # self.save_history()
+        self.save_history_short()
+        json.dump(self.tab_emigr, open("history/w"+str(self.island)+".json", "w"), indent=4)
 
-    def save_history(self):
-        dir = "history/" + self.par_date + "/"
+    def save_history_short(self):
+        dir = "history/"
         os.makedirs(dir, exist_ok=True)
-        dir += self.par_time + "/"
-        os.makedirs(dir, exist_ok=True)
-        with open(dir + str(self.island) + ".json", "w") as f:
-            json.dump({
-                "variance": self.emas.variance,
-                "fitness": self.emas.best_fit,
-                "alive": self.emas.alive_count
-            }, f)
+        with open(dir + self.par_time + ".json", "a") as f:
+            f.write(str(self.island) + " " + str(self.emas.best_fit[-1]) + "\n")
+
+    # def save_history(self):
+    #     dir = "history/" + self.par_date + "/"
+    #     os.makedirs(dir, exist_ok=True)
+    #     dir += self.par_time + "/"
+    #     os.makedirs(dir, exist_ok=True)
+    #     with open(dir + str(self.island) + ".json", "w") as f:
+    #         json.dump({
+    #             "variance": self.emas.variance,
+    #             "fitness": self.emas.best_fit,
+    #         }, f)
 
     def plot_history(self, it):
         iter = [i for i in range(it + 1)]
@@ -241,118 +230,90 @@ class GeneticIslandAlgorithm:
         return sorted(self.solutions, key=lambda agent: agent.fitness)[0]
 
     # MIGRATION SECTION  -----------------------------------------------------------
-    def get_individuals_to_migrate(
-        self, population: List[S], number_of_emigrants: int
-    ) -> List[S]:
+    def get_individuals_to_migrate(self, population: List[S], number_of_emigrants: int) -> List[S]:
         if len(population) < number_of_emigrants:
             raise ValueError("Population is too small")
 
-        # "random", "maxDistance", "best", "worst"
-        if self.migrant_selection_type == "maxDistance":
-            emigrantsnum = self.dist.maxDistanceTab(
-                population, self.number_of_emigrants
-            )
-            emigrants = [population[i] for i in emigrantsnum]
-        elif self.migrant_selection_type == "best":
-            emigrantsnum = self.dist.bestTab(population, self.number_of_emigrants)
-            emigrants = [population[i] for i in emigrantsnum]
-        elif self.migrant_selection_type == "worst":
-            # if self.step_num<100:
-            #    print("worst - wyspa - step - eval",self.island,self.step_num,self.evaluations)
-            emigrantsnum = self.dist.worstTab(population, self.number_of_emigrants)
-            emigrants = [population[i] for i in emigrantsnum]
-        else:
-            emigrants = [
-                population[random.randrange(len(population))]
-                for _ in range(0, number_of_emigrants)
-            ]
+        match self.migrant_selection_type:
+            case 'random':
+                emigrants = [
+                    population[random.randrange(len(population))]
+                    for _ in range(0, number_of_emigrants)
+                ]
+            case 'maxDistance':
+                emigrants_num = self.dist.maxDistanceTab(
+                    population, self.number_of_emigrants
+                )
+                emigrants = [population[i] for i in emigrants_num]
+            case 'best':
+                emigrants_num = self.dist.bestTab(population, self.number_of_emigrants)
+                emigrants = [population[i] for i in emigrants_num]
+            case 'worst':
+                emigrants_num = self.dist.worstTab(population, self.number_of_emigrants)
+                emigrants = [population[i] for i in emigrants_num]
+            case _:
+                raise ValueError("WRONG MIGRANT SELECTION METHOD")
+
         return emigrants
 
     def migrate_individuals(self):
-        if self.evaluations - self.last_migration_evolution >= self.migration_interval:
+        if self.evaluations - self.last_migration_evaluation_number >= self.migration_interval:
             try:
                 individuals_to_migrate = self.get_individuals_to_migrate(
                     self.solutions, self.number_of_emigrants
                 )
-                self.last_migration_evolution = self.evaluations
+                self.last_migration_evaluation_number = self.evaluations
             except ValueError as ve:
-                print(
-                    "-- ValueError -- migrate individuals  --",
-                    ve.__str__(),
-                    " ",
-                    self.island,
-                    " ",
-                    self.step_num,
-                )
+                print("-- ValueError -- migrate individuals  --", ve.__str__(), " ", self.island, " ", self.step_num)
                 return
 
             self.migration.migrate_individuals(
-                individuals_to_migrate, self.step_num, self.island, time.time(), self.island
+                individuals_to_migrate, self.step_num, self.island, time(), self.island
             )
 
     def add_new_individuals(self):
         new_individuals, emigration_at_step_num = self.migration.receive_individuals(
             self.step_num, self.evaluations
         )
+
         for i in new_individuals:
             i.energy = 0
 
         if len(new_individuals) > 0:
-            self.nowi = True
-            emigration_at_step_num["destinTimestamp"] = time.time()
-            emigration_at_step_num["destinMaxFitness"] = self.lastBest
+            self.is_new_immigrant = True
+            emigration_at_step_num["destinTimestamp"] = time()
+            emigration_at_step_num["destinMaxFitness"] = self.last_best
             self.tab_emigr[self.step_num] = emigration_at_step_num
             self.solutions.extend(list(new_individuals))
-    
-    # MAIN PART - GENETIC ALGORITHM STEP
+
     def step(self):
-        self.step_num = self.step_num + 1
-        self.island_ref.set_population.remote(self.emas.agents)
-        self.island_ref.set_fitness.remote(self.lastBest)
-        std_dev = np.sum(np.std([agent.x for agent in self.emas.agents], axis=1))
-        self.island_ref.set_std_dev.remote(std_dev)
-
-        if 1 == self.step_num:
+        self.step_num += 1
+        if self.step_num == 1:
             self.migration.wait_for_all_start()
-
-            self.lastBest = self.solutions[0].fitness
-
-            # start measuring time
             self.migration.start_time_measure()
 
-        # MIGRACJE
-        self.nowi = False
+        # MIGRATIONS
+        self.is_new_immigrant = False
         if self.number_of_islands > 1:
             self.migrate_individuals()
-            # todo: SPR CZY MIGRANT POPRAWIŁ WYNIK WYSPY - best w population[0] > best
             try:
-                # print("Island %s iter: %s get popu" % (self.island, self.step_num))
                 self.add_new_individuals()
-            except:
-                pass
+            except: pass # TODO: why throws?
+
+        # EVOLUTIONARY STEP
         self.emas.agents = self.solutions
-
-        c_count = self.emas.iteration(self.step_num)
-        self.solutions = self.emas.agents
+        children_count = self.emas.iteration(self.step_num)
         
-        self.emas.alive_count.append(len(self.emas.agents))
-        self.emas.energy_data_sum.append(sum([i.energy for i in self.emas.agents]))
-        self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents])/len(self.emas.agents))
-        self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
-        self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
+        self.log_history()
 
+        self.solutions = self.emas.agents
         self.solutions.sort(key=lambda agent: agent.fitness)
-
-        # Jeśli W KRZYŻWOANIU I MUTACJI POWSTAŁ LEPSZY
-        if not (self.lastBest == self.solutions[0].fitness):
-            self.lastBest = self.solutions[0].fitness
+        self.last_best = min(self.solutions[0].fitness, self.last_best)
 
         if self.step_num % 5 == 0:
             self.migration.end_time_measure()
-            self.lastBest = self.solutions[0].fitness
-            self.ctrl.endOfProcess(
-                self.island, self.lastBest
-            )
+            self.last_best = self.solutions[0].fitness
+            self.ctrl.endOfProcess(self.island, self.last_best)
 
             self.migration.signal_finish()
 
@@ -360,5 +321,17 @@ class GeneticIslandAlgorithm:
                 self.migration.wait_for_finish()
                 self.ctrl.endOfWholeProbe(self.seria)
         
-        self.evaluations += c_count
+        self.evaluations += children_count
 
+    def update_island_data(self):
+        self.island_ref.set_population.remote(self.emas.agents)
+        self.island_ref.set_fitness.remote(self.last_best)
+        std_dev = np.sum(np.std([agent.x for agent in self.emas.agents], axis=1))
+        self.island_ref.set_std_dev.remote(std_dev)
+
+    def log_history(self):
+        self.emas.alive_count.append(len(self.emas.agents))
+        self.emas.energy_data_sum.append(sum([i.energy for i in self.emas.agents]))
+        self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents]) / len(self.emas.agents))
+        self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
+        self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
