@@ -276,6 +276,8 @@ class GeneticIslandAlgorithm:
             self.step_num, self.evaluations
         )
 
+        print("HERE", new_individuals)
+
         for i in new_individuals:
             i.energy = 0
 
