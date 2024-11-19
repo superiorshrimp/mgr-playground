@@ -28,10 +28,11 @@ class QueueMigration(Migration):
                     and self.rabbitmq_delays[str(self.island)][i] != -1
                 ]
             )
+            # print(self.recursive_dict(i))
             self.channel.basic_publish(
                 exchange="",
                 routing_key=f"island-from-{self.island}-to-{destination}",
-                body=json.dumps(str(i)), # i.__dict__
+                body=json.dumps(self.recursive_dict(i)), # i.__dict__
             )
 
     def receive_individuals(
@@ -39,11 +40,12 @@ class QueueMigration(Migration):
     ) :
         new_individuals = []
         emigration_at_step_num = None
-        for i in range(0, 5):
+        for i in range(0, 3):
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)
+                print(data, data_str)
 
                 emigration_at_step_num = {
                     "step": step_num,
@@ -74,3 +76,8 @@ class QueueMigration(Migration):
                 new_individuals.append(float_solution)
 
         return new_individuals, emigration_at_step_num
+
+    def recursive_dict(self, obj):
+        if hasattr(obj, '__dict__'):
+            return {key: self.recursive_dict(value) for key, value in obj.__dict__.items()}
+        return obj

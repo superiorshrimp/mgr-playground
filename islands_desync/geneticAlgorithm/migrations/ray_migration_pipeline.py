@@ -13,7 +13,7 @@ class RayMigrationPipeline(RayMigration):
     def receive_individuals(self, step_num: int, evaluations: int) :
         new_individuals = ray.get(self.new_individuals_refs)
         self.new_individuals_refs = self.islandActor.get_immigrants.remote()
-
+        print("ni", new_individuals)
         new_individuals, migrant_iteration_numbers, ind_timestamps, src_island, fitness = zip(*new_individuals)
 
         migration_at_step_num = {
