@@ -22,7 +22,7 @@ def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, migration: 
 
     problem = Rastrigin(NUMBER_OF_VARIABLES)
 
-    migration = create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id) # TODO: revert if want delays
+    # migration = create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id) # TODO: revert if want delays
 
     genetic_island_algorithm = GeneticIslandAlgorithm(
         problem=problem,
