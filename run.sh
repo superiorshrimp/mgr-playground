@@ -10,6 +10,8 @@ module load "python/3.10.4-gcccore-11.3.0"
 # pip install "ray[default]"
 # pip install jmetalpy
 # pip install scikit-learn
+# pip install pika
+pip install -r islands_desync/geneticAlgorithm/algorithm/requirements.txt
 
 mkdir -p logs
 export tempdir=/tmp/$USER
@@ -44,12 +46,13 @@ for ((i = 1; i <= worker_num; i++)); do
     # sleep 1
 done
 
+python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
 
 islands_count=3
 migrants_count=4
 migration_interval=8
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology RandomSelect
 
 ray stop
 
