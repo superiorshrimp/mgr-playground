@@ -1,4 +1,5 @@
 import ray
+from time import sleep
 
 from .SelectAlgorithm import SelectAlgorithm
 
@@ -9,7 +10,9 @@ class MinFitnessSelect(SelectAlgorithm):
         super().__init__()
 
     def get_island_relevant_data(self, islands):
-        return [island.get_fitness.remote() for island in islands]
+        r = [island.get_fitness.remote() for island in islands]
+        sleep(0.5)
+        return r
 
     def choose(self, islands, islands_relevant_data, population_member):
         min_val = inf
