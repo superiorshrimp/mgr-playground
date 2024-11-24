@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --nodes=10
+#SBATCH --nodes=101
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
-#SBATCH --mem-per-cpu=1G
+#SBATCH --mem-per-cpu=2G
 #SBATCH -p plgrid
 
 module load "python/3.10.4-gcccore-11.3.0"
@@ -48,11 +48,11 @@ done
 
 # python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
 
-islands_count=9
+islands_count=100
 migrants_count=4
 migration_interval=8
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology RandomSelect
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MaxDistanceSelect
 
 ray stop
 
