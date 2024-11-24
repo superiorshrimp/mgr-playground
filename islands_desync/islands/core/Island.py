@@ -1,5 +1,6 @@
 from math import inf
 
+from time import sleep
 import ray
 from geneticAlgorithm.run_hpc.run_algorithm_params import (
     RunAlgorithmParams,
@@ -58,6 +59,7 @@ class Island:
         self.immigrants.append(immigrant_iteration)
 
     def get_immigrants(self):
+        sleep(0.5)
         return [self.immigrants.pop(0) for _ in self.immigrants]
 
     def __repr__(self):

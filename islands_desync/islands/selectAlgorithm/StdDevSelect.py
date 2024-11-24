@@ -1,4 +1,5 @@
 import ray
+from time import sleep
 
 from .SelectAlgorithm import SelectAlgorithm
 
@@ -9,7 +10,9 @@ class MinStdDevSelect(SelectAlgorithm):
         super().__init__()
 
     def get_island_relevant_data(self, islands):
-        return [island.get_std_dev.remote() for island in islands]
+        r = [island.get_std_dev.remote() for island in islands]
+        sleep(0.5)
+        return r
 
     def choose(self, islands, islands_relevant_data, migrant):
         min_val = inf

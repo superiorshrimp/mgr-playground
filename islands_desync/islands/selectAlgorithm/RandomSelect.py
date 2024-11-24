@@ -1,4 +1,5 @@
 import random
+from time import sleep
 
 from .SelectAlgorithm import SelectAlgorithm
 
