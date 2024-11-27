@@ -1,6 +1,6 @@
 from math import inf
 
-from time import sleep
+from asyncio import sleep
 import ray
 from geneticAlgorithm.run_hpc.run_algorithm_params import (
     RunAlgorithmParams,
@@ -9,6 +9,7 @@ from islands.core.Computation import Computation
 from islands.core.SignalActor import SignalActor
 from islands.selectAlgorithm import SelectAlgorithm
 
+# SLEEP = 0.1
 
 @ray.remote(num_cpus=1)
 class Island:
@@ -40,26 +41,33 @@ class Island:
     def set_population(self, population):
         self.population = population
 
+    # async def get_population(self):
     def get_population(self):
+        # await sleep(SLEEP)
         return self.population
 
     def set_fitness(self, fitness):
         self.max_fitness = fitness
 
+    # async def get_fitness(self):
     def get_fitness(self):
+        # await sleep(SLEEP)
         return self.max_fitness
 
     def set_std_dev(self, std_dev):
         self.std_dev = std_dev
 
-    def get_std_dev(self):
+    # async def get_std_dev(self): # TODO: reorder
+    def get_std_dev(self): # TODO: reorder
+        # await sleep(SLEEP)
         return self.std_dev
 
-    def receive_immigrant(self, immigrant_iteration):
+    def receive_immigrant(self, immigrant_iteration): # TODO: maybe here
         self.immigrants.append(immigrant_iteration)
 
+    # async def get_immigrants(self):
     def get_immigrants(self):
-        sleep(0.5)
+        # await sleep(SLEEP)
         return [self.immigrants.pop(0) for _ in self.immigrants]
 
     def __repr__(self):

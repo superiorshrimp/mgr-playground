@@ -21,7 +21,7 @@ class RayMigration(Migration):
     ):
         island_relevant_data = None
         if not isinstance(self.emigration.select_algorithm, RandomSelect): # TODO: refactor maybe for 2 more parent classes?
-            island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data)
+            island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data.remote())
         # print("Emigracja %s iter: %s" % (island_number, iteration_number))
         for individual in individuals_to_migrate:
             # print("%s: Emigruje %s" % (self.islandActor, individual))
