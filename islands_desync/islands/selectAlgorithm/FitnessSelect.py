@@ -11,7 +11,7 @@ class MinFitnessSelect(SelectAlgorithm):
 
     def get_island_relevant_data(self, islands):
         r = [island.get_fitness.remote() for island in islands]
-        sleep(0.5)
+        # sleep(0.5)
         return r
 
     def choose(self, islands, islands_relevant_data, population_member):
