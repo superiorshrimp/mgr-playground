@@ -190,6 +190,8 @@ class GeneticIslandAlgorithm:
         os.makedirs(dir, exist_ok=True)
         with open(dir + self.par_time + ".json", "a") as f:
             f.write(str(self.island) + " " + str(self.emas.best_fit[-1]) + "\n")
+        with open(dir + "t.json", "a") as f:
+            f.write(str(self.island) + " " + str(self.migration.start) + "  " + str(self.migration.end) + "\n")
 
     # def save_history(self):
     #     dir = "history/" + self.par_date + "/"
