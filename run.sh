@@ -34,7 +34,7 @@ echo "Starting HEAD at $head_node"
 srun --nodes=1 --ntasks=1 -w "$head_node" \
     ray start --head --node-ip-address="$head_node_ip" --port=$port \
     --num-cpus "${SLURM_CPUS_PER_TASK}" --temp-dir="$tempdir" --block &
-
+sleep 10
 # Start ray workers
 
 worker_num=$((SLURM_JOB_NUM_NODES - 1))

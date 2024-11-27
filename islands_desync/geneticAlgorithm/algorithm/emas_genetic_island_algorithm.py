@@ -289,7 +289,7 @@ class GeneticIslandAlgorithm:
     def step(self):
         self.step_num += 1
         if self.step_num == 1:
-            self.migration.wait_for_all_start()
+            # self.migration.wait_for_all_start()
             self.migration.start_time_measure()
 
         # MIGRATIONS
