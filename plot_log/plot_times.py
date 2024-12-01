@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 
 def main():
-    with open("history/t.json", "r") as f:
+    with open("history/t.txt", "r") as f:
         lines = f.readlines()
         d = {}
         for line in lines:
@@ -12,7 +12,7 @@ def main():
             d[int(split[0])] = (float(split[1]), float(split[2]))
 
     for i in range(len(d.keys())):
-        plt.plot([i,i], d[i])
+        plt.plot(d[i], [i,i])
     plt.show()
 
 if __name__ == "__main__":
