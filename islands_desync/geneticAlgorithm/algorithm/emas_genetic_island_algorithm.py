@@ -317,11 +317,11 @@ class GeneticIslandAlgorithm:
             self.last_best = self.solutions[0].fitness
             self.ctrl.endOfProcess(self.island, self.last_best)
 
-            self.migration.signal_finish()
+            # self.migration.signal_finish()
 
-            if self.island == 0:
-                self.migration.wait_for_finish()
-                self.ctrl.endOfWholeProbe(self.seria)
+            # if self.island == 0:
+            #     self.migration.wait_for_finish()
+            #     self.ctrl.endOfWholeProbe(self.seria)
         
         self.evaluations += children_count
 

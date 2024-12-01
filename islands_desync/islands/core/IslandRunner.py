@@ -37,8 +37,9 @@ class IslandRunner:
                 islands[0].start.remote(islands[0], topology[0], self.params, signal_actor)
             )
         ]
+        computations[0].start.remote()
 
-        time.sleep(15)
+        time.sleep(5)
 
         computations.extend(
             ray.get(
@@ -49,4 +50,4 @@ class IslandRunner:
             )
         )
 
-        return [computation.start.remote() for computation in computations]
+        return [computation.start.remote() for computation in computations[1:]]
