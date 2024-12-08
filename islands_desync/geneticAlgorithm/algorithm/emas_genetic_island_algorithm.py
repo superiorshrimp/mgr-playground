@@ -153,9 +153,9 @@ class GeneticIslandAlgorithm:
                     + "\n\n\n"
                 )
 
-        self.ctrl = controller.Controller(
-            self.path, self.island, self.want_run_end_communications
-        )
+        # self.ctrl = controller.Controller(
+        #     self.path, self.island, self.want_run_end_communications
+        # ) # kontrolW0Start.ctrl.txt / kontrolW0End.ctrl.txt
         self.step_num = 0
         self.last_best = inf
 
@@ -315,7 +315,7 @@ class GeneticIslandAlgorithm:
         if self.step_num % 5 == 0:
             self.migration.end_time_measure()
             self.last_best = self.solutions[0].fitness
-            self.ctrl.endOfProcess(self.island, self.last_best)
+            # self.ctrl.endOfProcess(self.island, self.last_best) # kontrolW0Start.ctrl.txt / kontrolW0End.ctrl.txt
 
             # self.migration.signal_finish()
 
