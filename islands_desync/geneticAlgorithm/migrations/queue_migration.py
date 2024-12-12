@@ -9,10 +9,11 @@ from geneticAlgorithm.solution.float_island_solution import (
 
 
 class QueueMigration(Migration):
-    def __init__(self, island, channel, rabbitmq_delays, number_of_islands):
+    def __init__(self, island, channel, delay_channel, rabbitmq_delays, number_of_islands):
         super().__init__()
         self.island = island
         self.channel = channel
+        self.delay_channel = delay_channel
         self.rabbitmq_delays = rabbitmq_delays
         self.number_of_islands = number_of_islands
 
@@ -23,7 +24,7 @@ class QueueMigration(Migration):
             destination = random.choice(
                 [
                     i
-                    for i in range(0, self.number_of_islands)
+                    for i in range(self.number_of_islands)
                     if i != self.island
                     and self.rabbitmq_delays[str(self.island)][i] != -1
                 ]
@@ -40,8 +41,9 @@ class QueueMigration(Migration):
     ) :
         new_individuals = []
         emigration_at_step_num = None
-        for i in range(0, 3):
-            method, properties, body = self.channel.basic_get(f"island-{self.island}")
+        for i in range(self.number_of_islands):
+            method, properties, body = self.delay_channel.basic_get(f"island-{self.island}")
+            print(body)
             if body:
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)

@@ -15,19 +15,17 @@ with open(conf_file) as file:
 rabbitmq_delays = configuration["island_delays"]
 number_of_islands = 3
 
-
 def remove_queues():
-    for island in range(0, 10):
+    for island in range(number_of_islands):
         channel.queue_delete(queue=f"island-{island}")
-        for i in range(0, 10):
+        for i in range(number_of_islands):
             channel.queue_delete(f"island-from-{island}-to-{i}")
 
-
 def create_queues():
-    for island in range(0, number_of_islands):
+    for island in range(number_of_islands):
         queue_name = f"island-{island}"
         channel.queue_declare(queue=queue_name)
-        for i in range(0, number_of_islands):
+        for i in range(number_of_islands):
             if i != island:
                 if rabbitmq_delays[str(island)][i] == -1:
                     continue
