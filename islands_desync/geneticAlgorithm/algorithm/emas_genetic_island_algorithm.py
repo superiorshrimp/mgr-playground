@@ -278,8 +278,8 @@ class GeneticIslandAlgorithm:
             self.step_num, self.evaluations
         )
 
-        for i in new_individuals:
-            i.energy = 0
+        # for i in new_individuals:
+        #     i.energy = 0
 
         if len(new_individuals) > 0:
             self.is_new_immigrant = True

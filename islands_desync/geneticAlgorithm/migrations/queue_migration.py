@@ -1,19 +1,17 @@
 import json
 import random
-from typing import Dict, List
-
+from ..emas.Agent import Agent
+from ..emas.Problem import Rastrigin
+import pika
+import datetime
 from islands.core.Migration import Migration
-from geneticAlgorithm.solution.float_island_solution import (
-    FloatIslandSolution,
-)
 
 
 class QueueMigration(Migration):
-    def __init__(self, island, channel, delay_channel, rabbitmq_delays, number_of_islands):
+    def __init__(self, island, channel, rabbitmq_delays, number_of_islands):
         super().__init__()
         self.island = island
         self.channel = channel
-        self.delay_channel = delay_channel
         self.rabbitmq_delays = rabbitmq_delays
         self.number_of_islands = number_of_islands
 
@@ -30,10 +28,13 @@ class QueueMigration(Migration):
                 ]
             )
             # print(self.recursive_dict(i))
+            data = self.recursive_dict(i)
+            data["timestamp"] = datetime.datetime.now().timestamp()
+            data["source_island"] = self.island
             self.channel.basic_publish(
-                exchange="",
+                exchange="amq.direct",
                 routing_key=f"island-from-{self.island}-to-{destination}",
-                body=json.dumps(self.recursive_dict(i)), # i.__dict__
+                body=json.dumps(data), # i.__dict__
             )
 
     def receive_individuals(
@@ -42,40 +43,26 @@ class QueueMigration(Migration):
         new_individuals = []
         emigration_at_step_num = None
         for i in range(self.number_of_islands):
-            method, properties, body = self.delay_channel.basic_get(f"island-{self.island}")
-            print(body)
+            method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)
-                print(data, data_str)
+                new_agent = Agent(
+                    data['x'],
+                    100, # start_energy
+                    Rastrigin(data['problem']['n_dim'], data['problem']['a']),
+                    data['lower_bound'],
+                    data['upper_bound']
+                )
 
                 emigration_at_step_num = {
                     "step": step_num,
                     "ev": evaluations,
-                    "fitn": data["objectives"][0],
-                    "var": data["variables"],
-                    "from_isl": data["from_island"],
-                    "from_eval": data["from_evaluation"],
+                    "iteration_numbers": 1, # TODO
+                    "timestamps": data['timestamp'],
+                    "src_islands": data['source_island'],
+                    "fitnesses": new_agent.fitness,
                 }
-
-                float_solution = FloatIslandSolution(
-                    data["lower_bound"],
-                    data["upper_bound"],
-                    data["number_of_variables"],
-                    data["number_of_objectives"],
-                    constraints=data["constraints"],
-                    variables=data["variables"],
-                    objectives=data["objectives"],
-                    from_island=data["from_island"],
-                    from_evaluation=data["from_evaluation"],
-                )
-
-                float_solution.objectives = data["objectives"]
-
-                float_solution.variables = data["variables"]
-                float_solution.number_of_constraints = data["number_of_constraints"]
-
-                new_individuals.append(float_solution)
 
         return new_individuals, emigration_at_step_num
 

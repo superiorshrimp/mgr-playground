@@ -33,9 +33,7 @@ def create_queues():
                     delay_channel.queue_declare(
                         queue=f"island-from-{island}-to-{i}",
                         arguments={
-                            "x-message-ttl": rabbitmq_delays[str(island)][
-                                i
-                            ],  # Delay until the message is transferred in milliseconds.
+                            "x-message-ttl": int(rabbitmq_delays[str(island)][i]),  # Delay until the message is transferred in milliseconds.
                             "x-dead-letter-exchange": "amq.direct",  # Exchange used to transfer the message from A to B.
                             "x-dead-letter-routing-key": f"island-{i}",  # Name of the queue we want the message transferred to.
                         },
