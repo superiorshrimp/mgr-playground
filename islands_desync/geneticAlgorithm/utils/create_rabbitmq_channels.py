@@ -21,7 +21,7 @@ class CreateRabbitmqChannels:
     def create_channels(self) -> BlockingChannel:
         channel = None
         if self.number_of_islands > 1:
-            connection_params = pika.ConnectionParameters("localhost")
+            connection_params = pika.ConnectionParameters("3.89.61.251")
             connection = pika.BlockingConnection(connection_params)
             channel = connection.channel()
 

@@ -4,7 +4,7 @@ import pika
 
 conf_file = "islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json"
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host="3.89.61.251"))
 channel = connection.channel()
 delay_channel = connection.channel()
 
