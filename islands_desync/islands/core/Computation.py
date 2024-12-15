@@ -1,8 +1,10 @@
 from typing import List
-
+import json
+import pika
 import ray
 
 from geneticAlgorithm.migrations.ray_migration_pipeline import RayMigrationPipeline
+from geneticAlgorithm.migrations.queue_migration import QueueMigration
 from geneticAlgorithm.run_hpc.create_algorithm_hpc import emas_create_algorithm_hpc
 from geneticAlgorithm.run_hpc.run_algorithm_params import RunAlgorithmParams
 from islands.core.Emigration import Emigration
@@ -23,7 +25,7 @@ class Computation:
         self.island = island
         self.island_id = island_id
         self.emigration = Emigration(islands, select_algorithm)
-        self.migration = RayMigrationPipeline(island, self.emigration, signal_actor)
+        self.migration = RayMigrationPipeline(island, self.emigration, signal_actor) # TODO: delay refactor
         self.algorithm = emas_create_algorithm_hpc(self.island, island_id, self.migration, algorithm_params)
 
     def start(self):

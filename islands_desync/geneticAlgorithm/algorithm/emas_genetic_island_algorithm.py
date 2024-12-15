@@ -277,9 +277,9 @@ class GeneticIslandAlgorithm:
         new_individuals, emigration_at_step_num = self.migration.receive_individuals(
             self.step_num, self.evaluations
         )
-
-        for i in new_individuals:
-            i.energy = 0
+        print(len(new_individuals))
+        # for i in new_individuals:
+        #     i.energy = 0
 
         if len(new_individuals) > 0:
             self.is_new_immigrant = True
