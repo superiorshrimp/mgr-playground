@@ -54,6 +54,7 @@ class QueueMigration(Migration):
                     data['lower_bound'],
                     data['upper_bound']
                 )
+                new_individuals.append(new_agent)
 
                 emigration_at_step_num = {
                     "step": step_num,
@@ -62,7 +63,7 @@ class QueueMigration(Migration):
                     "timestamps": data['timestamp'],
                     "src_islands": data['source_island'],
                     "fitnesses": new_agent.fitness,
-                }
+                } # TODO: emigration at step should maybe be a list?
 
         return new_individuals, emigration_at_step_num
 
