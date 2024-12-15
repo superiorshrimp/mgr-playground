@@ -41,7 +41,9 @@ class QueueMigration(Migration):
         self, step_num: int, evaluations: int
     ) :
         new_individuals = []
-        emigration_at_step_num = None
+        timestamps = []
+        fitnesses = []
+        src_islands = []
         for i in range(self.number_of_islands):
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
@@ -55,15 +57,18 @@ class QueueMigration(Migration):
                     data['upper_bound']
                 )
                 new_individuals.append(new_agent)
+                timestamps.append(data['timestamp'])
+                fitnesses.append(new_agent.fitness)
+                src_islands.append(data['source_island'])
 
-                emigration_at_step_num = {
-                    "step": step_num,
-                    "ev": evaluations,
-                    "iteration_numbers": 1, # TODO
-                    "timestamps": data['timestamp'],
-                    "src_islands": data['source_island'],
-                    "fitnesses": new_agent.fitness,
-                } # TODO: emigration at step should maybe be a list?
+        emigration_at_step_num = {
+            "step": step_num,
+            "ev": evaluations,
+            "iteration_numbers": 1, # TODO
+            "timestamps": timestamps,
+            "src_islands": src_islands,
+            "fitnesses": fitnesses,
+        }
 
         return new_individuals, emigration_at_step_num
 
