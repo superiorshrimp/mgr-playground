@@ -17,6 +17,8 @@ mkdir -p logs
 export tempdir=/tmp/$USER
 mkdir -p $tempdir
 
+rabbitmq-server start -detached
+
 # Getting the node names
 nodes=$(scontrol show hostnames "$SLURM_JOB_NODELIST")
 nodes_array=($nodes)
@@ -49,8 +51,8 @@ done
 python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
 
 islands_count=3
-migrants_count=4
-migration_interval=8
+migrants_count=2
+migration_interval=16
 
 python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MaxDistanceSelect
 
