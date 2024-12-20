@@ -1,6 +1,6 @@
 import pika
 from pika.adapters.blocking_connection import BlockingChannel
-
+import os
 
 class CreateRabbitmqChannels:
     def __init__(
@@ -21,7 +21,8 @@ class CreateRabbitmqChannels:
     def create_channels(self) -> BlockingChannel:
         channel = None
         if self.number_of_islands > 1:
-            connection_params = pika.ConnectionParameters("3.89.61.251")
+            head_node_ip = os.getenv("head_node_ip", default='localhost')
+            connection_params = pika.ConnectionParameters(head_node_ip)
             connection = pika.BlockingConnection(connection_params)
             channel = connection.channel()
 
