@@ -22,7 +22,8 @@ class CreateRabbitmqChannels:
         channel = None
         if self.number_of_islands > 1:
             head_node_ip = os.getenv("head_node_ip", default='localhost')
-            connection_params = pika.ConnectionParameters(head_node_ip)
+            credentials = pika.PlainCredentials("guest", "guest")
+            connection_params = pika.ConnectionParameters(head_node_ip, credentials=credentials)
             connection = pika.BlockingConnection(connection_params)
             channel = connection.channel()
 
