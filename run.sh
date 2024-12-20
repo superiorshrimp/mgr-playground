@@ -25,6 +25,7 @@ nodes_array=($nodes)
 
 head_node=${nodes_array[0]}
 head_node_ip=$(srun --nodes=1 --ntasks=1 -w "$head_node" hostname --ip-address)
+export head_node_ip
 
 # Start ray head
 port=6379
@@ -36,9 +37,9 @@ echo "Starting HEAD at $head_node"
 srun --nodes=1 --ntasks=1 -w "$head_node" \
     ray start --head --node-ip-address="$head_node_ip" --port=$port \
     --num-cpus "${SLURM_CPUS_PER_TASK}" --temp-dir="$tempdir" --block &
-# sleep 1
-# Start ray workers
+sleep 1
 
+# Start ray workers
 worker_num=$((SLURM_JOB_NUM_NODES - 1))
 for ((i = 1; i <= worker_num; i++)); do
     node_i=${nodes_array[$i]}
@@ -48,7 +49,11 @@ for ((i = 1; i <= worker_num; i++)); do
     # sleep 1
 done
 
+sleep 1
+
 python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
+
+rabbitmqctl list_vhosts | xargs -n1  rabbitmqctl list_queues -p
 
 islands_count=3
 migrants_count=2
