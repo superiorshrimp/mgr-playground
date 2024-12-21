@@ -34,9 +34,9 @@ class IslandRunner:
 
         signal_actor = SignalActor.remote(self.params.island_count)
 
-        # return self.start_sync(islands, topology, signal_actor)
+        return self.start_sync(islands, topology, signal_actor)
         # return self.start_first_desync(islands, topology, signal_actor)
-        return self.start_uniform_desync(islands, topology, signal_actor)
+        # return self.start_uniform_desync(islands, topology, signal_actor)
 
     def start_sync(self, islands, topology, signal_actor):
         computations = ray.get([
