@@ -49,8 +49,8 @@ for ((i = 1; i <= worker_num; i++)); do
     # sleep 1
 done
 
-sleep 10
 
+rabbitmqctl await_startup
 rabbitmqctl add_user rabbitmq rabbitmq
 rabbitmqctl set_user_tags rabbitmq rabbitmq
 rabbitmqctl set_permissions -p / rabbitmq ".*" ".*" ".*"
