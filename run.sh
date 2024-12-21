@@ -49,7 +49,11 @@ for ((i = 1; i <= worker_num; i++)); do
     # sleep 1
 done
 
-sleep 1
+sleep 10
+
+rabbitmqctl add_user rabbitmq rabbitmq
+rabbitmqctl set_user_tags rabbitmq rabbitmq
+rabbitmqctl set_permissions -p / rabbitmq ".*" ".*" ".*"
 
 python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
 
