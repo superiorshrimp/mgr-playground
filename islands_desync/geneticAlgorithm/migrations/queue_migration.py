@@ -21,20 +21,17 @@ class QueueMigration(Migration):
         for i in individuals_to_migrate:
             destination = random.choice(
                 [
-                    i
-                    for i in range(self.number_of_islands)
-                    if i != self.island
-                    and self.rabbitmq_delays[str(self.island)][i] != -1
+                    i for i in self.island_delays if i != -1
                 ]
             )
-            # print(self.recursive_dict(i))
+
             data = self.recursive_dict(i)
             data["timestamp"] = datetime.datetime.now().timestamp()
             data["source_island"] = self.island
             self.channel.basic_publish(
                 exchange="amq.direct",
                 routing_key=f"island-from-{self.island}-to-{destination}",
-                body=json.dumps(data), # i.__dict__
+                body=json.dumps(data),
             )
 
     def receive_individuals(
