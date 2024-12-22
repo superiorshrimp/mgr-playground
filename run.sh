@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --nodes=4
+#SBATCH --nodes=12
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem-per-cpu=2G
@@ -59,7 +59,7 @@ python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
 
 rabbitmqctl list_vhosts | xargs -n1  rabbitmqctl list_queues -p
 
-islands_count=3
+islands_count=10
 migrants_count=2
 migration_interval=16
 
