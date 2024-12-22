@@ -21,7 +21,7 @@ class QueueMigration(Migration):
         for i in individuals_to_migrate:
             destination = random.choice(
                 [
-                    i for i in self.island_delays if i != -1
+                    i for i in self.rabbitmq_delays[str(self.island)] if i != -1
                 ]
             )
 
