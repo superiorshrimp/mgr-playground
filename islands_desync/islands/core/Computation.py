@@ -26,7 +26,7 @@ class Computation:
         self.island_id = island_id
         self.emigration = Emigration(islands, select_algorithm)
         self.migration = RayMigrationPipeline(island, self.emigration, signal_actor) # TODO: delay refactor
-        self.algorithm = emas_create_algorithm_hpc(self.island, island_id, self.migration, algorithm_params)
+        self.algorithm = emas_create_algorithm_hpc(self.island, island_id, self.emigration, algorithm_params) # self.migration before i think
 
     def start(self):
         print("Starting computation")
