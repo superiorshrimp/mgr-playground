@@ -17,3 +17,10 @@ class Emigration:
             population_member
         )
         destination.receive_immigrant.remote(population_member)
+
+    def get_destination(self, population_member, islands_relevant_data):
+        return self.select_algorithm.choose(
+            self.islands,
+            islands_relevant_data,
+            population_member
+        )
