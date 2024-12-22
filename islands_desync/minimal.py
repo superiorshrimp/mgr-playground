@@ -18,12 +18,14 @@ args:
     5. island selection algorithm
 '''
 def main():
+    now = datetime.now()
+    formatted_time = now.strftime('g%H%M%S') + f"{now.microsecond // 1000:03d}"
     params = RunAlgorithmParams(
         island_count=int(argv[1]),
         number_of_emigrants=int(argv[2]),
         migration_interval=int(argv[3]),
         dda=datetime.now().strftime('%y%m%d'),
-        tta=datetime.now().strftime('g%H%M%S'),
+        tta=formatted_time,
         series_number=1,
     )
 
