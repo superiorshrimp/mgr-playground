@@ -12,6 +12,7 @@ class EMAS:
     def __init__(self, config: Config):
         self.config = config
         self.agents = config.agents
+        self.desired_energy_sum = sum([i.energy for i in self.agents])
 
         self.alive_count = [len(self.agents)]
         self.energy_data_sum = [sum([i.energy for i in self.agents])]
@@ -22,7 +23,9 @@ class EMAS:
     def run(self):
         start_time = time()
         evaluations = 0
-        for it in range(self.config.n_iter):
+        # for it in range(self.config.n_iter):
+        it = 0
+        while evaluations < 20000:
             evaluations += len(self.agents)
             self.iteration(it)
             best_fit = min(self.agents, key=lambda a: a.fitness).fitness
@@ -33,6 +36,7 @@ class EMAS:
             self.energy_data_avg.append(sum([i.energy for i in self.agents])/len(self.agents))
             self.best_fit.append(best_fit)
             self.variance.append(sum(var([i.x for i in self.agents], axis=0)))
+            it += 1
 
         print("runtime: ", time() - start_time, "evals: ", evaluations)
 
@@ -45,6 +49,8 @@ class EMAS:
             best = min([agent for agent in self.agents], key=lambda a: a.fitness)
             print([round(b, 2) for b in best.x])
             print(best.fitness)
+
+        # self.distribute_energy_overflow()
 
     def reproduce(self):
         fitness_average = sum(
@@ -103,6 +109,14 @@ class EMAS:
             agent for agent in self.agents
             if agent.energy > self.config.alive_energy
         ]
+
+    def distribute_energy_overflow(self):
+        e_per_agent = (
+            self.desired_energy_sum - sum([i.energy for i in self.agents])
+        ) / len(self.agents)
+        for a in self.agents:
+            a.energy += e_per_agent
+        # print("Overflow:", e_per_agent)
 
     def summary(self):
         iter = [i for i in range(self.config.n_iter + 1)]
