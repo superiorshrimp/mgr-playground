@@ -63,7 +63,7 @@ islands_count=10
 migrants_count=2
 migration_interval=16
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MaxDistanceSelect
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect
 
 ray stop
 
