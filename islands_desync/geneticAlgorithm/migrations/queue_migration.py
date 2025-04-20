@@ -24,13 +24,14 @@ class QueueMigration(Migration):
         island_relevant_data = None
         if not isinstance(self.emigration.select_algorithm, RandomSelect):  # TODO: refactor maybe for 2 more parent classes?
             island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
-        for i in individuals_to_migrate:
-            destination = self.emigration.get_destination(individuals_to_migrate[0], island_relevant_data)
-            # destination = random.choice([i for i in range(len(self.rabbitmq_delays[str(self.island)])) if self.rabbitmq_delays[str(self.island)][i] != -1])
+        for i, ind in enumerate(individuals_to_migrate):
+            destination = self.emigration.get_destination(individuals_to_migrate[i], island_relevant_data)
+            destination = random.choice([i for i in range(len(self.rabbitmq_delays[str(self.island)])) if self.rabbitmq_delays[str(self.island)][i] != -1])
 
-            data = self.recursive_dict(i)
+            data = self.recursive_dict(ind)
             data["timestamp"] = datetime.datetime.now().timestamp()
             data["source_island"] = self.island
+            print("migrate from " + str(self.island) + " to " + str(destination))
             self.channel.basic_publish(
                 exchange="amq.direct",
                 routing_key=f"island-from-{self.island}-to-{destination}",
@@ -44,9 +45,10 @@ class QueueMigration(Migration):
         timestamps = []
         fitnesses = []
         src_islands = []
-        for i in range(self.number_of_islands):
+        while True:
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
+                print("body not empty")
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)
                 new_agent = Agent(
@@ -60,6 +62,8 @@ class QueueMigration(Migration):
                 timestamps.append(data['timestamp'])
                 fitnesses.append(new_agent.fitness)
                 src_islands.append(data['source_island'])
+            else:
+                break
 
         emigration_at_step_num = {
             "step": step_num,

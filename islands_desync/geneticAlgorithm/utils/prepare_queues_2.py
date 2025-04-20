@@ -13,7 +13,7 @@ with open(conf_file) as file:
     configuration = json.loads(file.read())
 
 rabbitmq_delays = configuration["island_delays"]
-number_of_islands = 10
+number_of_islands = len(rabbitmq_delays)
 
 def remove_queues():
     for island in range(number_of_islands):

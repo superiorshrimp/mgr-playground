@@ -52,7 +52,7 @@ def create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id, emigration):
     rabbitmq_delays = configuration["island_delays"]
 
     channel = CreateRabbitmqChannels(
-        3,
+        20,
         island_id,
         data_interval=round(
             NUMBER_OF_EVALUATIONS // 50 #configuration["how_many_data_intervals"]
@@ -63,7 +63,7 @@ def create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id, emigration):
     migration = QueueMigration(
         island_id,
         channel=channel,
-        number_of_islands=3,
+        number_of_islands=20,
         rabbitmq_delays=rabbitmq_delays,
         emigration=emigration
     )

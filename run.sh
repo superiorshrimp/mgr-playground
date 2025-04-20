@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --nodes=12
+#SBATCH --nodes=22
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem-per-cpu=2G
@@ -33,6 +33,8 @@ ip_head=$head_node_ip:$port
 export ip_head
 echo "IP Head: $ip_head"
 
+ray stop
+export RAY_DEDUP_LOGS=0
 echo "Starting HEAD at $head_node"
 srun --nodes=1 --ntasks=1 -w "$head_node" \
     ray start --head --node-ip-address="$head_node_ip" --port=$port \
@@ -59,7 +61,7 @@ python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
 
 rabbitmqctl list_vhosts | xargs -n1  rabbitmqctl list_queues -p
 
-islands_count=10
+islands_count=20
 migrants_count=2
 migration_interval=16
 
