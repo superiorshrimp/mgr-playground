@@ -282,7 +282,7 @@ class GeneticIslandAlgorithm:
         #     i.energy = 0
 
         if len(new_individuals) > 0:
-            print("bbb " + str(len(new_individuals)) + " " + str(self.island))
+            # print("bbb " + str(len(new_individuals)) + " " + str(self.island))
             self.is_new_immigrant = True
             emigration_at_step_num["destinTimestamp"] = time()
             emigration_at_step_num["destinMaxFitness"] = self.last_best
