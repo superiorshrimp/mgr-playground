@@ -35,6 +35,9 @@ class Island:
 
         return self.computation
 
+    def get_id(self):
+        return self.island_id
+
     def set_population(self, population):
         self.population = population
 
