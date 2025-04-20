@@ -11,7 +11,8 @@ def main():
             print(split)
             d[int(split[0])] = (float(split[1]), float(split[2]))
 
-    for i in range(len(d.keys())):
+    print()
+    for i in sorted(d.keys()):
         plt.plot(d[i], [i,i])
     plt.show()
 
