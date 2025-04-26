@@ -21,7 +21,7 @@ class Rastrigin(Problem):
     def evaluate(self, x):
         assert len(x) == self.n_dim
         
-        return self.a * len(x)+ sum(
+        return self.a * len(x) + sum(
             [x[i]**2 - self.a * cos(2*pi*x[i]) for i in range(len(x))]
         )
 

@@ -52,7 +52,6 @@ class Agent:
         energy_reproduce_loss_coef: float,
         cross_coef: float,
         mutation_coef: float,
-        alive_energy: float,
         fitness_average: float,
         n_agent: int,
         agents_count: int
