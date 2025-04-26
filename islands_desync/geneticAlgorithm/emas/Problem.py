@@ -1,11 +1,10 @@
 from math import cos, pi
 
-class Problem():
-
+class Problem:
     def __init__(self):
         raise NotImplementedError("Abstract class")
 
-    def evaluate(self):
+    def evaluate(self, x):
         raise NotImplementedError("Abstract method")
     
     def name(self):
