@@ -11,7 +11,6 @@ class Problem:
         raise NotImplementedError("Abstract method")
 
 class Rastrigin(Problem):
-    
     def __init__(self, n_dim, a=10.0):
         assert n_dim > 0
         assert a != 0
