@@ -29,7 +29,6 @@ class QueueMigration(Migration):
             data = self.recursive_dict(ind)
             data["timestamp"] = datetime.datetime.now().timestamp()
             data["source_island"] = self.island
-            # print("migrate from " + str(self.island) + " to " + str(destination))
             self.channel.basic_publish(
                 exchange="amq.direct",
                 routing_key=f"island-from-{self.island}-to-{destination}",
