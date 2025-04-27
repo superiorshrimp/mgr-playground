@@ -12,20 +12,17 @@ class EMAS:
     def __init__(self, config: Config):
         self.config = config
         self.agents = config.agents
-        self.desired_energy_sum = sum([i.energy for i in self.agents])
 
         self.alive_count = [len(self.agents)]
         self.energy_data_sum = [sum([i.energy for i in self.agents])]
-        self.energy_data_avg = [sum([i.energy for i in self.agents])/len(self.agents)]
+        self.energy_data_avg = [sum([i.energy for i in self.agents]) / len(self.agents)]
         self.best_fit = [min(self.agents, key=lambda a: a.fitness).fitness]
         self.variance = [sum(var([i.x for i in self.agents], axis=0))]
 
     def run(self):
         start_time = time()
         evaluations = 0
-        # for it in range(self.config.n_iter):
-        it = 0
-        while evaluations < 20000:
+        for it in range(self.config.n_iter):
             evaluations += len(self.agents)
             self.iteration(it)
             best_fit = min(self.agents, key=lambda a: a.fitness).fitness
@@ -33,36 +30,34 @@ class EMAS:
                 print("iteration:", it, "agents count:", len(self.agents), "best fit:", best_fit)
             self.alive_count.append(len(self.agents))
             self.energy_data_sum.append(sum([i.energy for i in self.agents]))
-            self.energy_data_avg.append(sum([i.energy for i in self.agents])/len(self.agents))
+            self.energy_data_avg.append(sum([i.energy for i in self.agents]) / len(self.agents))
             self.best_fit.append(best_fit)
             self.variance.append(sum(var([i.x for i in self.agents], axis=0)))
-            it += 1
 
         print("runtime: ", time() - start_time, "evals: ", evaluations)
 
-    def iteration(self, it):
-        c = self.reproduce()
+    def iteration(self, it) -> int:
+        children = self.select_and_reproduce()
         self.fight()
         self.remove_dead()
-        self.agents.extend(c)
-        if it == self.config.n_iter-1:
+        self.agents.extend(children)
+        if it == self.config.n_iter - 1:
             best = min([agent for agent in self.agents], key=lambda a: a.fitness)
             print([round(b, 2) for b in best.x])
             print(best.fitness)
+        return len(children)
 
-        # self.distribute_energy_overflow()
-
-    def reproduce(self):
+    def select_and_reproduce(self):
         fitness_average = sum(
             [agent.fitness for agent in self.agents]
         ) / len(self.agents)
         c = []
         p = list(
-                filter(
-                    lambda a: a.energy > self.config.reproduce_energy,
-                    self.agents
-                )
+            filter(
+                lambda a: a.energy > self.config.reproduce_energy,
+                self.agents
             )
+        )
         shuffle(p)
         agents_count = len(self.agents)
         for i in range(len(p) // 2):
@@ -79,7 +74,7 @@ class EMAS:
             )
             agents_count += len(offspring)
             c.extend(offspring)
-        
+
         return c
 
     def fight(self):
@@ -87,20 +82,20 @@ class EMAS:
 
         n = len(self.agents) // 2
         for i in range(n):
-            a1, a2 = self.agents[i], self.agents[n+i]
+            a1, a2 = self.agents[i], self.agents[n + i]
             if a1.fitness > a2.fitness:
                 a1, a2 = a2, a1
-            
+
             energy_loss = a2.energy * self.config.energy_fight_loss_coef
 
             diff = np.sum(np.abs(np.array(a1.x) - np.array(a2.x)))
             diff /= (a1.upper_bound - a1.lower_bound)
             diff /= len(a1.x)
 
-            energy_loss += a2.energy * (1-diff) * self.config.energy_diff_loss_coef
+            energy_loss += a2.energy * (1 - diff) * self.config.energy_diff_loss_coef
             if a2.energy - energy_loss < self.config.alive_energy:
                 energy_loss = a2.energy - self.config.alive_energy
-            
+
             a1.energy += (energy_loss + self.config.alive_energy)
             a2.energy -= (energy_loss + self.config.alive_energy)
 
@@ -110,15 +105,7 @@ class EMAS:
             if agent.energy > self.config.alive_energy
         ]
 
-    def distribute_energy_overflow(self):
-        e_per_agent = (
-            self.desired_energy_sum - sum([i.energy for i in self.agents])
-        ) / len(self.agents)
-        for a in self.agents:
-            a.energy += e_per_agent
-        # print("Overflow:", e_per_agent)
-
-    def summary(self):
+    def summary(self): # tutaj inaczej niż w używanych plikach
         iter = [i for i in range(self.config.n_iter + 1)]
         # plt.plot(iter, self.alive_count)
         # plt.plot(iter, self.energy_data_sum)

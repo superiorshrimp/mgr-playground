@@ -4,7 +4,6 @@ from .Problem import Problem
 
 
 class Agent:
-    
     def __init__(
         self,
         x: list[float],
@@ -39,9 +38,9 @@ class Agent:
             if random() < mutation_coef:
                 self.x[i] = get_truncated_normal(
                     mean = self.x[i],
-                    sd=1,
-                    low=self.lower_bound,
-                    upp=self.upper_bound
+                    sd = 1,
+                    low = self.lower_bound,
+                    upp = self.upper_bound
                 )
 
         self.fitness = self.problem.evaluate(self.x)
@@ -53,7 +52,6 @@ class Agent:
         energy_reproduce_loss_coef: float,
         cross_coef: float,
         mutation_coef: float,
-        alive_energy: float,
         fitness_average: float,
         n_agent: int,
         agents_count: int
@@ -88,6 +86,6 @@ def get_truncated_normal(mean, sd, low, upp):
     return truncnorm.rvs(
         (low - mean) / sd,
         (upp - mean) / sd, 
-        loc=mean,
-        scale=sd
+        loc = mean,
+        scale = sd
     )

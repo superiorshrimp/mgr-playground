@@ -25,7 +25,6 @@ class QueueMigration(Migration):
             island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
         for i, ind in enumerate(individuals_to_migrate):
             destination = self.emigration.get_destination(individuals_to_migrate[i], island_relevant_data)
-            # destination = random.choice([i for i in range(len(self.rabbitmq_delays[str(self.island)])) if self.rabbitmq_delays[str(self.island)][i] != -1])
 
             data = self.recursive_dict(ind)
             data["timestamp"] = datetime.datetime.now().timestamp()

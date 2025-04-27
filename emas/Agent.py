@@ -4,7 +4,6 @@ from Problem import Problem
 
 
 class Agent:
-    
     def __init__(
         self,
         x: list[float],
@@ -39,9 +38,9 @@ class Agent:
             if random() < mutation_coef:
                 self.x[i] = get_truncated_normal(
                     mean = self.x[i],
-                    sd=1,
-                    low=self.lower_bound,
-                    upp=self.upper_bound
+                    sd = 1,
+                    low = self.lower_bound,
+                    upp = self.upper_bound
                 )
 
         self.fitness = self.problem.evaluate(self.x)
@@ -53,7 +52,6 @@ class Agent:
         energy_reproduce_loss_coef: float,
         cross_coef: float,
         mutation_coef: float,
-        alive_energy: float,
         fitness_average: float,
         n_agent: int,
         agents_count: int
@@ -61,7 +59,7 @@ class Agent:
         init_energy1 = p1.energy * energy_reproduce_loss_coef
         init_energy2 = p2.energy * energy_reproduce_loss_coef
         init_energy = init_energy1 + init_energy2
-        
+
         p1.energy -= init_energy1
         p2.energy -= init_energy2
 
@@ -73,24 +71,26 @@ class Agent:
             c2_x, init_energy, p1.problem, p1.lower_bound, p1.upper_bound
         )
 
-        if c1.fitness < fitness_average: c1.mutate(mutation_coef / 2)
-        else: c1.mutate(mutation_coef * 2)
-        if c2.fitness < fitness_average: c2.mutate(mutation_coef / 2)
-        else: c2.mutate(mutation_coef * 2)
+        if c1.fitness < fitness_average:
+            c1.mutate(mutation_coef / 2)
+        else:
+            c1.mutate(mutation_coef * 2)
+        if c2.fitness < fitness_average:
+            c2.mutate(mutation_coef / 2)
+        else:
+            c2.mutate(mutation_coef * 2)
 
         if agents_count < n_agent / 2:
-            # if c1.fitness < fitness_average and c2.fitness < fitness_average:
             c1.energy /= 2
-            c1.energy += alive_energy
             c2.energy /= 2
-            c2.energy += alive_energy
             return [c1, c2]
         return [c1] if c1.fitness < c2.fitness else [c2]
+
 
 def get_truncated_normal(mean, sd, low, upp):
     return truncnorm.rvs(
         (low - mean) / sd,
-        (upp - mean) / sd, 
-        loc=mean,
-        scale=sd
+        (upp - mean) / sd,
+        loc = mean,
+        scale = sd
     )

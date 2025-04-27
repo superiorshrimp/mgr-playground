@@ -37,7 +37,7 @@ class EMAS:
         print("runtime: ", time() - start_time, "evals: ", evaluations)
 
     def iteration(self, it) -> int:
-        children = self.reproduce()
+        children = self.select_and_reproduce()
         self.fight()
         self.remove_dead()
         self.agents.extend(children)
@@ -47,7 +47,7 @@ class EMAS:
             print(best.fitness)
         return len(children)
 
-    def reproduce(self):
+    def select_and_reproduce(self):
         fitness_average = sum(
             [agent.fitness for agent in self.agents]
         ) / len(self.agents)
@@ -92,7 +92,8 @@ class EMAS:
             diff /= (a1.upper_bound - a1.lower_bound)
             diff /= len(a1.x)
 
-            energy_loss += a2.energy * (1-diff) * self.config.energy_diff_loss_coef
+            energy_loss += (a2.energy
+                            * (1-diff) * self.config.energy_diff_loss_coef)
             if a2.energy - energy_loss < self.config.alive_energy:
                 energy_loss = a2.energy - self.config.alive_energy
             
