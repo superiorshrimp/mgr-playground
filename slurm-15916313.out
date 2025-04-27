@@ -1,0 +1,461 @@
+ gcccore/11.3.0 loaded.
+ zlib/1.2.12-gcccore-11.3.0 loaded.
+ binutils/2.38-gcccore-11.3.0 loaded.
+ bzip2/1.0.8-gcccore-11.3.0 loaded.
+ ncurses/6.3-gcccore-11.3.0 loaded.
+ libreadline/8.1.2-gcccore-11.3.0 loaded.
+ tcl/8.6.12-gcccore-11.3.0 loaded.
+ sqlite/3.38.3-gcccore-11.3.0 loaded.
+ xz/5.2.5-gcccore-11.3.0 loaded.
+ gmp/6.2.1-gcccore-11.3.0 loaded.
+ libffi/3.4.2-gcccore-11.3.0 loaded.
+ openssl/1.1 loaded.
+ python/3.10.4-gcccore-11.3.0 loaded.
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pika in /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages (1.2.0)
+
+[notice] A new release of pip is available: 24.2 -> 25.0.1
+[notice] To update, run: pip install --upgrade pip
+IP Head: 172.22.16.18:6379
+2025-04-20 15:42:32,117	INFO scripts.py:1197 -- Did not find any active Ray processes.
+Starting HEAD at ac0018
+Starting WORKER 1 at ac0019
+Starting WORKER 2 at ac0020
+Starting WORKER 3 at ac0021
+Starting WORKER 4 at ac0024
+Starting WORKER 5 at ac0025
+Starting WORKER 6 at ac0026
+Starting WORKER 7 at ac0027
+Starting WORKER 8 at ac0028
+Starting WORKER 9 at ac0031
+Starting WORKER 10 at ac0032
+Starting WORKER 11 at ac0068
+Starting WORKER 12 at ac0070
+Starting WORKER 13 at ac0071
+Starting WORKER 14 at ac0075
+Starting WORKER 15 at ac0077
+Starting WORKER 16 at ac0079
+Starting WORKER 17 at ac0080
+Starting WORKER 18 at ac0084
+Starting WORKER 19 at ac0093
+Starting WORKER 20 at ac0094
+Starting WORKER 21 at ac0096
+Adding user "rabbitmq" ...
+Error:
+User "rabbitmq" already exists
+[2025-04-20 15:42:35,957 W 3493202 3493202] global_state_accessor.cc:463: Retrying to get node with node ID ebbb90d5f850d19b7ba80ac18536569172545b112b18be60b0da3944
+[2025-04-20 15:42:35,986 W 3312425 3312425] global_state_accessor.cc:463: Retrying to get node with node ID 4dd17e75e393b0bfce50656f08867d37a45d7ae6c668fbd3a56253c2
+[2025-04-20 15:42:35,988 W 4009792 4009792] global_state_accessor.cc:463: Retrying to get node with node ID 209347810401b2425b64d30d510b6bb4a141a8d1b1816bfc3bfafabd
+[2025-04-20 15:42:35,988 W 2321764 2321764] global_state_accessor.cc:463: Retrying to get node with node ID b05b3c343d1cb2147035807094d5099da416a4d87be666b64af2d564
+[2025-04-20 15:42:35,998 W 2619143 2619143] global_state_accessor.cc:463: Retrying to get node with node ID 576b1fb57d1540ec6cc392756157c44aeb2c0a1e93e1330bedddc5dd
+[2025-04-20 15:42:35,998 W 2101145 2101145] global_state_accessor.cc:463: Retrying to get node with node ID 73bf5c53ed6a8774f2968dd74d9b396c39e2a59d7ac8aaa0fc064e0e
+[2025-04-20 15:42:36,000 W 4012406 4012406] global_state_accessor.cc:463: Retrying to get node with node ID a724f7e609ede589ea5db5315eada98558bdcd2787f3d5183dfe3cf3
+[2025-04-20 15:42:36,002 W 3976449 3976449] global_state_accessor.cc:463: Retrying to get node with node ID 01b1d071d86a102a865b6d9449e897d5dc84e862ba97b969ca0773cf
+[2025-04-20 15:42:36,007 W 3445529 3445529] global_state_accessor.cc:463: Retrying to get node with node ID ec9e778ee5385883a19bf26caf2713b997f808c6a68d758988fc1ea1
+[2025-04-20 15:42:36,011 W 3104138 3104138] global_state_accessor.cc:463: Retrying to get node with node ID 7c63d0652c773474420f667d1e84e4b63226b375445638351923ba1b
+2025-04-20 15:42:34,897	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.77[22m
+2025-04-20 15:42:36,011	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,011	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,011	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,011	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,011	INFO scripts.py:978 -- [1m  ray stop[22m
+[2025-04-20 15:42:36,019 W 6030 6030] global_state_accessor.cc:463: Retrying to get node with node ID c190fd15517ac0dbc8099c24662464e26d482a7f9a6729dc838e0b0f
+[2025-04-20 15:42:36,025 W 3813489 3813489] global_state_accessor.cc:463: Retrying to get node with node ID aa451b777b0bb64272ab4177c654db1459c47b09509d907abc0e7829
+[2025-04-20 15:42:36,027 W 1317239 1317239] global_state_accessor.cc:463: Retrying to get node with node ID 37b23406d6289590b8f3e1f74a30b89b9add8536927d9a90123de0bb
+[2025-04-20 15:42:36,027 W 530797 530797] global_state_accessor.cc:463: Retrying to get node with node ID d5a24ad850add1d6f89a60e35ce7093b081ccb1ede58474a18a67c89
+2025-04-20 15:42:34,916	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.21[22m
+2025-04-20 15:42:36,027	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,028	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,028	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,028	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,028	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:34,922	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.70[22m
+2025-04-20 15:42:36,043	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,043	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,043	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,043	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,043	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:34,926	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.25[22m
+2025-04-20 15:42:36,046	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,047	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,047	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,047	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,047	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:36,012	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,012	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,012	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:34,929	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.68[22m
+2025-04-20 15:42:36,056	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,056	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,056	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,056	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,056	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:36,028	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,028	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,028	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:34,956	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.20[22m
+2025-04-20 15:42:36,071	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,071	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,071	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,071	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,071	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:34,861	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.32[22m
+2025-04-20 15:42:36,075	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,075	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,075	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,075	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,075	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:36,044	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,044	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,044	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:36,047	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,047	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,047	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:36,056	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,056	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,056	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:36,071	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,071	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,071	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:36,075	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,075	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,075	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+Setting tags for user "rabbitmq" to [rabbitmq] ...
+[2025-04-20 15:42:36,288 W 1452665 1452665] global_state_accessor.cc:463: Retrying to get node with node ID 2cd3d46bd60b3c557b665f2716dd568de14123e29e68c2c81b157987
+Setting permissions for user "rabbitmq" in vhost "/" ...
+2025-04-20 15:42:35,066	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.80[22m
+2025-04-20 15:42:36,973	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:36,973	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:36,973	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:36,973	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:36,973	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:36,973	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:36,973	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:36,973	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:34,979	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.31[22m
+2025-04-20 15:42:37,002	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,002	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,002	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,002	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,002	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:34,983	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.27[22m
+2025-04-20 15:42:37,002	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,002	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,002	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,002	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,002	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,002	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,002	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,002	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:37,002	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,002	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,002	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,075	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.28[22m
+2025-04-20 15:42:37,004	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,004	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,004	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,004	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,004	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,004	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,004	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,004	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,170	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.26[22m
+2025-04-20 15:42:37,012	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,012	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,012	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,012	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,012	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:35,001	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.71[22m
+2025-04-20 15:42:37,012	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,012	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,012	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,012	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,012	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,012	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,013	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,013	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:37,012	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,013	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,013	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,199	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.79[22m
+2025-04-20 15:42:37,015	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,015	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,015	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,015	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,015	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,015	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,016	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,016	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,010	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.94[22m
+2025-04-20 15:42:37,017	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,017	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,017	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,017	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,017	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,017	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,017	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,017	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,114	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.93[22m
+2025-04-20 15:42:37,023	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,023	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,023	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,023	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,023	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,024	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,024	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,024	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,108	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.96[22m
+2025-04-20 15:42:37,025	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,025	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,025	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,025	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,025	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,025	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,025	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,025	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,118	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.19[22m
+2025-04-20 15:42:37,034	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,035	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,035	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,035	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,035	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,035	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,035	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,035	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,211	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.84[22m
+2025-04-20 15:42:37,039	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,040	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,040	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,040	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,040	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,040	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,040	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,040	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,136	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.24[22m
+2025-04-20 15:42:37,042	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,042	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,042	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,042	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,043	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,043	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,043	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,043	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:35,013	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.75[22m
+2025-04-20 15:42:37,043	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-04-20 15:42:37,043	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,044	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-04-20 15:42:37,044	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,044	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-04-20 15:42:37,044	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,044	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,044	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-04-20 15:42:33,848	INFO usage_lib.py:467 -- Usage stats collection is enabled by default without user confirmation because this terminal is detected to be non-interactive. To disable this, add `--disable-usage-stats` to the command that starts the cluster, or run the following command: `ray disable-usage-stats` before starting the cluster. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+2025-04-20 15:42:33,848	INFO scripts.py:778 -- [37mLocal node IP[39m: [1m172.22.16.18[22m
+2025-04-20 15:42:37,305	SUCC scripts.py:815 -- [32m--------------------[39m
+2025-04-20 15:42:37,305	SUCC scripts.py:816 -- [32mRay runtime started.[39m
+2025-04-20 15:42:37,305	SUCC scripts.py:817 -- [32m--------------------[39m
+2025-04-20 15:42:37,305	INFO scripts.py:819 -- [36mNext steps[39m
+2025-04-20 15:42:37,305	INFO scripts.py:822 -- To add another node to this Ray cluster, run
+2025-04-20 15:42:37,305	INFO scripts.py:825 -- [1m  ray start --address='172.22.16.18:6379'[22m
+2025-04-20 15:42:37,305	INFO scripts.py:834 -- To connect to this Ray cluster:
+2025-04-20 15:42:37,305	INFO scripts.py:836 -- [35mimport[39m[26m ray
+2025-04-20 15:42:37,305	INFO scripts.py:837 -- ray[35m.[39m[26minit(_node_ip_address[35m=[39m[26m[33m'172.22.16.18'[39m[26m)
+2025-04-20 15:42:37,305	INFO scripts.py:849 -- To submit a Ray job using the Ray Jobs CLI:
+2025-04-20 15:42:37,305	INFO scripts.py:850 -- [1m  RAY_ADDRESS='http://127.0.0.1:8265' ray job submit --working-dir . -- python my_script.py[22m
+2025-04-20 15:42:37,306	INFO scripts.py:859 -- See https://docs.ray.io/en/latest/cluster/running-applications/job-submission/index.html 
+2025-04-20 15:42:37,306	INFO scripts.py:863 -- for more information on submitting Ray jobs to the Ray cluster.
+2025-04-20 15:42:37,306	INFO scripts.py:868 -- To terminate the Ray runtime, run
+2025-04-20 15:42:37,306	INFO scripts.py:869 -- [1m  ray stop[22m
+2025-04-20 15:42:37,306	INFO scripts.py:872 -- To view the status of the cluster, use
+2025-04-20 15:42:37,306	INFO scripts.py:873 --   [1mray status[22m[26m
+2025-04-20 15:42:37,307	INFO scripts.py:877 -- To monitor and debug Ray, view the dashboard at 
+2025-04-20 15:42:37,307	INFO scripts.py:878 --   [1m127.0.0.1:8265[22m[26m
+2025-04-20 15:42:37,307	INFO scripts.py:885 -- [4mIf connection to the dashboard fails, check your firewall settings and network configuration.[24m
+2025-04-20 15:42:37,307	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-04-20 15:42:37,307	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-04-20 15:42:37,307	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+Timeout: 60.0 seconds ...
+Listing queues for vhost Listing ...
+Timeout: 60.0 seconds ...
+Listing queues for vhost vhosts ...
+Timeout: 60.0 seconds ...
+Listing queues for vhost ... ...
+Timeout: 60.0 seconds ...
+Listing queues for vhost name ...
+Timeout: 60.0 seconds ...
+Listing queues for vhost / ...
+name	messages
+island-from-2-to-3	0
+island-from-17-to-16	0
+island-from-9-to-8	0
+island-3	0
+island-5	0
+island-from-5-to-4	0
+island-from-0-to-19	0
+island-from-19-to-18	0
+island-from-6-to-7	0
+island-from-19-to-0	0
+island-from-15-to-14	0
+island-0	0
+island-from-7-to-8	0
+island-from-11-to-12	0
+island-from-8-to-9	0
+island-13	0
+island-from-13-to-14	0
+island-from-11-to-10	0
+island-from-3-to-4	0
+island-10	0
+island-from-6-to-5	0
+island-from-18-to-19	0
+island-15	0
+island-17	0
+island-from-8-to-7	0
+island-from-0-to-1	0
+island-from-9-to-10	0
+island-from-7-to-6	0
+island-4	0
+island-from-16-to-17	0
+island-from-12-to-13	0
+island-1	0
+island-from-14-to-13	0
+island-from-1-to-2	0
+island-16	0
+island-6	0
+island-from-1-to-0	0
+island-9	0
+island-from-10-to-11	0
+island-2	0
+island-from-12-to-11	0
+island-from-17-to-18	0
+island-from-4-to-3	0
+island-12	0
+island-from-3-to-2	0
+island-from-16-to-15	0
+island-from-18-to-17	0
+island-from-13-to-12	0
+island-8	0
+island-from-14-to-15	0
+island-from-15-to-16	0
+island-11	0
+island-7	0
+island-from-4-to-5	0
+island-14	0
+island-from-10-to-9	0
+island-from-5-to-6	0
+island-18	0
+island-from-2-to-1	0
+island-19	0
+2025-04-20 15:42:41,024	INFO worker.py:1601 -- Connecting to existing Ray cluster at address: 172.22.16.18:6379...
+2025-04-20 15:42:41,029	INFO worker.py:1777 -- Connected to Ray cluster. View the dashboard at [1m[32m127.0.0.1:8265 [39m[22m
+ ---- RING --- TOPOLOGY ----
+[36m(Computation pid=531087, ip=172.22.16.24)[0m 
+[36m(Computation pid=531087, ip=172.22.16.24)[0m Starting computation
+[36m(Computation pid=2038801, ip=172.22.16.32)[0m Starting computation
+[36m(Computation pid=1317479, ip=172.22.16.75)[0m Starting computation
+[36m(Computation pid=1116591, ip=172.22.16.70)[0m Starting computation
+[36m(Computation pid=1317480, ip=172.22.16.75)[0m Starting computation
+[36m(Computation pid=4012644, ip=172.22.16.79)[0m Starting computation
+[36m(Computation pid=4012645, ip=172.22.16.79)[0m Starting computation
+[36m(Computation pid=2845658, ip=172.22.16.25)[0m Starting computation
+[36m(Computation pid=2101450, ip=172.22.16.71)[0m Starting computation
+[36m(Computation pid=3976747, ip=172.22.16.94)[0m Starting computation
+[36m(Computation pid=3312730, ip=172.22.16.31)[0m Starting computation
+[36m(Computation pid=4016086, ip=172.22.16.21)[0m Starting computation
+[36m(Computation pid=4028505, ip=172.22.16.20)[0m Starting computation
+[36m(Computation pid=3493504, ip=172.22.16.80)[0m Starting computation
+[36m(Computation pid=2619435, ip=172.22.16.26)[0m Starting computation
+[36m(Computation pid=3445852, ip=172.22.16.93)[0m Starting computation
+[36m(Computation pid=4010094, ip=172.22.16.27)[0m Starting computation
+[36m(Computation pid=6334, ip=172.22.16.19)[0m Starting computation
+[36m(Computation pid=3813801, ip=172.22.16.84)[0m Starting computation
+[36m(Computation pid=2322067, ip=172.22.16.28)[0m Starting computation
+[36m(Computation pid=1317479, ip=172.22.16.75)[0m time: 6.665309190750122
+[36m(Computation pid=1317479, ip=172.22.16.75)[0m 105.2549657268163
+[36m(Computation pid=1317479, ip=172.22.16.75)[0m 
+[36m(Computation pid=1317479, ip=172.22.16.75)[0m Island: 19 Fitness: 105.2549657268163
+[36m(Computation pid=531087, ip=172.22.16.24)[0m time: 7.1286492347717285
+[36m(Computation pid=531087, ip=172.22.16.24)[0m 9.177731777672534
+[36m(Computation pid=531087, ip=172.22.16.24)[0m 
+[36m(Computation pid=531087, ip=172.22.16.24)[0m Island: 0 Fitness: 9.177731777672534
+[36m(Computation pid=1317480, ip=172.22.16.75)[0m time: 6.843740463256836
+[36m(Computation pid=1317480, ip=172.22.16.75)[0m 97.69680934865926
+[36m(Computation pid=1317480, ip=172.22.16.75)[0m 
+[36m(Computation pid=1317480, ip=172.22.16.75)[0m Island: 18 Fitness: 97.69680934865926
+[36m(Computation pid=3976747, ip=172.22.16.94)[0m time: 7.647571563720703
+[36m(Computation pid=3976747, ip=172.22.16.94)[0m 5.999124822155181
+[36m(Computation pid=3976747, ip=172.22.16.94)[0m 
+[36m(Computation pid=3976747, ip=172.22.16.94)[0m Island: 1 Fitness: 5.999124822155181
+[36m(Computation pid=1116591, ip=172.22.16.70)[0m time: 7.842895984649658
+[36m(Computation pid=1116591, ip=172.22.16.70)[0m 14.502968708804815
+[36m(Computation pid=1116591, ip=172.22.16.70)[0m 
+[36m(Computation pid=1116591, ip=172.22.16.70)[0m Island: 10 Fitness: 14.502968708804815
+[36m(Computation pid=2038801, ip=172.22.16.32)[0m time: 7.935344696044922
+[36m(Computation pid=2038801, ip=172.22.16.32)[0m 6.2570469899355885
+[36m(Computation pid=2038801, ip=172.22.16.32)[0m 
+[36m(Computation pid=2038801, ip=172.22.16.32)[0m Island: 2 Fitness: 6.2570469899355885
+[36m(Computation pid=3312730, ip=172.22.16.31)[0m time: 7.949811935424805
+[36m(Computation pid=3312730, ip=172.22.16.31)[0m 10.860461672788574
+[36m(Computation pid=3312730, ip=172.22.16.31)[0m 
+[36m(Computation pid=3312730, ip=172.22.16.31)[0m Island: 9 Fitness: 10.860461672788574
+[36m(Computation pid=2845658, ip=172.22.16.25)[0m time: 8.058637857437134
+[36m(Computation pid=2845658, ip=172.22.16.25)[0m 6.899568387366685
+[36m(Computation pid=2619435, ip=172.22.16.26)[0m time: 7.921668767929077
+[36m(Computation pid=2619435, ip=172.22.16.26)[0m 6.539618230779638
+[36m(Computation pid=2619435, ip=172.22.16.26)[0m 
+[36m(Computation pid=2619435, ip=172.22.16.26)[0m Island: 4 Fitness: 6.539618230779638
+[36m(Computation pid=2845658, ip=172.22.16.25)[0m 
+[36m(Computation pid=2845658, ip=172.22.16.25)[0m Island: 5 Fitness: 6.899568387366685
+[36m(Computation pid=2101450, ip=172.22.16.71)[0m time: 8.21075439453125
+[36m(Computation pid=2101450, ip=172.22.16.71)[0m 8.36680832008392
+[36m(Computation pid=2101450, ip=172.22.16.71)[0m 
+[36m(Computation pid=2101450, ip=172.22.16.71)[0m Island: 7 Fitness: 8.36680832008392
+[36m(Computation pid=4028505, ip=172.22.16.20)[0m time: 8.219493865966797
+[36m(Computation pid=4028505, ip=172.22.16.20)[0m 21.429310451587867
+[36m(Computation pid=4028505, ip=172.22.16.20)[0m 
+[36m(Computation pid=4028505, ip=172.22.16.20)[0m Island: 12 Fitness: 21.429310451587867
+[36m(Computation pid=4012645, ip=172.22.16.79)[0m time: 8.606791973114014
+[36m(Computation pid=4012645, ip=172.22.16.79)[0m 7.440408381475663
+[36m(Computation pid=4012645, ip=172.22.16.79)[0m 
+[36m(Computation pid=4012645, ip=172.22.16.79)[0m Island: 6 Fitness: 7.440408381475663
+[36m(Computation pid=6334, ip=172.22.16.19)[0m time: 8.315946340560913
+[36m(Computation pid=6334, ip=172.22.16.19)[0m 5.411689442925535
+[36m(Computation pid=6334, ip=172.22.16.19)[0m 
+[36m(Computation pid=6334, ip=172.22.16.19)[0m Island: 3 Fitness: 5.411689442925535
+[36m(Computation pid=4012644, ip=172.22.16.79)[0m time: 8.669603824615479
+[36m(Computation pid=4012644, ip=172.22.16.79)[0m 8.435999521260669
+[36m(Computation pid=4012644, ip=172.22.16.79)[0m 
+[36m(Computation pid=4012644, ip=172.22.16.79)[0m Island: 8 Fitness: 8.435999521260669
+[36m(Computation pid=3493504, ip=172.22.16.80)[0m time: 8.542267799377441
+[36m(Computation pid=3493504, ip=172.22.16.80)[0m 36.97428021671192
+[36m(Computation pid=4016086, ip=172.22.16.21)[0m time: 8.563821792602539
+[36m(Computation pid=4016086, ip=172.22.16.21)[0m 26.90103530791896
+[36m(Computation pid=4016086, ip=172.22.16.21)[0m 
+[36m(Computation pid=4016086, ip=172.22.16.21)[0m Island: 13 Fitness: 26.90103530791896
+[36m(Computation pid=3493504, ip=172.22.16.80)[0m 
+[36m(Computation pid=3493504, ip=172.22.16.80)[0m Island: 15 Fitness: 36.97428021671192
+[36m(Computation pid=2322067, ip=172.22.16.28)[0m time: 8.21932315826416
+[36m(Computation pid=2322067, ip=172.22.16.28)[0m 13.005197205896252
+[36m(Computation pid=2322067, ip=172.22.16.28)[0m 
+[36m(Computation pid=2322067, ip=172.22.16.28)[0m Island: 11 Fitness: 13.005197205896252
+[36m(Computation pid=4010094, ip=172.22.16.27)[0m time: 8.589948177337646
+[36m(Computation pid=4010094, ip=172.22.16.27)[0m 36.21159166076097
+[36m(Computation pid=4010094, ip=172.22.16.27)[0m 
+[36m(Computation pid=4010094, ip=172.22.16.27)[0m Island: 16 Fitness: 36.21159166076097
+[36m(Computation pid=3445852, ip=172.22.16.93)[0m time: 8.710462093353271
+[36m(Computation pid=3445852, ip=172.22.16.93)[0m 47.975583342113964
+[36m(Computation pid=3445852, ip=172.22.16.93)[0m 
+[36m(Computation pid=3445852, ip=172.22.16.93)[0m Island: 17 Fitness: 47.975583342113964
+[36m(Computation pid=3813801, ip=172.22.16.84)[0m time: 8.837742805480957
+[36m(Computation pid=3813801, ip=172.22.16.84)[0m 28.254565595145095
+[36m(Computation pid=3813801, ip=172.22.16.84)[0m 
+[36m(Computation pid=3813801, ip=172.22.16.84)[0m Island: 14 Fitness: 28.254565595145095
+srun: error: ac0018: task 0: Exited with exit code 1
+2025-04-20 15:42:55,156	VINFO scripts.py:1125 -- Send termination request to `[1m/net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/core/src/ray/raylet/raylet --raylet_socket_name=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/sockets/raylet --store_socket_name=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/sockets/plasma_store --object_manager_port=0 --min_worker_port=10002 --max_worker_port=19999 --node_manager_port=0 --node_id=2cd3d46bd60b3c557b665f2716dd568de14123e29e68c2c81b157987 --node_ip_address=172.22.16.18 --maximum_startup_concurrency=2 --static_resource_list=node:172.22.16.18,1.0,node:__internal_head__,1.0,CPU,2,memory,66481043252,object_store_memory,32777589964 "--python_worker_command=/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/workers/setup_worker.py /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/workers/default_worker.py --node-ip-address=172.22.16.18 --node-manager-port=RAY_NODE_MANAGER_PORT_PLACEHOLDER --object-store-name=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/sockets/plasma_store --raylet-name=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/sockets/raylet --redis-address=None --metrics-agent-port=54572 --runtime-env-agent-port=59447 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --runtime-env-agent-port=59447 --gcs-address=172.22.16.18:6379 --session-name=session_2025-04-20_15-42-33_849677_1452665 --temp-dir=/tmp/plgzychowiczes --webui=127.0.0.1:8265 --cluster-id=dd47298d674fac948d432c630701d9b756b05eb8105a2934337ea0a1 RAY_WORKER_DYNAMIC_OPTION_PLACEHOLDER" --java_worker_command= --cpp_worker_command= --native_library_path=/net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/cpp/lib --temp_dir=/tmp/plgzychowiczes --session_dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665 --log_dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --resource_dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/runtime_resources --metrics-agent-port=54572 --metrics_export_port=51806 --runtime_env_agent_port=59447 --object_store_memory=32777589964 --plasma_directory=/dev/shm --ray-debugger-external=0 --gcs-address=172.22.16.18:6379 --session-name=session_2025-04-20_15-42-33_849677_1452665 --labels= --cluster-id=dd47298d674fac948d432c630701d9b756b05eb8105a2934337ea0a1 --head --num_prestart_python_workers=2 "--dashboard_agent_command=/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/dashboard/agent.py --node-ip-address=172.22.16.18 --metrics-export-port=51806 --dashboard-agent-port=54572 --listen-port=52365 --node-manager-port=RAY_NODE_MANAGER_PORT_PLACEHOLDER --object-store-name=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/sockets/plasma_store --raylet-name=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/sockets/raylet --temp-dir=/tmp/plgzychowiczes --session-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665 --log-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --session-name=session_2025-04-20_15-42-33_849677_1452665 --gcs-address=172.22.16.18:6379 --cluster-id-hex=dd47298d674fac948d432c630701d9b756b05eb8105a2934337ea0a1" "--runtime_env_agent_command=/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/runtime_env/agent/main.py --node-ip-address=172.22.16.18 --runtime-env-agent-port=59447 --gcs-address=172.22.16.18:6379 --cluster-id-hex=dd47298d674fac948d432c630701d9b756b05eb8105a2934337ea0a1 --runtime-env-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/runtime_resources --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --log-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --temp-dir=/tmp/plgzychowiczes" --node-name=172.22.16.18[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-04-20 15:42:55,330	INFO scripts.py:1155 -- 1/1 stopped.2025-04-20 15:42:55,337	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/autoscaler/_private/monitor.py --logs-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --gcs-address=172.22.16.18:6379 --monitor-ip=172.22.16.18[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-04-20 15:42:55,340	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/log_monitor.py --session-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665 --logs-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --gcs-address=172.22.16.18:6379 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-04-20 15:42:55,342	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -m ray.util.client.server --address=172.22.16.18:6379 --host=0.0.0.0 --port=10001 --mode=proxy --runtime-env-agent-address=http://172.22.16.18:59447[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-04-20 15:42:55,347	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/log_monitor.py --session-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665 --logs-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --gcs-address=172.22.16.18:6379 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-04-20 15:42:55,351	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/dashboard/dashboard.py --host=127.0.0.1 --port=8265 --port-retries=0 --temp-dir=/tmp/plgzychowiczes --log-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --session-dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --gcs-address=172.22.16.18:6379 --cluster-id-hex=dd47298d674fac948d432c630701d9b756b05eb8105a2934337ea0a1 --node-ip-address=172.22.16.18[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-04-20 15:42:56,362	INFO scripts.py:1155 -- 1/4 stopped.2025-04-20 15:42:56,362	INFO scripts.py:1155 -- 2/4 stopped.2025-04-20 15:42:56,362	INFO scripts.py:1155 -- 3/4 stopped.2025-04-20 15:42:56,362	INFO scripts.py:1155 -- 4/4 stopped.2025-04-20 15:42:56,368	VINFO scripts.py:1125 -- Send termination request to `[1m/net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/core/src/ray/gcs/gcs_server --log_dir=/tmp/plgzychowiczes/session_2025-04-20_15-42-33_849677_1452665/logs --config_list=eyJvYmplY3Rfc3BpbGxpbmdfY29uZmlnIjogIntcInR5cGVcIjogXCJmaWxlc3lzdGVtXCIsIFwicGFyYW1zXCI6IHtcImRpcmVjdG9yeV9wYXRoXCI6IFwiL3RtcC9wbGd6eWNob3dpY3plcy9zZXNzaW9uXzIwMjUtMDQtMjBfMTUtNDItMzNfODQ5Njc3XzE0NTI2NjVcIn19IiwgImlzX2V4dGVybmFsX3N0b3JhZ2VfdHlwZV9mcyI6IHRydWV9 --gcs_server_port=6379 --metrics-agent-port=54572 --node-ip-address=172.22.16.18 --session-name=session_2025-04-20_15-42-33_849677_1452665 --ray-commit=1b620f244c4fb67d80661046091573fb6eefecb6[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-04-20 15:43:02,353	WARN scripts.py:1202 -- [33mStopped only 5 out of 6 Ray processes within the grace period 16 seconds. Set `[1m-v[22m[33m` to see more details. Remaining processes [psutil.Process(pid=1452928, name='gcs_server', status='terminated', started='15:42:33')] will be forcefully terminated.[39m
+2025-04-20 15:43:02,353	WARN scripts.py:1209 -- [33mYou can also use `[1m--force[22m[33m` to forcefully terminate processes or set higher `--grace-period` to wait longer time for proper termination.[39m

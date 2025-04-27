@@ -9,7 +9,7 @@ class Emigration:
     def __init__(self, islands: List[ray.ObjectRef], select_algorithm: SelectAlgorithm):
         self.islands = islands
         self.island_ids = {
-            island : island.get_id.remote() for island in islands
+            island : ray.get(island.get_id.remote()) for island in islands
         }
         self.select_algorithm: SelectAlgorithm = select_algorithm
 
