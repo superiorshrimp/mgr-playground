@@ -274,19 +274,20 @@ class GeneticIslandAlgorithm:
             )
 
     def add_new_individuals(self):
-        new_individuals, emigration_at_step_num = self.migration.receive_individuals(
-            self.step_num, self.evaluations
-        )
+        if self.evaluations - self.last_migration_evaluation_number >= self.migration_interval: # TODO: revert (temp)
+            new_individuals, emigration_at_step_num = self.migration.receive_individuals(
+                self.step_num, self.evaluations
+            )
 
-        # for i in new_individuals:
-        #     i.energy = 0
+            # for i in new_individuals:
+            #     i.energy = 0
 
-        if len(new_individuals) > 0:
-            self.is_new_immigrant = True
-            emigration_at_step_num["destinTimestamp"] = time()
-            emigration_at_step_num["destinMaxFitness"] = self.last_best
-            self.tab_emigr[self.step_num] = emigration_at_step_num
-            self.solutions.extend(list(new_individuals))
+            if len(new_individuals) > 0:
+                self.is_new_immigrant = True
+                emigration_at_step_num["destinTimestamp"] = time()
+                emigration_at_step_num["destinMaxFitness"] = self.last_best
+                self.tab_emigr[self.step_num] = emigration_at_step_num
+                self.solutions.extend(list(new_individuals))
 
     def step(self):
         self.step_num += 1
