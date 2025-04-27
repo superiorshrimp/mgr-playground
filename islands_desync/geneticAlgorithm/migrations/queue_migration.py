@@ -23,17 +23,29 @@ class QueueMigration(Migration):
         island_relevant_data = None
         if not isinstance(self.emigration.select_algorithm, RandomSelect):  # TODO: refactor maybe for 2 more parent classes?
             island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
-        for i, ind in enumerate(individuals_to_migrate):
-            destination = self.emigration.get_destination(individuals_to_migrate[i], island_relevant_data)
 
-            data = self.recursive_dict(ind)
-            data["timestamp"] = datetime.datetime.now().timestamp()
-            data["source_island"] = self.island
-            self.channel.basic_publish(
-                exchange="amq.direct",
-                routing_key=f"island-from-{self.island}-to-{destination}",
-                body=json.dumps(data),
-            )
+        for i, ind in enumerate(individuals_to_migrate):
+
+            if self.send_everywhere(): # TODO: env
+                for destination_id in self.emigration.island_ids:
+                    data = self.recursive_dict(ind)
+                    data["timestamp"] = datetime.datetime.now().timestamp()
+                    data["source_island"] = self.island
+                    self.channel.basic_publish(
+                        exchange="amq.direct",
+                        routing_key=f"island-from-{self.island}-to-{destination_id}",
+                        body=json.dumps(data),
+                    )
+            else:
+                destination = self.emigration.get_destination(individuals_to_migrate[i], island_relevant_data)
+                data = self.recursive_dict(ind)
+                data["timestamp"] = datetime.datetime.now().timestamp()
+                data["source_island"] = self.island
+                self.channel.basic_publish(
+                    exchange="amq.direct",
+                    routing_key=f"island-from-{self.island}-to-{destination}",
+                    body=json.dumps(data),
+                )
 
     def receive_individuals(
         self, step_num: int, evaluations: int
@@ -42,6 +54,7 @@ class QueueMigration(Migration):
         timestamps = []
         fitnesses = []
         src_islands = []
+        # sources = {island_id : 0 for island_id in self.emigration.island_ids}
         while True:
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
@@ -58,6 +71,10 @@ class QueueMigration(Migration):
                 timestamps.append(data['timestamp'])
                 fitnesses.append(new_agent.fitness)
                 src_islands.append(data['source_island'])
+                # sources[int(data['source_island'])] += 1
+                if self.blocking():
+                    if len(new_individuals) == 2 * len(self.emigration.island_ids): # TODO: env individuals_to_migrate
+                        break
             else:
                 break
 
@@ -76,3 +93,11 @@ class QueueMigration(Migration):
         if hasattr(obj, '__dict__'):
             return {key: self.recursive_dict(value) for key, value in obj.__dict__.items()}
         return obj
+
+    def send_everywhere(self) -> bool:
+        return True
+        # return False
+
+    def blocking(self) -> bool:
+        return True
+        # return False
