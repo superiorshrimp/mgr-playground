@@ -67,7 +67,6 @@ class EMAS:
                 self.config.energy_reproduce_loss_coef,
                 self.config.cross_coef,
                 self.config.mutation_coef,
-                self.config.alive_energy,
                 fitness_average,
                 self.config.n_agent,
                 agents_count
