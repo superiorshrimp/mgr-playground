@@ -294,13 +294,14 @@ class GeneticIslandAlgorithm:
             # self.migration.wait_for_all_start()
             self.migration.start_time_measure()
 
-        # MIGRATIONS
-        self.is_new_immigrant = False
-        if self.number_of_islands > 1:
-            self.migrate_individuals()
-            try:
-                self.add_new_individuals()
-            except: pass # TODO: why throws?
+        if self.step_num != 1:
+            # MIGRATIONS
+            self.is_new_immigrant = False
+            if self.number_of_islands > 1:
+                self.migrate_individuals()
+                try:
+                    self.add_new_individuals()
+                except: pass # TODO: why throws?
 
         # EVOLUTIONARY STEP
         self.emas.agents = self.solutions

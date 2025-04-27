@@ -34,7 +34,7 @@ def save(T):
 
 if __name__ == "__main__":
     delay = 10
-    n = 20
+    n = 10
     T = ring(delay, n)
     print_array(T)
     save(T)

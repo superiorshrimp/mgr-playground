@@ -27,7 +27,7 @@ class QueueMigration(Migration):
         for i, ind in enumerate(individuals_to_migrate):
 
             if self.send_everywhere(): # TODO: env
-                for destination_id in self.emigration.island_ids:
+                for destination_id in self.emigration.island_ids.values():
                     data = self.recursive_dict(ind)
                     data["timestamp"] = datetime.datetime.now().timestamp()
                     data["source_island"] = self.island
@@ -54,7 +54,7 @@ class QueueMigration(Migration):
         timestamps = []
         fitnesses = []
         src_islands = []
-        # sources = {island_id : 0 for island_id in self.emigration.island_ids}
+        # sources = {island_id : 0 for island_id in self.emigration.island_ids.values()}
         while True:
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
@@ -73,9 +73,9 @@ class QueueMigration(Migration):
                 src_islands.append(data['source_island'])
                 # sources[int(data['source_island'])] += 1
                 if self.blocking():
-                    if len(new_individuals) == 2 * len(self.emigration.island_ids): # TODO: env individuals_to_migrate
+                    if len(new_individuals) == 2 * len(self.emigration.island_ids.keys()): # TODO: env individuals_to_migrate
                         break
-            else:
+            elif not self.blocking():
                 break
 
         emigration_at_step_num = {
