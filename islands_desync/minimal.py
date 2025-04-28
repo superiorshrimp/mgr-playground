@@ -16,6 +16,7 @@ args:
     3. migration interval
     4. topology
     5. island selection algorithm
+    6. blocking
 '''
 def main():
     now = datetime.now()
@@ -27,6 +28,7 @@ def main():
         dda=datetime.now().strftime('%y%m%d'),
         tta=formatted_time,
         series_number=1,
+        blocking=(argv[2] == "1"),
     )
 
     topology = get_topology(argv[4])

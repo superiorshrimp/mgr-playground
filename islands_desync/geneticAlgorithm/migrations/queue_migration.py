@@ -10,13 +10,14 @@ from time import sleep
 
 
 class QueueMigration(Migration):
-    def __init__(self, island, channel, rabbitmq_delays, number_of_islands, emigration):
+    def __init__(self, island, channel, rabbitmq_delays, number_of_islands, emigration, blocking):
         super().__init__()
         self.island = island
         self.channel = channel
         self.rabbitmq_delays = rabbitmq_delays
         self.number_of_islands = number_of_islands
         self.emigration = emigration
+        self.blocking = blocking
 
     def migrate_individuals(
         self, individuals_to_migrate, iteration_number, island_number, timestamp, island
@@ -56,6 +57,7 @@ class QueueMigration(Migration):
         fitnesses = []
         src_islands = []
         # sources = {island_id : 0 for island_id in self.emigration.island_ids.values()}
+        i = 0
         while True:
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
@@ -73,13 +75,16 @@ class QueueMigration(Migration):
                 fitnesses.append(new_agent.fitness)
                 src_islands.append(data['source_island'])
                 # sources[int(data['source_island'])] += 1
-                if self.blocking():
+                if self.blocking:
                     if len(new_individuals) == 2 * len(self.emigration.island_ids.keys()): # TODO: env individuals_to_migrate
                         break
-            elif not self.blocking():
+            elif not self.blocking:
                 break
             else:
+                i += 1
                 sleep(0.01)
+                if i == 5: # 50ms
+                    break
 
         emigration_at_step_num = {
             "step": step_num,
@@ -98,9 +103,5 @@ class QueueMigration(Migration):
         return obj
 
     def send_everywhere(self) -> bool:
-        return True
-        # return False
-
-    def blocking(self) -> bool:
         return True
         # return False

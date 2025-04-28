@@ -9,3 +9,4 @@ class RunAlgorithmParams:
     dda: str
     tta: str
     series_number: int
+    blocking: bool

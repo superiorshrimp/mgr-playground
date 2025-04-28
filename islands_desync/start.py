@@ -26,6 +26,7 @@ def main():
         dda=sys.argv[5],
         tta=sys.argv[6],
         series_number=1,
+        # TODO: blocking
     )
 
     # computation_refs = IslandRunner(TorusTopology, RandomSelect, params).create()
