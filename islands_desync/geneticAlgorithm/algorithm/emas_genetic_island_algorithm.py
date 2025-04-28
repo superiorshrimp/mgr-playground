@@ -274,7 +274,7 @@ class GeneticIslandAlgorithm:
             )
 
     def add_new_individuals(self):
-        if self.evaluations - self.last_migration_evaluation_number >= self.migration_interval: # TODO: revert (temp)
+        if self.evaluations != 0 and self.evaluations == self.last_migration_evaluation_number: # TODO: revert (temp)
             new_individuals, emigration_at_step_num = self.migration.receive_individuals(
                 self.step_num, self.evaluations
             )

@@ -6,6 +6,7 @@ import ray
 from islands.selectAlgorithm import RandomSelect
 import datetime
 from islands.core.Migration import Migration
+from time import sleep
 
 
 class QueueMigration(Migration):
@@ -77,6 +78,8 @@ class QueueMigration(Migration):
                         break
             elif not self.blocking():
                 break
+            else:
+                sleep(0.01)
 
         emigration_at_step_num = {
             "step": step_num,
