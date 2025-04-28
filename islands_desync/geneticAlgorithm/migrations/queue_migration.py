@@ -6,6 +6,7 @@ import ray
 from islands.selectAlgorithm import RandomSelect
 import datetime
 from islands.core.Migration import Migration
+from time import sleep
 
 
 class QueueMigration(Migration):
@@ -23,15 +24,11 @@ class QueueMigration(Migration):
         island_relevant_data = None
         if not isinstance(self.emigration.select_algorithm, RandomSelect):  # TODO: refactor maybe for 2 more parent classes?
             island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
-        print(self.island)
-        print(self.emigration.island_ids)
-        print(self.emigration.island_ids.values())
 
         for i, ind in enumerate(individuals_to_migrate):
 
             if self.send_everywhere(): # TODO: env
                 for destination_id in self.emigration.island_ids.values():
-                    print(f"island-from-{self.island}-to-{destination_id}")
                     data = self.recursive_dict(ind)
                     data["timestamp"] = datetime.datetime.now().timestamp()
                     data["source_island"] = self.island
@@ -40,7 +37,6 @@ class QueueMigration(Migration):
                         routing_key=f"island-from-{self.island}-to-{destination_id}",
                         body=json.dumps(data),
                     )
-                    print("sent" + str(data))
             else:
                 destination = self.emigration.get_destination(individuals_to_migrate[i], island_relevant_data)
                 data = self.recursive_dict(ind)
@@ -60,7 +56,6 @@ class QueueMigration(Migration):
         fitnesses = []
         src_islands = []
         # sources = {island_id : 0 for island_id in self.emigration.island_ids.values()}
-
         while True:
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
@@ -80,9 +75,12 @@ class QueueMigration(Migration):
                 # sources[int(data['source_island'])] += 1
                 if self.blocking():
                     if len(new_individuals) == 2 * len(self.emigration.island_ids.keys()): # TODO: env individuals_to_migrate
+                        print(str(self.island) + ": " + str(new_individuals))
                         break
             elif not self.blocking():
                 break
+            else:
+                sleep(0.01)
 
         emigration_at_step_num = {
             "step": step_num,
