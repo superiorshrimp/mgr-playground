@@ -23,7 +23,7 @@ class QueueMigration(Migration):
         self, individuals_to_migrate, iteration_number, island_number, timestamp, island
     ):
         island_relevant_data = None
-        if not isinstance(self.emigration.select_algorithm, RandomSelect):  # TODO: refactor maybe for 2 more parent classes?
+        if not isinstance(self.emigration.select_algorithm, RandomSelect) and not self.send_everywhere():  # TODO: refactor maybe for 2 more parent classes?
             island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
 
         for i, ind in enumerate(individuals_to_migrate):
