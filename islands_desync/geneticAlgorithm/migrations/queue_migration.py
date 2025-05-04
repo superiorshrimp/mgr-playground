@@ -70,6 +70,7 @@ class QueueMigration(Migration):
                     data['lower_bound'],
                     data['upper_bound']
                 )
+                new_agent.energy = 0
                 new_individuals.append(new_agent)
                 timestamps.append(data['timestamp'])
                 fitnesses.append(new_agent.fitness)
