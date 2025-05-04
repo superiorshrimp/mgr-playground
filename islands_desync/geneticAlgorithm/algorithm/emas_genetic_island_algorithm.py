@@ -182,9 +182,9 @@ class GeneticIslandAlgorithm:
         #     self.step()
         print("time:", time() - start)
         print(sorted(self.solutions, key=lambda agent: agent.fitness)[0].fitness)
-        # self.plot_history(it)
-        # self.save_history()
-        self.save_history_short()
+        self.plot_history(it)
+        self.save_history()
+        # self.save_history_short()
         json.dump(self.tab_emigr, open("history/w"+str(self.island)+".json", "w"), indent=4)
 
     def save_history_short(self):
@@ -195,16 +195,16 @@ class GeneticIslandAlgorithm:
         with open(dir + "t.txt", "a") as f:
             f.write(str(self.island) + " " + str(self.migration.start) + " " + str(self.migration.end) + "\n")
 
-    # def save_history(self):
-    #     dir = "history/" + self.par_date + "/"
-    #     os.makedirs(dir, exist_ok=True)
-    #     dir += self.par_time + "/"
-    #     os.makedirs(dir, exist_ok=True)
-    #     with open(dir + str(self.island) + ".json", "w") as f:
-    #         json.dump({
-    #             "variance": self.emas.variance,
-    #             "fitness": self.emas.best_fit,
-    #         }, f)
+    def save_history(self):
+        dir = "history/" + self.par_date + "/"
+        os.makedirs(dir, exist_ok=True)
+        dir += self.par_time + "/"
+        os.makedirs(dir, exist_ok=True)
+        with open(dir + str(self.island) + ".json", "w") as f:
+            json.dump({
+                "variance": self.emas.variance,
+                "fitness": self.emas.best_fit,
+            }, f)
 
     def plot_history(self, it):
         iter = [i for i in range(it + 1)]
@@ -213,14 +213,14 @@ class GeneticIslandAlgorithm:
         avg_windows_size = 100
         plt.plot(iter[avg_windows_size:], [np.mean(self.emas.variance[i:i+avg_windows_size]) for i in range(len(iter)-avg_windows_size)])
         plt.xticks(iter[avg_windows_size::100], rotation=45)
-        plt.ylim([0, 2])
+        plt.ylim([0, 10])
         plt.xlabel('iteration')
         plt.savefig("dev" + str(self.island) + '.png')
         plt.clf()
 
         plt.plot(iter, self.emas.best_fit)
         plt.xticks(iter[::100], rotation=45)
-        plt.ylim([0, 100])
+        # plt.ylim([0, 100])
         plt.xlabel('iteration')
         plt.savefig("fit" + str(self.island) + '.png')
         plt.clf()
