@@ -64,8 +64,9 @@ rabbitmqctl list_vhosts | xargs -n1  rabbitmqctl list_queues -p
 islands_count=10
 migrants_count=2
 migration_interval=16
+blocking=1
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect $blocking
 
 ray stop
 

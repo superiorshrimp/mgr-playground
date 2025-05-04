@@ -175,6 +175,8 @@ class GeneticIslandAlgorithm:
         while self.evaluations < self.max_evaluation:
             it += 1
             self.step()
+        # self.send_kill_signal()
+
         # for i in range(self.n_iter):
         #     it += 1
         #     self.step()
@@ -325,6 +327,11 @@ class GeneticIslandAlgorithm:
             #     self.ctrl.endOfWholeProbe(self.seria)
         
         self.evaluations += children_count
+
+    # def send_kill_signal(self):
+    #     self.migration.migrate_individuals(
+    #         None, self.step_num, self.island, time(), self.island
+    #     )
 
     def update_island_data(self):
         self.island_ref.set_population.remote(self.emas.agents)
