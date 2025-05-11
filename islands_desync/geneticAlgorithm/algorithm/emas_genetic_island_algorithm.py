@@ -172,9 +172,18 @@ class GeneticIslandAlgorithm:
     def run(self):
         start = time()
         it = 0
-        while self.evaluations < self.max_evaluation:
+        # while self.evaluations < self.max_evaluation:
+        #     it += 1
+        #     self.step()
+
+        # while it < 10000:
+        #     it += 1
+        #     self.step()
+
+        while time() - start < 100:
             it += 1
             self.step()
+
         # self.send_kill_signal()
 
         # for i in range(self.n_iter):
