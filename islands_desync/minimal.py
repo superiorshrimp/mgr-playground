@@ -28,7 +28,7 @@ def main():
         dda=datetime.now().strftime('%y%m%d'),
         tta=formatted_time,
         series_number=1,
-        blocking=(argv[2] == "1"),
+        blocking=(argv[6] == "1"),
     )
 
     topology = get_topology(argv[4])
