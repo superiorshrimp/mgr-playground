@@ -186,9 +186,6 @@ class GeneticIslandAlgorithm:
 
         # self.send_kill_signal()
 
-        # for i in range(self.n_iter):
-        #     it += 1
-        #     self.step()
         print("time:", time() - start)
         print(sorted(self.solutions, key=lambda agent: agent.fitness)[0].fitness)
         self.plot_history(it)
