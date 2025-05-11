@@ -78,7 +78,6 @@ class QueueMigration(Migration):
                 # sources[int(data['source_island'])] += 1
                 if self.blocking:
                     if len(new_individuals) == 2 * len(self.emigration.island_ids.keys()): # TODO: env individuals_to_migrate
-                        print(str(self.island) + ": " + str(new_individuals))
                         break
             elif not self.blocking:
                 break
@@ -107,4 +106,3 @@ class QueueMigration(Migration):
     def send_everywhere(self) -> bool:
         return True
         # return False
-
