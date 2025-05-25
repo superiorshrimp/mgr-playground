@@ -180,7 +180,7 @@ class GeneticIslandAlgorithm:
         #     it += 1
         #     self.step()
 
-        while time() - start < 100:
+        while time() - start < 30:
             it += 1
             self.step()
 
