@@ -3,6 +3,13 @@ import os
 
 PATH = './islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json'
 
+def complete(delay, n):
+    T = [
+        [delay if i != j else -1 for i in range(n)] for j in range(n)
+    ]
+
+    return T
+
 def ring(delay, n):
     T = [
         [delay if abs(i-j) == 1 else -1 for i in range(n)] for j in range(n)
@@ -35,6 +42,7 @@ def save(T):
 if __name__ == "__main__":
     delay = 10
     n = 10
-    T = ring(delay, n)
+    T = complete(delay, n)
     print_array(T)
     save(T)
+

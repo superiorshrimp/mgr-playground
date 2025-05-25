@@ -289,7 +289,7 @@ class GeneticIslandAlgorithm:
 
             # for i in new_individuals:
             #     i.energy = 0
-
+            new_individuals = self.accept_individuals(new_individuals)
             if len(new_individuals) > 0:
                 self.is_new_immigrant = True
                 emigration_at_step_num["destinTimestamp"] = time()
@@ -334,6 +334,19 @@ class GeneticIslandAlgorithm:
         
         self.evaluations += children_count
 
+    def accept_individuals(self, new_individuals):
+        accepted_individuals = []
+        for new_individual in new_individuals:
+            flag = False
+            for individual in self.solutions:
+                if new_individual.x == individual.x:
+                    flag = True
+                    break
+            if not flag:
+                accepted_individuals.append(new_individual)
+
+        return accepted_individuals
+
     # def send_kill_signal(self):
     #     self.migration.migrate_individuals(
     #         None, self.step_num, self.island, time(), self.island
@@ -351,3 +364,4 @@ class GeneticIslandAlgorithm:
         self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents]) / len(self.emas.agents))
         self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
         self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
+

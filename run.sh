@@ -2,7 +2,7 @@
 #SBATCH --nodes=12
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
-#SBATCH --mem-per-cpu=2G
+#SBATCH --mem-per-cpu=4G
 #SBATCH -p plgrid
 
 module load "python/3.10.4-gcccore-11.3.0"
@@ -64,9 +64,9 @@ rabbitmqctl list_vhosts | xargs -n1  rabbitmqctl list_queues -p
 islands_count=10
 migrants_count=2
 migration_interval=16
-blocking=1
+blocking=0
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect $blocking
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology MinStdDevSelect $blocking
 
 ray stop
 
