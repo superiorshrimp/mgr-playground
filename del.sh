@@ -1,6 +1,7 @@
 #!/bin/bash
 
-rm history/*
+rm -fr history/*
 rm -fr logs/*
 rm slurm*
+rm *.png
 
