@@ -198,7 +198,7 @@ class GeneticIslandAlgorithm:
         os.makedirs(dir, exist_ok=True)
         with open(dir + self.par_time + ".json", "a") as f:
             f.write(str(self.island) + " " + str(self.emas.best_fit[-1]) + "\n")
-        with open(dir + "t.txt", "a") as f:
+        with open(dir + "t" + self.par_time + ".txt", "a") as f:
             f.write(str(self.island) + " " + str(self.migration.start) + " " + str(self.migration.end) + "\n")
 
     def save_history(self):
@@ -211,6 +211,7 @@ class GeneticIslandAlgorithm:
                 "variance": self.emas.variance,
                 "fitness": self.emas.best_fit,
             }, f)
+        self.save_history_short()
 
     def plot_history(self, it):
         iter = [i for i in range(it + 1)]
