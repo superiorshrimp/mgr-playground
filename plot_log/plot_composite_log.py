@@ -26,6 +26,8 @@ def main():
     plt.plot([_ for _ in range(len(best_fitnesses))], best_fitnesses)
     mean = np.mean(best_fitnesses)
     print("mean:", mean)
+    print("worst:", max(best_fitnesses))
+    print("best:", min(best_fitnesses))
     plt.axhline(mean, color='red', label='mean', linestyle='--', )
     plt.y_label = 'best fitness'
     plt.x_label = 'computation'
