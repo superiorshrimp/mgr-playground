@@ -51,13 +51,12 @@ for ((i = 1; i <= worker_num; i++)); do
     # sleep 1
 done
 
-python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
-
 rabbitmqctl await_startup
 rabbitmqctl add_user rabbitmq rabbitmq
 rabbitmqctl set_user_tags rabbitmq rabbitmq
 rabbitmqctl set_permissions -p / rabbitmq ".*" ".*" ".*"
 
+python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
 rabbitmqctl list_vhosts | xargs -n1  rabbitmqctl list_queues -p
 
 islands_count=10
