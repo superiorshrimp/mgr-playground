@@ -289,7 +289,7 @@ class GeneticIslandAlgorithm:
 
             # for i in new_individuals:
             #     i.energy = 0
-
+            new_individuals = self.accept_individuals(new_individuals)
             if len(new_individuals) > 0:
                 self.is_new_immigrant = True
                 emigration_at_step_num["destinTimestamp"] = time()
@@ -333,6 +333,19 @@ class GeneticIslandAlgorithm:
             #     self.ctrl.endOfWholeProbe(self.seria)
         
         self.evaluations += children_count
+
+    def accept_individuals(self, new_individuals):
+        accepted_individuals = []
+        for new_individual in new_individuals:
+            flag = False
+            for individual in self.solutions:
+                if new_individual.x == individual.x:
+                    flag = True
+                    break
+            if not flag:
+                accepted_individuals.append(new_individual)
+
+        return accepted_individuals
 
     # def send_kill_signal(self):
     #     self.migration.migrate_individuals(
