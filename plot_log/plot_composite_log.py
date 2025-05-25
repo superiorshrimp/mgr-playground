@@ -24,7 +24,9 @@ def main():
 
     print(best_fitnesses)
     plt.plot([_ for _ in range(len(best_fitnesses))], best_fitnesses)
-    plt.axhline(np.mean(best_fitnesses), color='red', label='mean', linestyle='--', )
+    mean = np.mean(best_fitnesses)
+    print("mean:", mean)
+    plt.axhline(mean, color='red', label='mean', linestyle='--', )
     plt.y_label = 'best fitness'
     plt.x_label = 'computation'
     plt.legend()
