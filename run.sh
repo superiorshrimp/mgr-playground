@@ -48,7 +48,7 @@ for ((i = 1; i <= worker_num; i++)); do
     echo "Starting WORKER $i at $node_i"
     srun --nodes=1 --ntasks=1 -w "$node_i" --export=ALL,RAY_TMPDIR="$tmpdir"\
         ray start --address "$ip_head" --num-cpus "${SLURM_CPUS_PER_TASK}" --block &
-    # sleep 1
+    sleep 1
 done
 
 rabbitmqctl await_startup
@@ -64,7 +64,6 @@ migrants_count=2
 migration_interval=16
 blocking=0
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology MinStdDevSelect $blocking
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect $blocking
 
 ray stop
-
