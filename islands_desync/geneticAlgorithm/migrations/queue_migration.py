@@ -6,7 +6,7 @@ import ray
 from islands.selectAlgorithm import RandomSelect
 import datetime
 from islands.core.Migration import Migration
-from time import sleep
+from time import sleep, time
 
 
 class QueueMigration(Migration):
@@ -59,8 +59,10 @@ class QueueMigration(Migration):
         # sources = {island_id : 0 for island_id in self.emigration.island_ids.values()}
         i = 0
         while True:
+            s = time()
             method, properties, body = self.channel.basic_get(f"island-{self.island}")
             if body:
+                print("aaa", time() - s)
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)
                 new_agent = Agent(
