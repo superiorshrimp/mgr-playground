@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --nodes=12
+#SBATCH --nodes=102
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem-per-cpu=4G
@@ -36,7 +36,7 @@ echo "IP Head: $ip_head"
 ray stop
 export RAY_DEDUP_LOGS=0
 
-for run in {1..2}; do
+for run in {1..10}; do
 
   echo "Starting HEAD at $head_node"
   srun --nodes=1 --ntasks=1 -w "$head_node" \
@@ -51,7 +51,7 @@ for run in {1..2}; do
       echo "Starting WORKER $i at $node_i"
       srun --nodes=1 --ntasks=1 -w "$node_i" --export=ALL,RAY_TMPDIR="$tmpdir"\
           ray start --address "$ip_head" --num-cpus "${SLURM_CPUS_PER_TASK}" --block &
-      # sleep 1
+      sleep 1
   done
 
   rabbitmqctl await_startup
@@ -62,12 +62,12 @@ for run in {1..2}; do
   python3 islands_desync/geneticAlgorithm/utils/prepare_queues_2.py
   rabbitmqctl list_vhosts | xargs -n1  rabbitmqctl list_queues -p
 
-  islands_count=10
+  islands_count=100
   migrants_count=2
   migration_interval=16
   blocking=0
 
-  python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology MinStdDevSelect $blocking
+  python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect $blocking
 
   ray stop
 

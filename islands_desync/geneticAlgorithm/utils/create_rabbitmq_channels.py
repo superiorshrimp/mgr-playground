@@ -88,3 +88,4 @@ class CreateRabbitmqChannels:
         if self.island == 0:
             print(message)
         return isCorrect
+

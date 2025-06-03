@@ -188,9 +188,9 @@ class GeneticIslandAlgorithm:
 
         print("time:", time() - start)
         print(sorted(self.solutions, key=lambda agent: agent.fitness)[0].fitness)
-        self.plot_history(it)
-        self.save_history()
-        # self.save_history_short()
+        # self.plot_history(it)
+        # self.save_history()
+        self.save_history_short()
         json.dump(self.tab_emigr, open("history/w"+str(self.island)+".json", "w"), indent=4)
 
     def save_history_short(self):
@@ -315,7 +315,6 @@ class GeneticIslandAlgorithm:
         # EVOLUTIONARY STEP
         self.emas.agents = self.solutions
         children_count = self.emas.iteration(self.step_num)
-        
         self.log_history()
 
         self.solutions = self.emas.agents
