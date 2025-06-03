@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --nodes=15
+#SBATCH --nodes=102
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=2
-#SBATCH --mem-per-cpu=8G
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=32G
 #SBATCH -p plgrid
 
 module load "python/3.10.4-gcccore-11.3.0"
@@ -43,10 +43,7 @@ srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
   rm -f "$COOKIE_FILE"; echo "$R_COOKIE_TO_WRITE" > "$COOKIE_FILE"; chmod 400 "$COOKIE_FILE";
 ' bash "$erlang_cookie_value"
 
-srun --overlap --nodes=1 --ntasks=1 -w "$last_node" \
-     -o "$server_srun_stdout_log" \
-     -e "$server_srun_stderr_log" \
-     bash -c '
+srun --overlap --nodes=1 --ntasks=1 -w "$last_node" bash -c '
   ARG_COOKIE_VAL=$1;
   ARG_PID_FILEPATH=$2;
 
@@ -73,6 +70,8 @@ srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
   rabbitmqctl -n "$TARGET_RMQ_NODE_NAME_WITH_HOST" add_user rabbitmq rabbitmq || echo "INFO: add_user rabbitmq failed, user likely already exists.";
   rabbitmqctl -n "$TARGET_RMQ_NODE_NAME_WITH_HOST" set_user_tags rabbitmq rabbitmq;
   rabbitmqctl -n "$TARGET_RMQ_NODE_NAME_WITH_HOST" set_permissions -p / rabbitmq ".*" ".*" ".*";
+  rabbitmqctl -n "$TARGET_RMQ_NODE_NAME_WITH_HOST" set_user_tags rabbitmq administrator;
+  rabbitmq-plugins -n "$TARGET_RMQ_NODE_NAME_WITH_HOST" enable rabbitmq_management
 ' bash "rabbit@$rabbitmq_server_actual_hostname"
 
 sleep 5
@@ -98,7 +97,7 @@ srun --nodes=1 --ntasks=1 -w "$head_node" \
     --num-cpus "${SLURM_CPUS_PER_TASK}" --temp-dir="/tmp/$USER" --block &
 sleep 1
 
-islands_count=10
+islands_count=100
 migrants_count=2
 migration_interval=16
 blocking=0
@@ -111,6 +110,55 @@ for ((i = 1; i <= islands_count; i++)); do
     sleep 1
 done
 
+METRICS_COLLECTION_DURATION=35
+METRICS_INTERVAL=1
+metrics_overview_data_file_on_client="logs/metrics_overview_data_${last_node}_${SLURM_JOB_ID}.json"
+metrics_queues_data_file_on_client="logs/metrics_queues_data_${last_node}_${SLURM_JOB_ID}.json"
+srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
+  set -x;
+
+  SERVER_IP_FOR_API=$1;
+  OVERVIEW_DATA_LOG_PATH=$2;
+  QUEUES_DATA_LOG_PATH=$3;
+  DURATION=$4;
+  INTERVAL=$5;
+
+  mkdir -p "$(dirname "$OVERVIEW_DATA_LOG_PATH")";
+
+  end_time=$(( $(date +%s) + DURATION ));
+  iteration=0;
+  while [ $(date +%s) -lt $end_time ]; do
+    iteration=$((iteration + 1));
+    current_timestamp_for_log_entry=$(date +"%Y-%m-%d %H:%M:%S.%3N") # For prepending to JSON data
+
+    # Log overview data
+    echo "--- Metrics Iteration $iteration at $current_timestamp_for_log_entry (Overview) ---" >> "$OVERVIEW_DATA_LOG_PATH";
+    if curl -s -f -u rabbitmq:rabbitmq "http://${SERVER_IP_FOR_API}:15672/api/overview" >> "$OVERVIEW_DATA_LOG_PATH"; then
+        echo "" >> "$OVERVIEW_DATA_LOG_PATH";
+    else
+        echo "ERROR: curl to /api/overview failed for iteration $iteration at $current_timestamp_for_log_entry" >> "$OVERVIEW_DATA_LOG_PATH";
+    fi
+
+    # Log queues data
+    echo "--- Metrics Iteration $iteration at $current_timestamp_for_log_entry (Queues) ---" >> "$QUEUES_DATA_LOG_PATH";
+    if curl -s -f -u rabbitmq:rabbitmq "http://${SERVER_IP_FOR_API}:15672/api/queues" >> "$QUEUES_DATA_LOG_PATH"; then
+        echo "" >> "$QUEUES_DATA_LOG_PATH";
+    else
+        echo "ERROR: curl to /api/queues failed for iteration $iteration at $current_timestamp_for_log_entry" >> "$QUEUES_DATA_LOG_PATH";
+    fi
+
+    # Check if parent shell of this script is gone (e.g. srun task killed by `kill $metrics_srun_bg_pid`)
+    # This is a basic check.
+    if ! ps -p $$ > /dev/null; then
+        echo "Metrics Collector: Parent shell (PID $$) gone, exiting loop."
+        break
+    fi
+
+    sleep "$INTERVAL";
+  done
+  echo "Metrics Collector on $(hostname): Finished. Total iterations: $iteration";
+' bash "$rabbitmq_node_ip" "$metrics_overview_data_file_on_client" "$metrics_queues_data_file_on_client" "$METRICS_COLLECTION_DURATION" "$METRICS_INTERVAL" &
+
 python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect $blocking
 
 ray stop
@@ -122,4 +170,3 @@ srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
   CLIENT_HOSTNAME=$(hostname)
   rabbitmqctl -n "$TARGET_RMQ_NODE_NAME_WITH_HOST" stop
 ' bash "rabbit@$rabbitmq_server_actual_hostname"
-
