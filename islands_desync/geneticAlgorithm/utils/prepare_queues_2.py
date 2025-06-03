@@ -1,10 +1,13 @@
 import json
-
+import os
 import pika
 
 conf_file = "islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json"
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+head_node_ip = os.getenv("rabbitmq_node_ip", default='localhost')
+credentials = pika.PlainCredentials("rabbitmq", "rabbitmq")
+connection_params = pika.ConnectionParameters(head_node_ip, credentials=credentials)
+connection = pika.BlockingConnection(connection_params)
 channel = connection.channel()
 delay_channel = connection.channel()
 
@@ -53,3 +56,4 @@ remove_queues()
 create_queues()
 
 # docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+

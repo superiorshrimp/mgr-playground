@@ -41,7 +41,7 @@ def save(T):
 
 if __name__ == "__main__":
     delay = 10
-    n = 3
+    n = 100
     T = ring(delay, n)
     print_array(T)
     save(T)
