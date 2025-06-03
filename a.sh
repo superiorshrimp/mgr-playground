@@ -170,5 +170,3 @@ srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
   CLIENT_HOSTNAME=$(hostname)
   rabbitmqctl -n "$TARGET_RMQ_NODE_NAME_WITH_HOST" stop
 ' bash "rabbit@$rabbitmq_server_actual_hostname"
-
-

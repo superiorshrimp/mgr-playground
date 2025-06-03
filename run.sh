@@ -126,4 +126,3 @@ blocking=0
 python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect $blocking
 
 ray stop
-

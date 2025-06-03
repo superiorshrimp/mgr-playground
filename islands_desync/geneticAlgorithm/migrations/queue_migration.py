@@ -59,10 +59,8 @@ class QueueMigration(Migration):
         # sources = {island_id : 0 for island_id in self.emigration.island_ids.values()}
         i = 0
         while True:
-            s = time()
             method, properties, body = self.channel.basic_get(f"island-{self.island}", auto_ack=True)
             if body:
-                print("aaa", time() - s)
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)
                 new_agent = Agent(
@@ -108,4 +106,3 @@ class QueueMigration(Migration):
     def send_everywhere(self) -> bool:
         return True
         # return False
-
