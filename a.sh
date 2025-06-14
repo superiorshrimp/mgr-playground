@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --nodes=102
+#SBATCH --nodes=27
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=32G
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
 #SBATCH -p plgrid
 
 module load "python/3.10.4-gcccore-11.3.0"
@@ -97,9 +97,9 @@ srun --nodes=1 --ntasks=1 -w "$head_node" \
     --num-cpus "${SLURM_CPUS_PER_TASK}" --temp-dir="/tmp/$USER" --block &
 sleep 1
 
-islands_count=100
+islands_count=25
 migrants_count=2
-migration_interval=16
+migration_interval=64
 blocking=0
 
 for ((i = 1; i <= islands_count; i++)); do
@@ -115,8 +115,6 @@ METRICS_INTERVAL=1
 metrics_overview_data_file_on_client="logs/metrics_overview_data_${last_node}_${SLURM_JOB_ID}.json"
 metrics_queues_data_file_on_client="logs/metrics_queues_data_${last_node}_${SLURM_JOB_ID}.json"
 srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
-  set -x;
-
   SERVER_IP_FOR_API=$1;
   OVERVIEW_DATA_LOG_PATH=$2;
   QUEUES_DATA_LOG_PATH=$3;
@@ -131,24 +129,18 @@ srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
     iteration=$((iteration + 1));
     current_timestamp_for_log_entry=$(date +"%Y-%m-%d %H:%M:%S.%3N") # For prepending to JSON data
 
-    # Log overview data
-    echo "--- Metrics Iteration $iteration at $current_timestamp_for_log_entry (Overview) ---" >> "$OVERVIEW_DATA_LOG_PATH";
     if curl -s -f -u rabbitmq:rabbitmq "http://${SERVER_IP_FOR_API}:15672/api/overview" >> "$OVERVIEW_DATA_LOG_PATH"; then
         echo "" >> "$OVERVIEW_DATA_LOG_PATH";
     else
         echo "ERROR: curl to /api/overview failed for iteration $iteration at $current_timestamp_for_log_entry" >> "$OVERVIEW_DATA_LOG_PATH";
     fi
 
-    # Log queues data
-    echo "--- Metrics Iteration $iteration at $current_timestamp_for_log_entry (Queues) ---" >> "$QUEUES_DATA_LOG_PATH";
     if curl -s -f -u rabbitmq:rabbitmq "http://${SERVER_IP_FOR_API}:15672/api/queues" >> "$QUEUES_DATA_LOG_PATH"; then
         echo "" >> "$QUEUES_DATA_LOG_PATH";
     else
         echo "ERROR: curl to /api/queues failed for iteration $iteration at $current_timestamp_for_log_entry" >> "$QUEUES_DATA_LOG_PATH";
     fi
 
-    # Check if parent shell of this script is gone (e.g. srun task killed by `kill $metrics_srun_bg_pid`)
-    # This is a basic check.
     if ! ps -p $$ > /dev/null; then
         echo "Metrics Collector: Parent shell (PID $$) gone, exiting loop."
         break

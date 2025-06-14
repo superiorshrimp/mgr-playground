@@ -180,7 +180,7 @@ class GeneticIslandAlgorithm:
         #     it += 1
         #     self.step()
 
-        while time() - start < 30:
+        while time() - start < 15:
             it += 1
             self.step()
 
@@ -343,6 +343,13 @@ class GeneticIslandAlgorithm:
                     flag = True
                     break
             if not flag:
+                f = False
+                for individual in self.solutions:
+                    if new_individual.fitness > individual.fitness:
+                        f = True
+                        break
+                if not f:
+                    print(self.island, "HIT")
                 accepted_individuals.append(new_individual)
 
         return accepted_individuals
@@ -364,4 +371,5 @@ class GeneticIslandAlgorithm:
         self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents]) / len(self.emas.agents))
         self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
         self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
+
 
