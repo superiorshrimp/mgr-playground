@@ -86,8 +86,9 @@ class QueueMigration(Migration):
                 break
             else:
                 i += 1
-                sleep(0.01)
-                if i == 5: # 50ms
+                sleep(0.001)
+                if i == 50: # 25ms
+                    print("MISS")
                     break
 
         emigration_at_step_num = {
@@ -107,5 +108,5 @@ class QueueMigration(Migration):
         return obj
 
     def send_everywhere(self) -> bool:
-        return True
-        # return False
+        # return True
+        return False

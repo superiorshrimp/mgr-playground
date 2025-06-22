@@ -189,8 +189,8 @@ class GeneticIslandAlgorithm:
         print("time:", time() - start)
         print(sorted(self.solutions, key=lambda agent: agent.fitness)[0].fitness)
         # self.plot_history(it)
-        # self.save_history()
-        self.save_history_short()
+        self.save_history()
+        # self.save_history_short()
         json.dump(self.tab_emigr, open("history/w"+str(self.island)+".json", "w"), indent=4)
 
     def save_history_short(self):
@@ -305,14 +305,18 @@ class GeneticIslandAlgorithm:
             self.migration.start_time_measure()
 
         # MIGRATIONS
+        s0 = time()
         self.is_new_immigrant = False
         if self.number_of_islands > 1:
             self.migrate_individuals()
             try:
                 self.add_new_individuals()
             except: pass # TODO: why throws?
+        d0 = time() - s0
+        print(self.island, "migration_time", f"{d0:.10f}", self.step_num, self.evaluations)
 
         # EVOLUTIONARY STEP
+        s1 = time()
         self.emas.agents = self.solutions
         children_count = self.emas.iteration(self.step_num)
         self.log_history()
@@ -333,10 +337,14 @@ class GeneticIslandAlgorithm:
             #     self.ctrl.endOfWholeProbe(self.seria)
         
         self.evaluations += children_count
+        d1 = time() - s1
+        print(self.island, "evo_step_time", f"{d1:.10f}", self.step_num, self.evaluations, children_count)
 
     def accept_individuals(self, new_individuals):
         accepted_individuals = []
+        avg = np.mean([individual.fitness for individual in self.solutions])
         for new_individual in new_individuals:
+            if avg < new_individual.fitness: continue
             flag = False
             for individual in self.solutions:
                 if new_individual.x == individual.x:

@@ -90,6 +90,7 @@ ip_head=$head_node_ip:$port
 export ip_head
 
 ray stop
+sleep 5
 export RAY_DEDUP_LOGS=0
 echo "Starting HEAD at $head_node"
 srun --nodes=1 --ntasks=1 -w "$head_node" \
@@ -151,7 +152,7 @@ srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
   echo "Metrics Collector on $(hostname): Finished. Total iterations: $iteration";
 ' bash "$rabbitmq_node_ip" "$metrics_overview_data_file_on_client" "$metrics_queues_data_file_on_client" "$METRICS_COLLECTION_DURATION" "$METRICS_INTERVAL" &
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval RingTopology MinStdDevSelect $blocking
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology MinStdDevSelect $blocking
 
 ray stop
 
