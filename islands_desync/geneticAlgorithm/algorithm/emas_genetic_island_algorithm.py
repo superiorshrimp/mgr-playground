@@ -336,7 +336,7 @@ class GeneticIslandAlgorithm:
             # if self.island == 0:
             #     self.migration.wait_for_finish()
             #     self.ctrl.endOfWholeProbe(self.seria)
-        
+
         self.evaluations += children_count
         d1 = time() - s1
         print(self.island, "evo_step_time", f"{d1:.10f}", self.step_num, self.evaluations, children_count)
@@ -380,5 +380,4 @@ class GeneticIslandAlgorithm:
         self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents]) / len(self.emas.agents))
         self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
         self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
-
 

@@ -1,7 +1,7 @@
 export islands=25
-export blocking=0
+export blocking=1
 
-for delay in 0 1; do
+for delay in {0..100..5}; do
     echo "Running script.py with delay=$delay"
     python3 islands_desync/desync_config.py "$islands" "$delay"
 
@@ -24,6 +24,18 @@ for delay in 0 1; do
 
         rm -fr ../rabbitmq_server-4.0.5/var/log/rabbitmq/*
         rm -fr ../rabbitmq_server-4.0.5/var/lib/rabbitmq/mnesia/*
+    done
+
+    echo "Waiting for final job $jobid to finish before next delay (timeout: 10 mins)"
+    timeout=600
+    waited=0
+    while squeue -j "$jobid" 2>/dev/null | grep -q "$jobid"; do
+        sleep 5
+        waited=$((waited + 5))
+        if [ "$waited" -ge "$timeout" ]; then
+            echo "Timeout waiting for job $jobid after 10 minutes. Continuing..."
+            break
+        fi
     done
 done
 

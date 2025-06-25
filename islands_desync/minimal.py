@@ -6,7 +6,7 @@ import ray
 
 from geneticAlgorithm.run_hpc.run_algorithm_params import RunAlgorithmParams
 from islands.core.IslandRunner import IslandRunner
-from islands.selectAlgorithm import RandomSelect, MaxDistanceSelect, MinFitnessSelect, MinStdDevSelect
+from islands.selectAlgorithm import RandomSelect, MaxDistanceSelect, MinFitnessSelect, MaxFitnessSelect, MinStdDevSelect
 from islands.topologies import CompleteTopology, RingTopology
 
 '''
@@ -61,6 +61,7 @@ def get_island_selection_method(method: str):
         case 'MaxDistanceSelect': return MaxDistanceSelect
         case 'MinStdDevSelect': return MinStdDevSelect
         case 'MinFitnessSelect': return MinFitnessSelect
+        case 'MaxFitnessSelect': return MaxFitnessSelect
         case _:
             print("WRONG ISLAND SELECTION ALGORITHM NAME")
             exit()

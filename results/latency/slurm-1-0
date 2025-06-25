@@ -1,0 +1,124 @@
+ gcccore/11.3.0 loaded.
+ zlib/1.2.12-gcccore-11.3.0 loaded.
+ binutils/2.38-gcccore-11.3.0 loaded.
+ bzip2/1.0.8-gcccore-11.3.0 loaded.
+ ncurses/6.3-gcccore-11.3.0 loaded.
+ libreadline/8.1.2-gcccore-11.3.0 loaded.
+ tcl/8.6.12-gcccore-11.3.0 loaded.
+ sqlite/3.38.3-gcccore-11.3.0 loaded.
+ xz/5.2.5-gcccore-11.3.0 loaded.
+ gmp/6.2.1-gcccore-11.3.0 loaded.
+ libffi/3.4.2-gcccore-11.3.0 loaded.
+ openssl/1.1 loaded.
+ python/3.10.4-gcccore-11.3.0 loaded.
+
+[notice] A new release of pip is available: 24.2 -> 25.1.1
+[notice] To update, run: pip install --upgrade pip
+=INFO REPORT==== 5-Jun-2025::21:16:13.780282 ===
+    alarm_handler: {set,{{disk_almost_full,"/"},[]}}
+2025-06-05 21:16:14.527880+02:00 [warning] <0.153.0> Overriding Erlang cookie using the value set in the environment
+2025-06-05 21:16:15.050973+02:00 [notice] <0.45.0> Application syslog exited with reason: stopped
+2025-06-05 21:16:15.051055+02:00 [notice] <0.216.0> Logging: switching to configured handler(s); following messages may not be visible in this log output
+
+  ##  ##      RabbitMQ 4.0.5
+  ##  ##
+  ##########  Copyright (c) 2007-2024 Broadcom Inc and/or its subsidiaries
+  ######  ##
+  ##########  Licensed under the MPL 2.0. Website: https://rabbitmq.com
+
+  Erlang:      27 [emu]
+  TLS Library: OpenSSL - OpenSSL 1.1.1k  FIPS 25 Mar 2021
+  Release series support status: see https://www.rabbitmq.com/release-information
+
+  Doc guides:  https://www.rabbitmq.com/docs
+  Support:     https://www.rabbitmq.com/docs/contact
+  Tutorials:   https://www.rabbitmq.com/tutorials
+  Monitoring:  https://www.rabbitmq.com/docs/monitoring
+  Upgrading:   https://www.rabbitmq.com/docs/upgrade
+
+  Logs: /net/people/plgrid/plgzychowiczes/mgr/rabbitmq_server-4.0.5/var/log/rabbitmq/rabbit@ac0080.log
+        <stdout>
+
+  Config file(s): /net/people/plgrid/plgzychowiczes/mgr/rabbitmq_server-4.0.5/etc/rabbitmq/rabbitmq.conf
+
+  Starting broker... completed with 3 plugins.
+Adding user "rabbitmq" ...
+Done. Don't forget to grant the user permissions to some virtual hosts! See 'rabbitmqctl help set_permissions' to learn more.
+Setting tags for user "rabbitmq" to [rabbitmq] ...
+Setting permissions for user "rabbitmq" in vhost "/" ...
+Setting tags for user "rabbitmq" to [administrator] ...
+Enabling plugins on node rabbit@ac0080:
+rabbitmq_management
+The following plugins have been configured:
+  rabbitmq_management
+  rabbitmq_management_agent
+  rabbitmq_web_dispatch
+Applying plugin configuration to rabbit@ac0080...
+Plugin configuration unchanged.
+ python/3.10.4-gcccore-11.3.0 unloaded.
+ python/3.10.4-gcccore-11.3.0 loaded.
+
+[notice] A new release of pip is available: 24.2 -> 25.1.1
+[notice] To update, run: pip install --upgrade pip
+2025-06-05 21:17:00,727	INFO scripts.py:1197 -- Did not find any active Ray processes.
+Starting HEAD at ac0078
+Starting WORKER 1 at ac0079
+[2025-06-05 21:17:03,466 W 222553 222553] global_state_accessor.cc:463: Retrying to get node with node ID f0f63cefc4ad2c668999e24f2f3d73079a88d8ddfadb9d9d1c3bdf35
+2025-06-05 21:17:02,290	INFO usage_lib.py:467 -- Usage stats collection is enabled by default without user confirmation because this terminal is detected to be non-interactive. To disable this, add `--disable-usage-stats` to the command that starts the cluster, or run the following command: `ray disable-usage-stats` before starting the cluster. See https://docs.ray.io/en/master/cluster/usage-stats.html for more details.
+2025-06-05 21:17:02,290	INFO scripts.py:778 -- [37mLocal node IP[39m: [1m172.22.16.78[22m
+2025-06-05 21:17:03,498	SUCC scripts.py:815 -- [32m--------------------[39m
+2025-06-05 21:17:03,498	SUCC scripts.py:816 -- [32mRay runtime started.[39m
+2025-06-05 21:17:03,498	SUCC scripts.py:817 -- [32m--------------------[39m
+2025-06-05 21:17:03,498	INFO scripts.py:819 -- [36mNext steps[39m
+2025-06-05 21:17:03,498	INFO scripts.py:822 -- To add another node to this Ray cluster, run
+2025-06-05 21:17:03,498	INFO scripts.py:825 -- [1m  ray start --address='172.22.16.78:6379'[22m
+2025-06-05 21:17:03,498	INFO scripts.py:834 -- To connect to this Ray cluster:
+2025-06-05 21:17:03,498	INFO scripts.py:836 -- [35mimport[39m[26m ray
+2025-06-05 21:17:03,498	INFO scripts.py:837 -- ray[35m.[39m[26minit(_node_ip_address[35m=[39m[26m[33m'172.22.16.78'[39m[26m)
+2025-06-05 21:17:03,498	INFO scripts.py:849 -- To submit a Ray job using the Ray Jobs CLI:
+2025-06-05 21:17:03,498	INFO scripts.py:850 -- [1m  RAY_ADDRESS='http://127.0.0.1:8265' ray job submit --working-dir . -- python my_script.py[22m
+2025-06-05 21:17:03,498	INFO scripts.py:859 -- See https://docs.ray.io/en/latest/cluster/running-applications/job-submission/index.html 
+2025-06-05 21:17:03,498	INFO scripts.py:863 -- for more information on submitting Ray jobs to the Ray cluster.
+2025-06-05 21:17:03,498	INFO scripts.py:868 -- To terminate the Ray runtime, run
+2025-06-05 21:17:03,498	INFO scripts.py:869 -- [1m  ray stop[22m
+2025-06-05 21:17:03,498	INFO scripts.py:872 -- To view the status of the cluster, use
+2025-06-05 21:17:03,498	INFO scripts.py:873 --   [1mray status[22m[26m
+2025-06-05 21:17:03,498	INFO scripts.py:877 -- To monitor and debug Ray, view the dashboard at 
+2025-06-05 21:17:03,498	INFO scripts.py:878 --   [1m127.0.0.1:8265[22m[26m
+2025-06-05 21:17:03,498	INFO scripts.py:885 -- [4mIf connection to the dashboard fails, check your firewall settings and network configuration.[24m
+2025-06-05 21:17:03,499	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-06-05 21:17:03,499	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-06-05 21:17:03,499	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+2025-06-05 21:17:04,142	INFO worker.py:1601 -- Connecting to existing Ray cluster at address: 172.22.16.78:6379...
+2025-06-05 21:17:04,147	INFO worker.py:1777 -- Connected to Ray cluster. View the dashboard at [1m[32m127.0.0.1:8265 [39m[22m
+2025-06-05 21:17:03,404	INFO scripts.py:960 -- [37mLocal node IP[39m: [1m172.22.16.79[22m
+2025-06-05 21:17:04,480	SUCC scripts.py:973 -- [32m--------------------[39m
+2025-06-05 21:17:04,480	SUCC scripts.py:974 -- [32mRay runtime started.[39m
+2025-06-05 21:17:04,480	SUCC scripts.py:975 -- [32m--------------------[39m
+2025-06-05 21:17:04,480	INFO scripts.py:977 -- To terminate the Ray runtime, run
+2025-06-05 21:17:04,480	INFO scripts.py:978 -- [1m  ray stop[22m
+2025-06-05 21:17:04,480	INFO scripts.py:986 -- [36m[1m--block[22m[39m
+2025-06-05 21:17:04,480	INFO scripts.py:987 -- This command will now block forever until terminated by a signal.
+2025-06-05 21:17:04,480	INFO scripts.py:990 -- Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly. Subprocesses exit with SIGTERM will be treated as graceful, thus NOT reported.
+ ---- RING --- TOPOLOGY ----
+[36m(Computation pid=107244)[0m 
+[36m(Computation pid=107244)[0m Starting computation
+[36m(Computation pid=107244)[0m [-0.03, -0.94, -0.0, -0.05, -1.01, 0.06, 0.94, 0.01, -1.0, 0.02, 0.99, 0.03, -0.01, -0.03, 0.03, -0.05, -0.03, 0.99, 0.04, 0.9, 0.0, -0.0, 1.02, -0.01, 0.03, 0.02, 1.08, -0.03, 0.0, -0.04, -0.99, -0.98, -0.01, -0.0, -1.0, -0.95, 0.0, 0.98, -0.06, -0.97, 0.02, -0.06, 0.93, -0.01, -0.02, 0.05, -0.04, -2.0, -0.99, 0.03, 0.01, 1.0, -0.02, 1.04, -0.04, 0.01, 0.04, -0.97, -0.05, 0.01, 0.02, 0.02, -0.02, 0.03, -0.97, 0.01, 0.02, -0.04, 1.12, -0.01, 0.97, 1.01, -0.98, 1.0, -1.0, -0.02, 1.04, 0.0, -0.01, 0.01, -0.97, 0.03, -0.98, -0.0, -1.02, 0.02, 0.01, 0.96, -0.0, 0.04, -0.07, 0.98, -0.97, 0.01, -0.01, -0.97, -0.97, 1.03, -0.08, -0.04]
+[36m(Computation pid=107244)[0m 64.43534660503849
+[36m(Computation pid=107244)[0m time: 15.001306772232056
+[36m(Computation pid=107244)[0m 8.34397427883664
+[36m(Computation pid=107244)[0m 
+[36m(Computation pid=107244)[0m Island: 0 Fitness: 8.34397427883664
+srun: error: ac0078: task 0: Exited with exit code 1
+2025-06-05 21:17:23,010	VINFO scripts.py:1125 -- Send termination request to `[1m/net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/core/src/ray/raylet/raylet --raylet_socket_name=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/sockets/raylet --store_socket_name=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/sockets/plasma_store --object_manager_port=0 --min_worker_port=10002 --max_worker_port=19999 --node_manager_port=0 --node_id=8e12e65f7910502ad0c694d04d17f43c41edcd12dc5ea7acfed98d4c --node_ip_address=172.22.16.78 --maximum_startup_concurrency=32 --static_resource_list=node:172.22.16.78,1.0,node:__internal_head__,1.0,CPU,32,memory,125721283175,object_store_memory,58166264217 "--python_worker_command=/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/workers/setup_worker.py /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/workers/default_worker.py --node-ip-address=172.22.16.78 --node-manager-port=RAY_NODE_MANAGER_PORT_PLACEHOLDER --object-store-name=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/sockets/plasma_store --raylet-name=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/sockets/raylet --redis-address=None --metrics-agent-port=48382 --runtime-env-agent-port=59186 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --runtime-env-agent-port=59186 --gcs-address=172.22.16.78:6379 --session-name=session_2025-06-05_21-17-02_291236_106624 --temp-dir=/tmp/plgzychowiczes --webui=127.0.0.1:8265 --cluster-id=9447b6a315babaaba9076df5f41f8b705ad6a835673d31f76699fd50 RAY_WORKER_DYNAMIC_OPTION_PLACEHOLDER" --java_worker_command= --cpp_worker_command= --native_library_path=/net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/cpp/lib --temp_dir=/tmp/plgzychowiczes --session_dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624 --log_dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --resource_dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/runtime_resources --metrics-agent-port=48382 --metrics_export_port=47584 --runtime_env_agent_port=59186 --object_store_memory=58166264217 --plasma_directory=/dev/shm --ray-debugger-external=0 --gcs-address=172.22.16.78:6379 --session-name=session_2025-06-05_21-17-02_291236_106624 --labels= --cluster-id=9447b6a315babaaba9076df5f41f8b705ad6a835673d31f76699fd50 --head --num_prestart_python_workers=32 "--dashboard_agent_command=/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/dashboard/agent.py --node-ip-address=172.22.16.78 --metrics-export-port=47584 --dashboard-agent-port=48382 --listen-port=52365 --node-manager-port=RAY_NODE_MANAGER_PORT_PLACEHOLDER --object-store-name=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/sockets/plasma_store --raylet-name=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/sockets/raylet --temp-dir=/tmp/plgzychowiczes --session-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624 --log-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --session-name=session_2025-06-05_21-17-02_291236_106624 --gcs-address=172.22.16.78:6379 --cluster-id-hex=9447b6a315babaaba9076df5f41f8b705ad6a835673d31f76699fd50" "--runtime_env_agent_command=/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/runtime_env/agent/main.py --node-ip-address=172.22.16.78 --runtime-env-agent-port=59186 --gcs-address=172.22.16.78:6379 --cluster-id-hex=9447b6a315babaaba9076df5f41f8b705ad6a835673d31f76699fd50 --runtime-env-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/runtime_resources --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --log-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --temp-dir=/tmp/plgzychowiczes" --node-name=172.22.16.78[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-06-05 21:17:23,542	INFO scripts.py:1155 -- 1/1 stopped.2025-06-05 21:17:23,545	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/autoscaler/_private/monitor.py --logs-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --gcs-address=172.22.16.78:6379 --monitor-ip=172.22.16.78[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-06-05 21:17:23,546	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/log_monitor.py --session-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624 --logs-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --gcs-address=172.22.16.78:6379 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-06-05 21:17:23,547	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -m ray.util.client.server --address=172.22.16.78:6379 --host=0.0.0.0 --port=10001 --mode=proxy --runtime-env-agent-address=http://172.22.16.78:59186[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-06-05 21:17:23,550	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 -u /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/_private/log_monitor.py --session-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624 --logs-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --gcs-address=172.22.16.78:6379 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-06-05 21:17:23,553	VINFO scripts.py:1125 -- Send termination request to `[1m/net/software/testing/software/Python/3.10.4-GCCcore-11.3.0/bin/python3.10 /net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/dashboard/dashboard.py --host=127.0.0.1 --port=8265 --port-retries=0 --temp-dir=/tmp/plgzychowiczes --log-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --session-dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624 --logging-rotate-bytes=536870912 --logging-rotate-backup-count=5 --gcs-address=172.22.16.78:6379 --cluster-id-hex=9447b6a315babaaba9076df5f41f8b705ad6a835673d31f76699fd50 --node-ip-address=172.22.16.78[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-06-05 21:17:24,522	INFO scripts.py:1155 -- 1/4 stopped.2025-06-05 21:17:24,522	INFO scripts.py:1155 -- 2/4 stopped.2025-06-05 21:17:24,522	INFO scripts.py:1155 -- 3/4 stopped.2025-06-05 21:17:24,522	INFO scripts.py:1155 -- 4/4 stopped.2025-06-05 21:17:24,524	VINFO scripts.py:1125 -- Send termination request to `[1m/net/people/plgrid/plgzychowiczes/.local/lib/python3.10/site-packages/ray/core/src/ray/gcs/gcs_server --log_dir=/tmp/plgzychowiczes/session_2025-06-05_21-17-02_291236_106624/logs --config_list=eyJvYmplY3Rfc3BpbGxpbmdfY29uZmlnIjogIntcInR5cGVcIjogXCJmaWxlc3lzdGVtXCIsIFwicGFyYW1zXCI6IHtcImRpcmVjdG9yeV9wYXRoXCI6IFwiL3RtcC9wbGd6eWNob3dpY3plcy9zZXNzaW9uXzIwMjUtMDYtMDVfMjEtMTctMDJfMjkxMjM2XzEwNjYyNFwifX0iLCAiaXNfZXh0ZXJuYWxfc3RvcmFnZV90eXBlX2ZzIjogdHJ1ZX0= --gcs_server_port=6379 --metrics-agent-port=48382 --node-ip-address=172.22.16.78 --session-name=session_2025-06-05_21-17-02_291236_106624 --ray-commit=1b620f244c4fb67d80661046091573fb6eefecb6[22m[26m` [2m(via SIGTERM)[22m[26m
+2025-06-05 21:17:30,534	WARN scripts.py:1202 -- [33mStopped only 5 out of 6 Ray processes within the grace period 16 seconds. Set `[1m-v[22m[33m` to see more details. Remaining processes [psutil.Process(pid=106671, name='gcs_server', status='terminated', started='21:17:02')] will be forcefully terminated.[39m
+2025-06-05 21:17:30,534	WARN scripts.py:1209 -- [33mYou can also use `[1m--force[22m[33m` to forcefully terminate processes or set higher `--grace-period` to wait longer time for proper termination.[39m
+Metrics Collector on ac0079: Finished. Total iterations: 32
+Stopping and halting node rabbit@ac0080 ...
+Gracefully halting Erlang VM
