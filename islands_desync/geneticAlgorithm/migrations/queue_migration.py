@@ -59,8 +59,10 @@ class QueueMigration(Migration):
         # sources = {island_id : 0 for island_id in self.emigration.island_ids.values()}
         i = 0
         while True:
+            s = time()
             method, properties, body = self.channel.basic_get(f"island-{self.island}", auto_ack=True)
             if body:
+                print("get_time_success", time()-s)
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)
                 new_agent = Agent(
@@ -80,11 +82,13 @@ class QueueMigration(Migration):
                     if len(new_individuals) == 2 * len(self.emigration.island_ids.keys()): # TODO: env individuals_to_migrate
                         break
             elif not self.blocking:
+                print("get_time_fail", time()-s)
                 break
             else:
                 i += 1
-                sleep(0.01)
-                if i == 5: # 50ms
+                sleep(0.001)
+                if i == 50: # 50ms
+                    print("MISS")
                     break
 
         emigration_at_step_num = {
@@ -104,5 +108,5 @@ class QueueMigration(Migration):
         return obj
 
     def send_everywhere(self) -> bool:
-        return True
-        # return False
+        # return True
+        return False

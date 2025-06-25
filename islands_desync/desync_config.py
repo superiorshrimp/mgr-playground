@@ -1,5 +1,6 @@
 import json
 import os
+from sys import argv
 
 PATH = './islands_desync/geneticAlgorithm/algorithm/configurations/algorithm_configuration.json'
 
@@ -40,9 +41,10 @@ def save(T):
         json.dump(data, f, indent=2)
 
 if __name__ == "__main__":
-    delay = 10
-    n = 100
-    T = ring(delay, n)
+    delay = int(argv[2])
+    n = int(argv[1])
+    # T = ring(delay, n)
+    T = complete(delay, n)
     print_array(T)
     save(T)
 
