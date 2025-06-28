@@ -48,21 +48,21 @@ def main():
 
             if b_val == 0:
                 if y_values_b0.get(d_val, None) is None:
-                    y_values_b0[d_val] = [hit/get_success]
-                    # y_values_b0[d_val] = [hit]
+                    # y_values_b0[d_val] = [hit/get_success]
+                    y_values_b0[d_val] = [hit]
                     # y_values_b0[d_val] = [miss]
                 else:
-                    y_values_b0.get(d_val).append(hit/get_success)
-                    # y_values_b0.get(d_val).append(hit)
+                    # y_values_b0.get(d_val).append(hit/get_success)
+                    y_values_b0.get(d_val).append(hit)
                     # y_values_b0.get(d_val).append(miss)
             else:
                 if y_values_b1.get(d_val, None) is None:
-                    y_values_b1[d_val] = [hit/get_success]
-                    # y_values_b1[d_val] = [hit]
+                    # y_values_b1[d_val] = [hit/get_success]
+                    y_values_b1[d_val] = [hit]
                     # y_values_b1[d_val] = [miss]
                 else:
-                    y_values_b1.get(d_val).append(hit/get_success)
-                    # y_values_b1.get(d_val).append(hit)
+                    # y_values_b1.get(d_val).append(hit/get_success)
+                    y_values_b1.get(d_val).append(hit)
                     # y_values_b1.get(d_val).append(miss)
 
     print([y_values_b0[key] for key in sorted(y_values_b0.keys())])
