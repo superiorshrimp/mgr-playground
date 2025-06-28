@@ -83,7 +83,7 @@ def main():
 
     x_vals = list(d_values)
     plt.xticks(ticks=[_ for _ in range(len(x_vals))], labels=sorted(x_vals))
-    plt.ylabel('hit count rate')
+    plt.ylabel('hit count')
     plt.xlabel('delay [ms]')
     plt.tight_layout()
     plt.legend()
