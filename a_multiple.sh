@@ -1,15 +1,15 @@
 export islands=25
 export blocking=1
 
-for delay in {5..10..5}; do
+for delay in {0..100..5}; do
     echo "Running script.py with delay=$delay"
     python3 islands_desync/desync_config.py "$islands" "$delay"
 
     jobid=$(sbatch --output=slurm-b${blocking}d${delay}-0 a.sh | awk '{print $4}')
 
-    for i in {1..3}; do
+    for i in {1..2}; do
         echo "Waiting for job $jobid to finish (timeout: 10 mins)"
-        timeout=3000
+        timeout=600
         waited=0
         while squeue -j "$jobid" 2>/dev/null | grep -q "$jobid"; do
             sleep 5
@@ -27,7 +27,7 @@ for delay in {5..10..5}; do
     done
 
     echo "Waiting for final job $jobid to finish before next delay (timeout: 10 mins)"
-    timeout=3000
+    timeout=600
     waited=0
     while squeue -j "$jobid" 2>/dev/null | grep -q "$jobid"; do
         sleep 5

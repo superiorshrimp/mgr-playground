@@ -309,6 +309,7 @@ class GeneticIslandAlgorithm:
         s0 = time()
         self.is_new_immigrant = False
         if self.number_of_islands > 1:
+            self.update_island_data()
             self.migrate_individuals()
             try:
                 self.add_new_individuals()

@@ -20,3 +20,4 @@ class MaxDistanceSelect(SelectAlgorithm):
                     max_val = val
                     max_i = i
         return islands[max_i]
+

@@ -91,7 +91,7 @@ class QueueMigration(Migration):
             else:
                 i += 1
                 sleep(0.001)
-                if i == 50: # 50ms
+                if i == 20: # 20ms
                     print("MISS")
                     break
 
