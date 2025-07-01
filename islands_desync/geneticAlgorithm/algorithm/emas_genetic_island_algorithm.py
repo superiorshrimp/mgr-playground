@@ -273,7 +273,6 @@ class GeneticIslandAlgorithm:
                 individuals_to_migrate = self.get_individuals_to_migrate(
                     self.solutions, self.number_of_emigrants
                 )
-                self.update_island_data()
                 self.last_migration_evaluation_number = self.evaluations
             except ValueError as ve:
                 print("-- ValueError -- migrate individuals  --", ve.__str__(), " ", self.island, " ", self.step_num)
@@ -309,6 +308,7 @@ class GeneticIslandAlgorithm:
         s0 = time()
         self.is_new_immigrant = False
         if self.number_of_islands > 1:
+            self.update_island_data()
             self.migrate_individuals()
             try:
                 self.add_new_individuals()
@@ -342,6 +342,7 @@ class GeneticIslandAlgorithm:
         print(self.island, "evo_step_time", f"{d1:.10f}", self.step_num, self.evaluations, children_count)
 
     def accept_individuals(self, new_individuals):
+        s = time()
         accepted_individuals = []
         avg = np.mean([individual.fitness for individual in self.solutions])
         for new_individual in new_individuals:
@@ -361,6 +362,7 @@ class GeneticIslandAlgorithm:
                     print(self.island, "HIT")
                 accepted_individuals.append(new_individual)
 
+        print("acc", time() - s)
         return accepted_individuals
 
     # def send_kill_signal(self):

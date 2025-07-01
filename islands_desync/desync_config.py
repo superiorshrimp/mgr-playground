@@ -43,8 +43,8 @@ def save(T):
 if __name__ == "__main__":
     delay = int(argv[2])
     n = int(argv[1])
-    # T = ring(delay, n)
-    T = complete(delay, n)
+    T = ring(delay, n)
+    #T = complete(delay, n)
     print_array(T)
     save(T)
 

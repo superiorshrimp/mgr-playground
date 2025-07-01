@@ -101,6 +101,7 @@ sleep 1
 islands_count=25
 migrants_count=2
 migration_interval=64
+selection_method="MaxFitnessSelect"
 blocking=0
 
 for ((i = 1; i <= islands_count; i++)); do
@@ -152,7 +153,7 @@ srun --overlap --nodes=1 --ntasks=1 -w "$second_last_node" bash -c '
   echo "Metrics Collector on $(hostname): Finished. Total iterations: $iteration";
 ' bash "$rabbitmq_node_ip" "$metrics_overview_data_file_on_client" "$metrics_queues_data_file_on_client" "$METRICS_COLLECTION_DURATION" "$METRICS_INTERVAL" &
 
-python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology MaxDistanceSelect $blocking
+python -u islands_desync/minimal.py $islands_count $migrants_count $migration_interval CompleteTopology $selection_method $blocking
 
 ray stop
 
