@@ -273,7 +273,6 @@ class GeneticIslandAlgorithm:
                 individuals_to_migrate = self.get_individuals_to_migrate(
                     self.solutions, self.number_of_emigrants
                 )
-                self.update_island_data()
                 self.last_migration_evaluation_number = self.evaluations
             except ValueError as ve:
                 print("-- ValueError -- migrate individuals  --", ve.__str__(), " ", self.island, " ", self.step_num)
