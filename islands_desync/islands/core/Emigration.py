@@ -12,6 +12,7 @@ class Emigration:
             island : ray.get(island.get_id.remote()) for island in islands
         }
         self.select_algorithm: SelectAlgorithm = select_algorithm
+        self.select_algo_coef: float = 0.0
 
     def emigrate(self, population_member, islands_relevant_data):
         destination = self.select_algorithm.choose(

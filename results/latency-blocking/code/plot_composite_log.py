@@ -62,14 +62,15 @@ def main():
     print(avg_y_values_b0)
     print(avg_y_values_b1)
 
-    plt.plot(avg_y_values_b0)
-    plt.plot(avg_y_values_b1)
+    plt.plot(avg_y_values_b0, label='non-blocking', alpha=0.7)
+    plt.plot(avg_y_values_b1, label='blocking', alpha=0.7)
 
     x_vals = list(d_values)
-    # plt.xticks(sorted(x_vals))
+    plt.xticks(ticks=[_ for _ in range(len(x_vals))], labels=sorted(x_vals))
     plt.ylabel('average best fitness')
     plt.xlabel('delay [ms]')
     plt.tight_layout()
+    plt.legend()
     plt.show()
 
 

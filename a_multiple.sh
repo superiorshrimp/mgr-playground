@@ -38,4 +38,3 @@ for delay in {0..100..5}; do
         fi
     done
 done
-

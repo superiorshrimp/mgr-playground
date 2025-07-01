@@ -42,24 +42,28 @@ def main():
                             miss = int(line)
                             c += 1
                         else:
-                            get_success += 1
+                            get_success = int(line)
                     except (ValueError, IndexError):
                         continue
 
             if b_val == 0:
                 if y_values_b0.get(d_val, None) is None:
-                    y_values_b0[d_val] = [hit/get_success]
-                    # y_values_b0[d_val] = [hit]
+                    # y_values_b0[d_val] = [hit/get_success]
+                    y_values_b0[d_val] = [hit]
+                    # y_values_b0[d_val] = [miss]
                 else:
-                    y_values_b0.get(d_val).append(hit/get_success)
-                    # y_values_b0.get(d_val).append(hit)
+                    # y_values_b0.get(d_val).append(hit/get_success)
+                    y_values_b0.get(d_val).append(hit)
+                    # y_values_b0.get(d_val).append(miss)
             else:
                 if y_values_b1.get(d_val, None) is None:
-                    y_values_b1[d_val] = [hit/get_success]
-                    # y_values_b1[d_val] = [hit]
+                    # y_values_b1[d_val] = [hit/get_success]
+                    y_values_b1[d_val] = [hit]
+                    # y_values_b1[d_val] = [miss]
                 else:
-                    y_values_b1.get(d_val).append(hit/get_success)
-                    # y_values_b1.get(d_val).append(hit)
+                    # y_values_b1.get(d_val).append(hit/get_success)
+                    y_values_b1.get(d_val).append(hit)
+                    # y_values_b1.get(d_val).append(miss)
 
     print([y_values_b0[key] for key in sorted(y_values_b0.keys())])
     print([y_values_b1[key] for key in sorted(y_values_b1.keys())])
@@ -74,14 +78,15 @@ def main():
     print(avg_y_values_b0)
     print(avg_y_values_b1)
 
-    plt.plot(avg_y_values_b0)
-    plt.plot(avg_y_values_b1)
+    plt.plot(avg_y_values_b0, label='non-blocking', alpha=0.7)
+    plt.plot(avg_y_values_b1, label='blocking', alpha=0.7)
 
     x_vals = list(d_values)
-    # plt.xticks(sorted(x_vals))
+    plt.xticks(ticks=[_ for _ in range(len(x_vals))], labels=sorted(x_vals))
     plt.ylabel('hit count')
     plt.xlabel('delay [ms]')
     plt.tight_layout()
+    plt.legend()
     plt.show()
 
 

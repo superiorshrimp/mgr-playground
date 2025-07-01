@@ -23,9 +23,8 @@ class QueueMigration(Migration):
         self, individuals_to_migrate, iteration_number, island_number, timestamp, island
     ):
         island_relevant_data = None
-        
         emigration_select_algorithm = self.emigration.select_algorithm
-        if random.random() < 0:
+        if random.random() < self.emigration.select_algo_coef:
             self.emigration.select_algorithm = RandomSelect()
             if not isinstance(self.emigration.select_algorithm, RandomSelect) and not self.send_everywhere():  # TODO: refactor maybe for 2 more parent classes?
                 island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
@@ -92,7 +91,7 @@ class QueueMigration(Migration):
             else:
                 i += 1
                 sleep(0.001)
-                if i == 20: # 50ms
+                if i == 20: # 20ms
                     print("MISS")
                     break
 
@@ -113,5 +112,5 @@ class QueueMigration(Migration):
         return obj
 
     def send_everywhere(self) -> bool:
-        return True
-        #return False
+        # return True
+        return False

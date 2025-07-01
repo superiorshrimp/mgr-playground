@@ -342,7 +342,6 @@ class GeneticIslandAlgorithm:
         print(self.island, "evo_step_time", f"{d1:.10f}", self.step_num, self.evaluations, children_count)
 
     def accept_individuals(self, new_individuals):
-        s = time()
         accepted_individuals = []
         avg = np.mean([individual.fitness for individual in self.solutions])
         for new_individual in new_individuals:
@@ -362,7 +361,6 @@ class GeneticIslandAlgorithm:
                     print(self.island, "HIT")
                 accepted_individuals.append(new_individual)
 
-        print("acc", time() - s)
         return accepted_individuals
 
     # def send_kill_signal(self):
@@ -382,4 +380,3 @@ class GeneticIslandAlgorithm:
         self.emas.energy_data_avg.append(sum([i.energy for i in self.emas.agents]) / len(self.emas.agents))
         self.emas.best_fit.append(min(self.emas.agents, key=lambda a: a.fitness).fitness)
         self.emas.variance.append(sum(np.var([i.x for i in self.emas.agents], axis=0)))
-
