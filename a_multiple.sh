@@ -3,7 +3,7 @@ export blocking=1
 
 for delay in {0..100..5}; do
     echo "Running script.py with delay=$delay"
-    python3 islands_desync/desync_config.py "$islands" "$delay"
+    python3 islands_desync/desync_config.py "$islands" "$delay" "ring" "1.0"
 
     jobid=$(sbatch --output=slurm-b${blocking}d${delay}-0 a.sh | awk '{print $4}')
 

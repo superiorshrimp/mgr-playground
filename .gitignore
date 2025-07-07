@@ -2,7 +2,6 @@ __pycache__
 
 /history/*
 /logs
-**.zip
 
 .idea
 
@@ -14,3 +13,5 @@ __pycache__
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+results/selection/*/slurm-*
