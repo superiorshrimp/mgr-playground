@@ -15,3 +15,5 @@ __pycache__
 /dataSources.local.xml
 
 results/selection/*/slurm-*
+
+results/selection/sndev/ring-complete/slurm-*

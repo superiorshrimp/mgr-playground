@@ -57,11 +57,11 @@ def main():
         for coef_key in sorted(coef_values):
             avg_y_values[d_key].append(np.mean(y_values[d_key][coef_key]))
 
-    for d_key in sorted(y_values.keys()):
-        for coef_key in sorted(coef_values):
-            print(d_key, coef_key, avg_y_values[d_key])
-    print("a")
-    print(avg_y_values)
+    # for d_key in sorted(y_values.keys()):
+    #     for coef_key in sorted(coef_values):
+    #         print(d_key, coef_key, avg_y_values[d_key])
+    #
+    # print(avg_y_values)
 
     for d_key in sorted(y_values.keys()):
         plt.plot(avg_y_values[d_key], label='delay = ' + str(d_key), alpha=0.7)
