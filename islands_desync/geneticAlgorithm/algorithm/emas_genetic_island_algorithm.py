@@ -307,7 +307,7 @@ class GeneticIslandAlgorithm:
         # MIGRATIONS
         s0 = time()
         if self.evaluations - self.last_migration_evaluation_number >= self.migration_interval:
-            pass
+            pass # TODO: divide by 2 or 3 or 4
             # self.update_island_data()
         self.is_new_immigrant = False
         if self.number_of_islands > 1:
