@@ -51,7 +51,7 @@ def emas_create_algorithm_hpc(island: ray.ObjectRef, island_id: int, emigration:
 def create_delays(configuration, NUMBER_OF_EVALUATIONS, island_id, emigration, blocking):
     rabbitmq_delays = configuration["island_delays"]
     select_algo_coef = configuration["select_algo_coef"]
-    
+
     channel = CreateRabbitmqChannels(
         len(rabbitmq_delays),
         island_id,

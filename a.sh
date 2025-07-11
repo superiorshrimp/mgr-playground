@@ -102,7 +102,7 @@ sleep 1
 islands_count=25
 migrants_count=4
 migration_interval=64
-selection_method="MinFitnessSelect"
+selection_method="MaxFitnessSelect"
 blocking=0
 
 for ((i = 1; i <= islands_count; i++)); do
