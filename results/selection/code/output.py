@@ -1,7 +1,12 @@
 import os
 import re
 
-RESULTS_PATH = 'results/selection/'
+# RESULTS_PATH = 'results/selection/maxfit_0-1/'
+RESULTS_PATH = 'results/selection/maxfit/'
+# RESULTS_PATH = 'results/selection/minfit/'
+# RESULTS_PATH = 'results/selection/stdev/'
+# RESULTS_PATH = 'results/selection/sndev/'
+# RESULTS_PATH = 'results/selection/random/'
 
 fitness_pattern = re.compile(r"Fitness:\s+([0-9]*\.?[0-9]+)")
 

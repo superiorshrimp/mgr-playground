@@ -5,7 +5,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 import re
 
-RESULTS_PATH = 'results/selection/'
+# RESULTS_PATH = 'results/selection/maxfit_0-1/'
+RESULTS_PATH = 'results/selection/maxfit/'
+# RESULTS_PATH = 'results/selection/minfit/'
+# RESULTS_PATH = 'results/selection/stdev/'
+# RESULTS_PATH = 'results/selection/sndev/'
+# RESULTS_PATH = 'results/selection/random/'
 
 def main():
     y_values = {}
@@ -20,7 +25,7 @@ def main():
             coef_val = match.group(1)
             d_val = int(match.group(2))
 
-            print(coef_val, d_val)
+            # print(coef_val, d_val)
 
             # if coef_val < "0.4":
             #     continue
@@ -57,19 +62,31 @@ def main():
         for coef_key in sorted(coef_values):
             avg_y_values[d_key].append(np.mean(y_values[d_key][coef_key]))
 
+    print(avg_y_values)
+
     # for d_key in sorted(y_values.keys()):
     #     for coef_key in sorted(coef_values):
     #         print(d_key, coef_key, avg_y_values[d_key])
     #
     # print(avg_y_values)
 
+
+    colors = ['blue', 'orange', 'green']
+    i = 0
     for d_key in sorted(y_values.keys()):
-        plt.plot(avg_y_values[d_key], label='delay = ' + str(d_key), alpha=0.7)
+        plt.plot(avg_y_values[d_key], color=colors[i], label='delay = ' + str(d_key), alpha=0.7)
+        i += 1
+
+    plt.axhline(0.01278, color=colors[0], linestyle='--')
+    plt.axhline(0.01343, color=colors[1], linestyle='--')
+    plt.axhline(0.01490, color=colors[2], linestyle='--')
+
+    print(avg_y_values)
 
     x_vals = list(coef_values)
     plt.xticks(ticks=[_ for _ in range(len(x_vals))], labels=sorted(x_vals))
     plt.ylabel('average best fitness')
-    plt.xlabel('coef')
+    plt.xlabel('selection_method_coef')
     plt.tight_layout()
     plt.legend()
     plt.show()

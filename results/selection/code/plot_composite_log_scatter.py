@@ -4,13 +4,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 import re
 
-RESULTS_PATH = 'results/selection/'
-
+RESULTS_PATH = 'results/selection/maxfit_0-1/'
+RESULTS_PATH = 'results/selection/maxfit/'
+# RESULTS_PATH = 'results/selection/sndev/'
 
 def main():
-    y_values_b0 = {}
-    y_values_b1 = {}
-    d_values = set()
+    y_values = {}
+    coef_values = set()
 
     for filename in os.listdir(RESULTS_PATH):
         if filename.startswith('g-'):
@@ -18,13 +18,13 @@ def main():
 
             match = filename_pattern.search(filename)
 
-            d_val = float(match.group(1))
-            b_val = int(match.group(2))
+            coef_val = float(match.group(1))
+            d_val = int(match.group(2))
 
-            if d_val < 0.4:
-                continue
+            # if d_val < 0.4:
+            #     continue
 
-            d_values.add(d_val)
+            coef_values.add(coef_val)
 
             min_fitness_in_file = float(inf)
             file_path = RESULTS_PATH + filename
@@ -38,13 +38,15 @@ def main():
                         fitness = float(line)
                         min_fitness_in_file = min(min_fitness_in_file, fitness)
                     except (ValueError, IndexError):
-                        continue
+                        print("ERROR!", filename)
 
             if min_fitness_in_file != float(inf):
-                if b_val == 0:
-                    y_values_b0.setdefault(d_val, []).append(min_fitness_in_file)
+                if y_values.get(d_val, None) is None:
+                    y_values[d_val] = {}
+                if y_values[d_val].get(coef_val, None) is None:
+                    y_values[d_val][coef_val] = [min_fitness_in_file]
                 else:
-                    y_values_b1.setdefault(d_val, []).append(min_fitness_in_file)
+                    y_values[d_val][coef_val].append(min_fitness_in_file)
 
     def flatten_and_sort(data_dict):
         x = []
@@ -55,14 +57,26 @@ def main():
             y.extend(values)
         return np.array(x), np.array(y)
 
-    x_b0, y_b0 = flatten_and_sort(y_values_b0)
-    x_b1, y_b1 = flatten_and_sort(y_values_b1)
+    y_values_flattened = {}
+    for d_key in sorted(y_values.keys()):
+        y_values_flattened[d_key] = []
+        for coef_key in sorted(coef_values):
+            y_values_flattened[d_key].append(y_values[d_key][coef_key])
 
-    plt.scatter(x_b0, y_b0, label='non-blocking', alpha=0.7)
-    plt.scatter(x_b1, y_b1, label='blocking', alpha=0.7)
+    y_trend_lines = {}
+    for d_key in sorted(y_values.keys()):
+        y_trend_lines[d_key] = flatten_and_sort(y_values[d_key])
+        plt.scatter(y_trend_lines[d_key][0], y_trend_lines[d_key][1], label='delay='+str(d_key), alpha=0.7)
 
-    for x, y, color, label, data_dict in [(x_b0, y_b0, 'blue', 'non-blocking', y_values_b0),
-                                          (x_b1, y_b1, 'orange', 'blocking', y_values_b1)]:
+    for x, y, label, data_dict in [
+        (y_trend_lines[d_key][0],
+        y_trend_lines[d_key][1],
+        'delay_=' + str(d_key),
+        y_values_flattened[d_key])
+        for d_key in sorted(y_values.keys())
+    ]:
+        # print(x, y, label, data_dict)
+        # print(x,y)
         coeffs = np.polyfit(x, y, deg=2)
         print(f"Coefficients for {label}: {coeffs}")
 
@@ -72,29 +86,30 @@ def main():
 
         y_trend = poly_function(x_trend)
 
-        plt.plot(x_trend, y_trend, color=color, linestyle='--', label=f'{label} trend (2nd deg fit)')
+        plt.plot(x_trend, y_trend, linestyle='--')
+        # plt.plot(x_trend, y_trend, linestyle='--', label=f'{label} trend (2nd deg fit)')
 
-    def plot_min_max_band(y_dict, color):
-        min_vals = []
-        max_vals = []
-        x_unique = sorted(y_dict.keys())
-        for d in x_unique:
-            vals = y_dict[d]
-            if vals:
-                min_vals.append(min(vals))
-                max_vals.append(max(vals))
-            else:
-                min_vals.append(np.nan)
-                max_vals.append(np.nan)
-
-        min_vals = np.array(min_vals)
-        max_vals = np.array(max_vals)
-        x_unique = np.array(x_unique)
-
-        plt.fill_between(x_unique, min_vals, max_vals, color=color, alpha=0.2)
-
-    plot_min_max_band(y_values_b0, 'blue')
-    plot_min_max_band(y_values_b1, 'orange')
+    # def plot_min_max_band(y_dict, color):
+    #     min_vals = []
+    #     max_vals = []
+    #     x_unique = sorted(y_dict.keys())
+    #     for d in x_unique:
+    #         vals = y_dict[d]
+    #         if vals:
+    #             min_vals.append(min(vals))
+    #             max_vals.append(max(vals))
+    #         else:
+    #             min_vals.append(np.nan)
+    #             max_vals.append(np.nan)
+    #
+    #     min_vals = np.array(min_vals)
+    #     max_vals = np.array(max_vals)
+    #     x_unique = np.array(x_unique)
+    #
+    #     plt.fill_between(x_unique, min_vals, max_vals, color=color, alpha=0.2)
+    #
+    # plot_min_max_band(y_values_b0, 'blue')
+    # plot_min_max_band(y_values_b1, 'orange')
 
     plt.ylabel('best fitness')
     plt.xlabel('delay [ms]')
