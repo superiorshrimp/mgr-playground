@@ -26,10 +26,13 @@ class QueueMigration(Migration):
         emigration_select_algorithm = self.emigration.select_algorithm
         if random.random() < self.emigration.select_algo_coef:
             self.emigration.select_algorithm = RandomSelect()
-            if not isinstance(self.emigration.select_algorithm, RandomSelect) and not self.send_everywhere():  # TODO: refactor maybe for 2 more parent classes?
-                island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
+        if not isinstance(self.emigration.select_algorithm, RandomSelect) and not self.send_everywhere():  # TODO: refactor maybe for 2 more parent classes?
+            island_relevant_data = ray.get(self.emigration.select_algorithm.get_island_relevant_data(self.emigration.islands))
 
         for i, ind in enumerate(individuals_to_migrate):
+            
+            if i > 0:
+                self.emigration.select_algorithm = RandomSelect()
 
             if self.send_everywhere(): # TODO: env
                 for destination_id in self.emigration.island_ids.values():
@@ -51,7 +54,7 @@ class QueueMigration(Migration):
                     routing_key=f"island-from-{self.island}-to-{destination}",
                     body=json.dumps(data),
                 )
-                self.emigration.select_algorithm = emigration_select_algorithm
+        self.emigration.select_algorithm = emigration_select_algorithm
 
     def receive_individuals(
         self, step_num: int, evaluations: int
@@ -66,7 +69,7 @@ class QueueMigration(Migration):
             s = time()
             method, properties, body = self.channel.basic_get(f"island-{self.island}", auto_ack=True)
             if body:
-                print("get_time_success", time()-s)
+                #print("get_time_success", time()-s)
                 data_str = body.decode("utf-8")
                 data = json.loads(data_str)
                 new_agent = Agent(
@@ -112,5 +115,5 @@ class QueueMigration(Migration):
         return obj
 
     def send_everywhere(self) -> bool:
-        # return True
+        #return True
         return False
