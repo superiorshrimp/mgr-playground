@@ -189,8 +189,8 @@ class GeneticIslandAlgorithm:
         print("time:", time() - start)
         print(sorted(self.solutions, key=lambda agent: agent.fitness)[0].fitness)
         # self.plot_history(it)
-        self.save_history()
-        # self.save_history_short()
+        # self.save_history()
+        self.save_history_short()
         json.dump(self.tab_emigr, open("history/w"+str(self.island)+".json", "w"), indent=4)
 
     def save_history_short(self):
@@ -306,15 +306,18 @@ class GeneticIslandAlgorithm:
 
         # MIGRATIONS
         s0 = time()
+        if self.evaluations - self.last_migration_evaluation_number >= self.migration_interval:
+            pass
+            # self.update_island_data()
         self.is_new_immigrant = False
         if self.number_of_islands > 1:
-            self.update_island_data()
+            #self.update_island_data()
             self.migrate_individuals()
             try:
                 self.add_new_individuals()
             except: pass # TODO: why throws?
         d0 = time() - s0
-        print(self.island, "migration_time", f"{d0:.10f}", self.step_num, self.evaluations)
+        #print(self.island, "migration_time", f"{d0:.10f}", self.step_num, self.evaluations)
 
         # EVOLUTIONARY STEP
         s1 = time()
@@ -339,7 +342,7 @@ class GeneticIslandAlgorithm:
 
         self.evaluations += children_count
         d1 = time() - s1
-        print(self.island, "evo_step_time", f"{d1:.10f}", self.step_num, self.evaluations, children_count)
+        #print(self.island, "evo_step_time", f"{d1:.10f}", self.step_num, self.evaluations, children_count)
 
     def accept_individuals(self, new_individuals):
         accepted_individuals = []
@@ -357,8 +360,8 @@ class GeneticIslandAlgorithm:
                     if new_individual.fitness > individual.fitness:
                         f = True
                         break
-                if not f:
-                    print(self.island, "HIT")
+                #if not f:
+                #    # print(self.island, "HIT")
                 accepted_individuals.append(new_individual)
 
         return accepted_individuals

@@ -4,6 +4,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 #SBATCH -p plgrid
+#SBATCH --time=00:05:00
 
 module load "python/3.10.4-gcccore-11.3.0"
 
@@ -99,7 +100,7 @@ srun --nodes=1 --ntasks=1 -w "$head_node" \
 sleep 1
 
 islands_count=25
-migrants_count=2
+migrants_count=4
 migration_interval=64
 selection_method="MaxFitnessSelect"
 blocking=0

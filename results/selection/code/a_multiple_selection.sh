@@ -15,7 +15,7 @@ for delay in {10..10..5}; do
     jobid=$(sbatch --output=slurm-c${coef}d${delay}-0 a.sh | awk '{print $4}')
 
     for i in {1..2..1}; do
-        echo "Waiting for job $jobid to finish (timeout: 10 mins)"
+        echo "Waiting for job $jobid to finish (timeout: a lot of mins)"
         timeout=5000
         waited=0
         while squeue -j "$jobid" 2>/dev/null | grep -q "$jobid"; do
@@ -33,7 +33,7 @@ for delay in {10..10..5}; do
         rm -fr ../rabbitmq_server-4.0.5/var/lib/rabbitmq/mnesia/*
     done
 
-    echo "Waiting for final job $jobid to finish before next delay (timeout: 10 mins)"
+    echo "Waiting for final job $jobid to finish before next delay (timeout: a lot of mins)"
     timeout=5000
     waited=0
     while squeue -j "$jobid" 2>/dev/null | grep -q "$jobid"; do
